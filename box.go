@@ -17,6 +17,17 @@ func VBox() *FBox {
 	f.v = &gtk.NewVBox(false, 0).Box
 	f.view = f.v
 	f.widget = &f.v.Widget
+	f.orientation = false
+	setupWidget(f)
+	return f
+}
+
+func HBox() *FBox {
+	f := &FBox{}
+	f.v = &gtk.NewHBox(false, 0).Box
+	f.view = f.v
+	f.widget = &f.v.Widget
+	f.orientation = true
 	setupWidget(f)
 	return f
 }

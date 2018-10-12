@@ -47,7 +47,7 @@ func (v *FButton) Expand() *FButton {
 	v.expand = true
 	return v
 }
-func (v *FButton) Fill() *FButton {
+func (v *FButton) NotFill() *FButton {
 	v.notFill = true
 	return v
 }
