@@ -42,3 +42,6 @@ func AlignVCenter(i IView) *FAlign {
 func AlignCenter(i IView) *FAlign {
 	return newAlign(i, 0.5, 0.5, 0, 0)
 }
+func AlignCustom(xAlign, yAlign, xScale, yScale float64, i IView) *FAlign {
+	return newAlign(i, xAlign, yAlign, xScale, yScale)
+}
