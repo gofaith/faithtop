@@ -18,7 +18,13 @@ func Button() *FButton {
 	setupWidget(fb)
 	return fb
 }
-
+func (v *FButton) Size(w, h int) *FButton {
+	v.FBaseView.Size(w, h)
+	return v
+}
+func (v *FButton) getBaseView() *FBaseView {
+	return &v.FBaseView
+}
 func GetButtonById(id string) *FButton {
 	if v, ok := idMap[id]; ok {
 		if b, ok := v.(*FButton); ok {
@@ -28,21 +34,62 @@ func GetButtonById(id string) *FButton {
 	return nil
 }
 
-func (vh *ViewHolder) GetButtonByItemId(id string) *FButton {
-	if v, ok := vh.vlist[id]; ok {
-		if bt, ok := v.(*FButton); ok {
-			return bt
-		}
-	}
-	return nil
+// ================================================================
+func (v *FButton) OnClick(f func()) *FButton {
+	v.v.Connect("clicked", f)
+	return v
 }
-
-// ----------------------------------------------------------
-func (v *FButton) getBaseView() *FBaseView {
-	return &v.FBaseView
-}
-
 func (v *FButton) SetId(id string) *FButton {
 	idMap[id] = v
 	return v
+}
+func (v *FButton) Expand() *FButton {
+	v.expand = true
+	return v
+}
+func (v *FButton) Fill() *FButton {
+	v.notFill = true
+	return v
+}
+func (v *FButton) Disable() *FButton {
+	v.v.SetSensitive(false)
+	return v
+}
+func (v *FButton) Enable() *FButton {
+	v.v.SetSensitive(true)
+	return v
+}
+func (v *FButton) Visible() *FButton {
+	v.v.SetVisible(true)
+	return v
+}
+func (v *FButton) Invisible() *FButton {
+	v.v.SetVisible(false)
+	return v
+}
+
+func (v *FButton) Tooltips(s string) *FButton {
+	v.v.SetTooltipText(s)
+	return v
+}
+func (v *FButton) Focus() *FButton {
+	currentFocus = v.widget
+	if currentWin != nil {
+		currentWin.SetFocusChild(v.widget)
+	}
+	return v
+}
+func (v *FButton) Padding(i uint) *FButton {
+	v.padding = i
+	return v
+}
+
+//====================================================================
+
+func (v *FButton) Text(t string) *FButton {
+	v.v.SetLabel(t)
+	return v
+}
+func (v *FButton) GetText() string {
+	return v.v.GetLabel()
 }

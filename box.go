@@ -1,50 +1,34 @@
 package faithtop
 
-import (
-	"github.com/mattn/go-gtk/gtk"
-)
+import "github.com/mattn/go-gtk/gtk"
 
 type FBox struct {
 	FBaseView
-	v *gtk.Box
+	v           *gtk.Box
+	orientation bool //false :vertical , true:horizontal
 }
-
-func VBox() *FBox {
-	v := gtk.NewVBox(false, 0)
-	fb := &FBox{}
-	fb.v = &v.Box
-	fb.view = v
-	fb.widget = &v.Widget
-	setupWidget(fb)
-	return fb
-}
-func HBox() *FBox {
-	v := gtk.NewHBox(false, 0)
-	fb := &FBox{}
-	fb.v = &v.Box
-	fb.view = v
-	fb.widget = &v.Widget
-	setupWidget(fb)
-	return fb
-}
-
-// ---------------------------------------------------------
 
 func (v *FBox) getBaseView() *FBaseView {
 	return &v.FBaseView
 }
 
-func (v *FBox) SetId(id string) *FBox {
-	idMap[id] = v
-	return v
+func VBox() *FBox {
+	f := &FBox{}
+	f.v = &gtk.NewVBox(false, 0).Box
+	f.view = f.v
+	f.widget = &f.v.Widget
+	setupWidget(f)
+	return f
 }
 
-// ---------------------------------------------------------
-
+func (v *FBox) Size(w, h int) *FBox {
+	v.FBaseView.Size(w, h)
+	return v
+}
 func (v *FBox) Append(is ...IView) *FBox {
 	var fs []func()
 	for _, i := range is {
-		v.v.Add(i.getBaseView().view)
+		v.v.PackStart(i.getBaseView().widget, i.getBaseView().expand, !i.getBaseView().notFill, i.getBaseView().padding)
 		i.getBaseView().alreadyAdded = true
 		if i.getBaseView().afterAppend != nil {
 			fs = append(fs, i.getBaseView().afterAppend)

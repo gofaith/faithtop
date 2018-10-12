@@ -9,11 +9,12 @@ type IView interface {
 	getBaseView() *FBaseView
 }
 type FBaseView struct {
-	view         gtk.IWidget
-	widget       *gtk.Widget
-	gravity      int // default:0 , 1,2,3, 4,5,6, 7,8,9
-	afterAppend  func()
-	alreadyAdded bool
+	view            gtk.IWidget
+	padding         uint
+	widget          *gtk.Widget
+	expand, notFill bool
+	afterAppend     func()
+	alreadyAdded    bool
 }
 
 func setupWidget(f IView) {
@@ -22,7 +23,15 @@ func setupWidget(f IView) {
 func RunOnUIThread(f func()) {
 	glib.IdleAdd(f)
 }
-
+func (v *FBaseView) Size(w, h int) {
+	if w <= 0 {
+		w = -1
+	}
+	if h <= 0 {
+		h = -1
+	}
+	v.widget.SetSizeRequest(w, h)
+}
 func (v *FBaseView) IsEnabled() bool {
 	return v.widget.GetSensitive()
 }
