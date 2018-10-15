@@ -1,6 +1,6 @@
 # todos
 
-- checkbox
-- spinner
+- [x]checkbox
+- [x]ComboBox
 - AppChooser
 - menu

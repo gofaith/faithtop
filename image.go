@@ -23,6 +23,9 @@ func Image() *FImage {
 	fb.widget = &v.Widget
 	setupWidget(fb)
 	currentImage = fb
+	fb.afterShownFn = func() {
+		fb.alreadyShown = true
+	}
 	return fb
 }
 
@@ -118,6 +121,10 @@ func (v *FImage) Src(url string) *FImage {
 		}
 	}
 	return v
+}
+func (v *FImage) SrcGif(url string) *FImage {
+	v.scaleType = 2
+	return v.Src(url)
 }
 
 func setImageFileSrc(v *FImage, url string) {
