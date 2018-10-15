@@ -100,6 +100,10 @@ func (v *FText) Text(t string) *FText {
 	v.v.SetMarkup(t)
 	return v
 }
+func (v *FText) PlainText(t string) *FText {
+	v.v.SetText(t)
+	return v
+}
 func (v *FText) GetText() string {
 	return v.v.GetText()
 }
