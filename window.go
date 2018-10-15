@@ -99,3 +99,18 @@ func (v *FWindow) DeferShow() *FWindow {
 	v.showAfter = true
 	return v
 }
+func (v *FWindow) Vbox(is ...IView) *FWindow {
+	return Win().Add(VBox().Append(is...))
+}
+func (v *FWindow) HBox(is ...IView) *FWindow {
+	return Win().Add(HBox().Append(is...))
+}
+func (v *FWindow) VScroll(is ...IView) *FWindow {
+	return Win().Add(VScroll().Append(is...))
+}
+func (v *FWindow) HScroll(is ...IView) *FWindow {
+	return Win().Add(HScroll().Append(is...))
+}
+func (v *FWindow) Scroll(child IView) *FWindow {
+	return Win().Add(Scroll(child))
+}
