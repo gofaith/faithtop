@@ -32,7 +32,7 @@ func VScroll() *FScroll {
 	fb.v.SetPolicy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
 	fb.box = VBox()
 	fb.v.AddWithViewPort(fb.box.widget)
-	v.afterShown = v.box.afterShown
+	fb.afterShown = fb.box.afterShown
 	return fb
 }
 
@@ -41,7 +41,7 @@ func HScroll() *FScroll {
 	fb.v.SetPolicy(gtk.POLICY_AUTOMATIC, gtk.POLICY_NEVER)
 	fb.box = HBox()
 	fb.v.AddWithViewPort(fb.box.widget)
-	v.afterShown = v.box.afterShown
+	fb.afterShown = fb.box.afterShown
 	return fb
 }
 
