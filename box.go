@@ -1,11 +1,13 @@
 package faithtop
 
-import "github.com/mattn/go-gtk/gtk"
+import (
+	"github.com/mattn/go-gtk/gtk"
+)
 
 type FBox struct {
 	FBaseView
-	v           *gtk.Box
-	orientation bool //false :vertical , true:horizontal
+	v            *gtk.Box
+	isHorizontal bool //false :vertical , true:horizontal
 }
 
 func VBox() *FBox {
@@ -13,7 +15,7 @@ func VBox() *FBox {
 	f.v = &gtk.NewVBox(false, 0).Box
 	f.view = f.v
 	f.widget = &f.v.Widget
-	f.orientation = false
+	f.isHorizontal = false
 	setupWidget(f)
 	return f
 }
@@ -23,7 +25,7 @@ func HBox() *FBox {
 	f.v = &gtk.NewHBox(false, 0).Box
 	f.view = f.v
 	f.widget = &f.v.Widget
-	f.orientation = true
+	f.isHorizontal = true
 	setupWidget(f)
 	return f
 }
@@ -107,14 +109,14 @@ func (v *FBox) Append(is ...IView) *FBox {
 	var fs []func()
 	for _, i := range is {
 		v.v.PackStart(i.getBaseView().widget, i.getBaseView().expand, !i.getBaseView().notFill, i.getBaseView().padding)
-		i.getBaseView().alreadyAdded = true
-		if i.getBaseView().afterAppend != nil {
-			fs = append(fs, i.getBaseView().afterAppend)
-			i.getBaseView().afterAppend = nil
+		if i.getBaseView().afterShownFn != nil {
+			fs = append(fs, i.getBaseView().afterShownFn)
 		}
 	}
-	for _, f := range fs {
-		f()
+	v.afterShownFn = func() {
+		for _, f := range fs {
+			f()
+		}
 	}
 	return v
 }

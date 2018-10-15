@@ -9,16 +9,18 @@ type IView interface {
 	getBaseView() *FBaseView
 }
 type FBaseView struct {
-	view            gtk.IWidget
-	padding         uint
-	widget          *gtk.Widget
-	expand, notFill bool
-	afterAppend     func()
-	alreadyAdded    bool
+	view                  gtk.IWidget
+	padding               uint
+	widget                *gtk.Widget
+	initWidth, initHeight int
+	expand, notFill       bool
+	afterShownFn          func()
 }
 
 func setupWidget(f IView) {
 	// f.getBaseView().widget.SetCanFocus(true)
+	f.getBaseView().initWidth = -56
+	f.getBaseView().initHeight = -56
 }
 func RunOnUIThread(f func()) {
 	glib.IdleAdd(f)

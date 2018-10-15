@@ -11,6 +11,7 @@ var (
 type FWindow struct {
 	v         *gtk.Window
 	showAfter bool
+	child     IView
 }
 
 func Win() *FWindow {
@@ -72,11 +73,7 @@ func (v *FWindow) Top() *FWindow {
 
 func (v *FWindow) Add(i IView) *FWindow {
 	v.v.Add(i.getBaseView().view)
-	i.getBaseView().alreadyAdded = true
-	if i.getBaseView().afterAppend != nil {
-		i.getBaseView().afterAppend()
-		i.getBaseView().afterAppend = nil
-	}
+	v.child = i
 	if v.showAfter {
 		v.Show()
 	}
@@ -85,6 +82,10 @@ func (v *FWindow) Add(i IView) *FWindow {
 
 func (v *FWindow) Show() *FWindow {
 	v.v.ShowAll()
+
+	if v.child.getBaseView().afterShownFn != nil {
+		v.child.getBaseView().afterShownFn()
+	}
 	if windowCounter == 1 {
 		gtk.Main()
 	}

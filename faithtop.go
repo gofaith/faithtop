@@ -9,5 +9,6 @@ func init() {
 }
 
 var (
-	idMap = make(map[string]interface{})
+	idMap        = make(map[string]interface{})
+	currentImage *FImage
 )
