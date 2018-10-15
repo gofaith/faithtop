@@ -106,7 +106,7 @@ func (v *FScroll) Invisible() *FScroll {
 }
 
 func (v *FScroll) Tooltips(s string) *FScroll {
-	v.v.SetTooltipText(s)
+	v.v.SetTooltipMarkup(s)
 	return v
 }
 func (v *FScroll) Focus() *FScroll {

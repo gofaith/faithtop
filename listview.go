@@ -105,7 +105,7 @@ func (v *FListView) Invisible() *FListView {
 }
 
 func (v *FListView) Tooltips(s string) *FListView {
-	v.v.SetTooltipText(s)
+	v.v.SetTooltipMarkup(s)
 	return v
 }
 func (v *FListView) Focus() *FListView {

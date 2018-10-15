@@ -82,7 +82,7 @@ func (v *FText) Invisible() *FText {
 }
 
 func (v *FText) Tooltips(s string) *FText {
-	v.v.SetTooltipText(s)
+	v.v.SetTooltipMarkup(s)
 	return v
 }
 func (v *FText) Focus() *FText {

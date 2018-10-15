@@ -90,7 +90,7 @@ func (v *FBox) Invisible() *FBox {
 }
 
 func (v *FBox) Tooltips(s string) *FBox {
-	v.v.SetTooltipText(s)
+	v.v.SetTooltipMarkup(s)
 	return v
 }
 func (v *FBox) Focus() *FBox {

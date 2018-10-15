@@ -100,17 +100,17 @@ func (v *FWindow) DeferShow() *FWindow {
 	return v
 }
 func (v *FWindow) Vbox(is ...IView) *FWindow {
-	return Win().Add(VBox().Append(is...))
+	return v.Add(VBox().Append(is...))
 }
 func (v *FWindow) HBox(is ...IView) *FWindow {
-	return Win().Add(HBox().Append(is...))
+	return v.Add(HBox().Append(is...))
 }
 func (v *FWindow) VScroll(is ...IView) *FWindow {
-	return Win().Add(VScroll().Append(is...))
+	return v.Add(VScroll().Append(is...))
 }
 func (v *FWindow) HScroll(is ...IView) *FWindow {
-	return Win().Add(HScroll().Append(is...))
+	return v.Add(HScroll().Append(is...))
 }
 func (v *FWindow) Scroll(child IView) *FWindow {
-	return Win().Add(Scroll(child))
+	return v.Add(Scroll(child))
 }
