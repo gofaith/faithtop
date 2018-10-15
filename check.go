@@ -116,3 +116,7 @@ func (v *FCheck) Unchecked() *FCheck {
 func (v *FCheck) GetChecked() bool {
 	return v.v.GetActive()
 }
+func (v *FCheck) Text(t string) *FCheck {
+	v.v.SetLabel(t)
+	return v
+}
