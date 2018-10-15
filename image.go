@@ -104,6 +104,17 @@ func (v *FImage) Padding(i uint) *FImage {
 func (v *FImage) Src(url string) *FImage {
 	if StartsWidth(url, "/") {
 		setImageFileSrc(v, url)
+	} else if StartsWidth(url, "file://") {
+		setImageFileSrc(v, url[len("file://"):])
+	} else if StartsWidth(url, "http") {
+		go CacheNetFile(url, GetCacheDir(), func(fpath string) {
+			RunOnUIThread(func() {
+				setImageFileSrc(v, fpath)
+			})
+		})
+		v.afterShownFn = func() {
+			v.alreadyShown = true
+		}
 	}
 	return v
 }
