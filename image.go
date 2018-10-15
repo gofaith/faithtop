@@ -11,6 +11,7 @@ type FImage struct {
 	onLoad       func()
 	scaleType    int
 	alreadyShown bool
+	onLoadFailed func(string)
 	// 0 : fitCenter , 1 : fitXY , 2 : origin
 }
 
@@ -138,7 +139,13 @@ func setImageFileSrc(v *FImage, url string) {
 				w = porigin.GetWidth()
 				h = porigin.GetHeight()
 			}
-			p, _ := gdkpixbuf.NewPixbufFromFileAtScale(url, w, h, true)
+			p, e := gdkpixbuf.NewPixbufFromFileAtScale(url, w, h, true)
+			if e != nil {
+				if v.onLoadFailed != nil {
+					v.onLoadFailed(e.Error())
+				}
+				return
+			}
 			v.v.SetFromPixbuf(p)
 		} else if v.scaleType == 1 { //fitXY
 			if widthIsWrap && !heightIsWrap {
@@ -147,7 +154,13 @@ func setImageFileSrc(v *FImage, url string) {
 			if heightIsWrap && !widthIsWrap {
 				h = porigin.GetHeight()
 			}
-			p, _ := gdkpixbuf.NewPixbufFromFileAtScale(url, w, h, false)
+			p, e := gdkpixbuf.NewPixbufFromFileAtScale(url, w, h, false)
+			if e != nil {
+				if v.onLoadFailed != nil {
+					v.onLoadFailed(e.Error())
+				}
+				return
+			}
 			v.v.SetFromPixbuf(p)
 		} else {
 			v.v.SetFromFile(url)
@@ -199,5 +212,9 @@ func (v *FImage) ScaleTypeFitXY() *FImage {
 
 func (v *FImage) ScaleTypeFitImage() *FImage {
 	v.scaleType = 2
+	return v
+}
+func (v *FImage) OnLoadFailed(f func(string)) *FImage {
+	v.onLoadFailed = f
 	return v
 }
