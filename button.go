@@ -18,13 +18,25 @@ func Button() *FButton {
 	setupWidget(fb)
 	return fb
 }
+
+// ================================================================
 func (v *FButton) Size(w, h int) *FButton {
 	v.FBaseView.Size(w, h)
 	return v
 }
-func (v *FButton) getBaseView() *FBaseView {
-	return &v.FBaseView
+func (vh *ViewHolder) GetButtonByItemId(itemId string) *FButton {
+	if v, ok := vh.vlist[itemId]; ok {
+		if lv, ok := v.(*FButton); ok {
+			return lv
+		}
+	}
+	return nil
 }
+func (v *FButton) SetItemId(lv *FListView, itemId string) *FButton {
+	lv.vhs[lv.currentCreation].vlist[itemId] = v
+	return v
+}
+
 func GetButtonById(id string) *FButton {
 	if v, ok := idMap[id]; ok {
 		if b, ok := v.(*FButton); ok {
@@ -33,8 +45,9 @@ func GetButtonById(id string) *FButton {
 	}
 	return nil
 }
-
-// ================================================================
+func (v *FButton) getBaseView() *FBaseView {
+	return &v.FBaseView
+}
 func (v *FButton) OnClick(f func()) *FButton {
 	v.v.Connect("clicked", f)
 	return v
@@ -73,10 +86,7 @@ func (v *FButton) Tooltips(s string) *FButton {
 	return v
 }
 func (v *FButton) Focus() *FButton {
-	currentFocus = v.widget
-	if currentWin != nil {
-		currentWin.SetFocusChild(v.widget)
-	}
+	v.FBaseView.Focus()
 	return v
 }
 func (v *FButton) Padding(i uint) *FButton {

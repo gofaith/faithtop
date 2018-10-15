@@ -18,7 +18,7 @@ type FBaseView struct {
 }
 
 func setupWidget(f IView) {
-
+	// f.getBaseView().widget.SetCanFocus(true)
 }
 func RunOnUIThread(f func()) {
 	glib.IdleAdd(f)
@@ -49,4 +49,7 @@ func (v *FBaseView) GetX() int {
 }
 func (v *FBaseView) GetY() int {
 	return v.widget.GetAllocation().Y
+}
+func (v *FBaseView) Focus() {
+	v.widget.GrabFocus()
 }

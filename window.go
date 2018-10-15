@@ -6,8 +6,6 @@ import (
 
 var (
 	windowCounter int
-	currentWin    *gtk.Window
-	currentFocus  *gtk.Widget
 )
 
 type FWindow struct {
@@ -86,12 +84,7 @@ func (v *FWindow) Add(i IView) *FWindow {
 }
 
 func (v *FWindow) Show() *FWindow {
-	currentWin = v.v
 	v.v.ShowAll()
-	if currentFocus != nil {
-		v.v.SetFocusChild(currentFocus)
-		currentFocus = nil
-	}
 	if windowCounter == 1 {
 		gtk.Main()
 	}
