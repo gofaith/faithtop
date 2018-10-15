@@ -24,7 +24,6 @@ func Scroll(child IView) *FScroll {
 	fb := newScroll()
 	fb.v.SetPolicy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 	fb.v.Add(child.getBaseView().widget)
-	fb.afterShownFn = child.getBaseView().afterShownFn
 	return fb
 }
 func VScroll() *FScroll {
@@ -32,7 +31,6 @@ func VScroll() *FScroll {
 	fb.v.SetPolicy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
 	fb.box = VBox()
 	fb.v.AddWithViewPort(fb.box.widget)
-	fb.afterShownFn = fb.box.afterShownFn
 	return fb
 }
 
@@ -41,7 +39,6 @@ func HScroll() *FScroll {
 	fb.v.SetPolicy(gtk.POLICY_AUTOMATIC, gtk.POLICY_NEVER)
 	fb.box = HBox()
 	fb.v.AddWithViewPort(fb.box.widget)
-	fb.afterShownFn = fb.box.afterShownFn
 	return fb
 }
 
@@ -127,5 +124,6 @@ func (v *FScroll) Append(is ...IView) *FScroll {
 		return v
 	}
 	v.box.Append(is...)
+	v.afterShownFn = v.box.afterShownFn
 	return v
 }
