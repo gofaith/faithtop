@@ -95,9 +95,9 @@ func (v *FMenuBar) Padding(i uint) *FMenuBar {
 }
 
 //====================================================================
-func (v *FMenuBar) Menus(is ...*FMenuItem) *FMenuBar {
+func (v *FMenuBar) Menus(is ...IMenuItem) *FMenuBar {
 	for _, i := range is {
-		v.v.Append(i.v)
+		v.v.Append(i.getMenuItem())
 	}
 	return v
 }

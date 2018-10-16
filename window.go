@@ -30,10 +30,10 @@ func PopupWin() *FWindow {
 }
 
 func TopWin() *FWindow {
-	return Win().Top()
+	return Win().Top().Size(200, 200)
 }
 func TopPopupWin() *FWindow {
-	return PopupWin().Top()
+	return PopupWin().Top().Size(200, 200)
 }
 func setupWindow(w *gtk.Window) {
 	windowCounter++
