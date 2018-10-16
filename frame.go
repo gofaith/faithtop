@@ -9,13 +9,16 @@ type FFrame struct {
 	v *gtk.Frame
 }
 
-func Frame() *FFrame {
-	v := gtk.NewFrame("")
+func Frame(title string, child IView) *FFrame {
+	v := gtk.NewFrame(title)
 	fb := &FFrame{}
 	fb.v = v
 	fb.view = v
 	fb.widget = &v.Widget
 	setupWidget(fb)
+	if child != nil {
+		fb.Add(child)
+	}
 	return fb
 }
 

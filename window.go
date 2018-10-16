@@ -95,6 +95,10 @@ func (v *FWindow) Close() *FWindow {
 	v.v.Destroy()
 	return v
 }
+func (v *FWindow) OnDestroy(f func()) *FWindow {
+	v.v.Connect("destroy", f)
+	return v
+}
 
 func (v *FWindow) DeferShow() *FWindow {
 	v.showAfter = true
@@ -114,4 +118,8 @@ func (v *FWindow) HScroll(is ...IView) *FWindow {
 }
 func (v *FWindow) Scroll(child IView) *FWindow {
 	return v.Add(Scroll(child))
+}
+
+func ShowWin(i IView) *FWindow {
+	return TopWin().DeferShow().Add(i)
 }

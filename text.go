@@ -9,9 +9,9 @@ type FText struct {
 	v *gtk.Label
 }
 
-func Text() *FText {
+func Text(t string) *FText {
 	fb := &FText{}
-	v := gtk.NewLabel("")
+	v := gtk.NewLabel(t)
 	fb.v = v
 	fb.view = v
 	fb.widget = &v.Widget
