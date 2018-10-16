@@ -2,5 +2,8 @@
 
 - [x]checkbox
 - [x]ComboBox
+- [x]menu
 - AppChooser
-- menu
+- webview
+- fontChooser
+- colorChooser
