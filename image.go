@@ -26,6 +26,7 @@ func Image() *FImage {
 	fb.afterShownFn = func() {
 		fb.alreadyShown = true
 	}
+	fb.scaleType = 2
 	return fb
 }
 

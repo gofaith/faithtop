@@ -4,14 +4,14 @@ import (
 	"github.com/mattn/go-gtk/gtk"
 )
 
-type FTabs struct {
+type FTabLayout struct {
 	FBaseView
 	v *gtk.Notebook
 }
 
-func Tabs() *FTabs {
+func TabLayout() *FTabLayout {
 	v := gtk.NewNotebook()
-	fb := &FTabs{}
+	fb := &FTabLayout{}
 	fb.v = v
 	fb.view = v
 	fb.widget = &v.Widget
@@ -20,96 +20,105 @@ func Tabs() *FTabs {
 }
 
 // ================================================================
-func (v *FTabs) Size(w, h int) *FTabs {
+func (v *FTabLayout) Size(w, h int) *FTabLayout {
 	v.FBaseView.Size(w, h)
 	return v
 }
-func (vh *ViewHolder) GetTabsByItemId(itemId string) *FTabs {
+func (vh *ViewHolder) GetTabsByItemId(itemId string) *FTabLayout {
 	if v, ok := vh.vlist[itemId]; ok {
-		if lv, ok := v.(*FTabs); ok {
+		if lv, ok := v.(*FTabLayout); ok {
 			return lv
 		}
 	}
 	return nil
 }
-func (v *FTabs) SetItemId(lv *FListView, itemId string) *FTabs {
+func (v *FTabLayout) SetItemId(lv *FListView, itemId string) *FTabLayout {
 	lv.vhs[lv.currentCreation].vlist[itemId] = v
 	return v
 }
 
-func GetTabsById(id string) *FTabs {
+func GetTabsById(id string) *FTabLayout {
 	if v, ok := idMap[id]; ok {
-		if b, ok := v.(*FTabs); ok {
+		if b, ok := v.(*FTabLayout); ok {
 			return b
 		}
 	}
 	return nil
 }
-func (v *FTabs) getBaseView() *FBaseView {
+func (v *FTabLayout) getBaseView() *FBaseView {
 	return &v.FBaseView
 }
-func (v *FTabs) OnClick(f func()) *FTabs {
+func (v *FTabLayout) OnClick(f func()) *FTabLayout {
 	v.v.Connect("clicked", f)
 	return v
 }
-func (v *FTabs) SetId(id string) *FTabs {
+func (v *FTabLayout) SetId(id string) *FTabLayout {
 	idMap[id] = v
 	return v
 }
-func (v *FTabs) Expand() *FTabs {
+func (v *FTabLayout) Expand() *FTabLayout {
 	v.expand = true
 	return v
 }
-func (v *FTabs) NotFill() *FTabs {
+func (v *FTabLayout) NotFill() *FTabLayout {
 	v.notFill = true
 	return v
 }
-func (v *FTabs) Disable() *FTabs {
+func (v *FTabLayout) Disable() *FTabLayout {
 	v.v.SetSensitive(false)
 	return v
 }
-func (v *FTabs) Enable() *FTabs {
+func (v *FTabLayout) Enable() *FTabLayout {
 	v.v.SetSensitive(true)
 	return v
 }
-func (v *FTabs) Visible() *FTabs {
+func (v *FTabLayout) Visible() *FTabLayout {
 	v.v.SetVisible(true)
 	return v
 }
-func (v *FTabs) Invisible() *FTabs {
+func (v *FTabLayout) Invisible() *FTabLayout {
 	v.v.SetVisible(false)
 	return v
 }
 
-func (v *FTabs) Tooltips(s string) *FTabs {
+func (v *FTabLayout) Tooltips(s string) *FTabLayout {
 	v.v.SetTooltipMarkup(s)
 	return v
 }
-func (v *FTabs) Focus() *FTabs {
+func (v *FTabLayout) Focus() *FTabLayout {
 	v.FBaseView.Focus()
 	return v
 }
-func (v *FTabs) Padding(i uint) *FTabs {
+func (v *FTabLayout) Padding(i uint) *FTabLayout {
 	v.padding = i
 	return v
 }
 
 //====================================================================
-type FTabPage struct {
+type FTab struct {
 	title   *gtk.Label
-	content gtk.IWidget
+	content IView
 }
 
-func Page(title string, view IView) *FTabPage {
-	fb := &FTabPage{}
+func Tab(title string, view IView) *FTab {
+	fb := &FTab{}
 	fb.title = gtk.NewLabel(title)
-	fb.content = view.getBaseView().view
+	fb.content = view
 	return fb
 }
 
-func (v *FTabs) Pages(ps ...*FTabPage) *FTabs {
+func (v *FTabLayout) Tabs(ps ...*FTab) *FTabLayout {
+	var fs []func()
 	for _, p := range ps {
-		v.v.AppendPage(p.content, p.title)
+		v.v.AppendPage(p.content.getBaseView().view, p.title)
+		if p.content.getBaseView().afterShownFn != nil {
+			fs = append(fs, p.content.getBaseView().afterShownFn)
+		}
+	}
+	v.afterShownFn = func() {
+		for _, f := range fs {
+			f()
+		}
 	}
 	return v
 }

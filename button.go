@@ -103,3 +103,8 @@ func (v *FButton) Text(t string) *FButton {
 func (v *FButton) GetText() string {
 	return v.v.GetLabel()
 }
+func (v *FButton) Image(img *FImage) *FButton {
+	v.v.SetImage(img.v)
+	v.afterShownFn = img.afterShownFn
+	return v
+}
