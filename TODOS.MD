@@ -7,3 +7,4 @@
 - webview
 - fontChooser
 - colorChooser
+- progressbar
