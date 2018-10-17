@@ -109,3 +109,19 @@ func (v *FProgress) GetText() string {
 func (v *FProgress) GetStep() float64 {
 	return v.v.GetFraction()
 }
+func (v *FProgress) LeftToRight() *FProgress {
+	v.v.SetOrientation(gtk.PROGRESS_LEFT_TO_RIGHT)
+	return v
+}
+func (v *FProgress) RightToLeft() *FProgress {
+	v.v.SetOrientation(gtk.PROGRESS_RIGHT_TO_LEFT)
+	return v
+}
+func (v *FProgress) TopToBottom() *FProgress {
+	v.v.SetOrientation(gtk.PROGRESS_TOP_TO_BOTTOM)
+	return v
+}
+func (v *FProgress) BottomToTop() *FProgress {
+	v.v.SetOrientation(gtk.PROGRESS_BOTTOM_TO_TOP)
+	return v
+}
