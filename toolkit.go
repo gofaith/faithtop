@@ -27,14 +27,14 @@ func GetCacheDir() string {
 	homeDir := GetHomeDir()
 	if runtime.GOOS == "linux" {
 		cacheDir = Getrpath(homeDir) + ".cache/faithtop/"
-		return cacheDir
 	} else if runtime.GOOS == "windows" {
 		cacheDir = Getrpath(homeDir) + "AppData" + sep + "Local" + sep + "faithtop" + sep
-		return cacheDir
+	} else if runtime.GOOS == "darwin" {
+		cacheDir = Getrpath(homeDir) + ".cache" + sep + "faithtop" + sep
 	} else {
-		cacheDir = Getrpath(GetCurrentExecPath()) + ".cache" + sep
-		return cacheDir
+		cacheDir = Getrpath(GetCurrentExecPath()) + ".cache" + sep + "faithtop" + sep
 	}
+	return cacheDir
 }
 func SetCacheDir(dir string) {
 	cacheDir = Getrpath(dir)
