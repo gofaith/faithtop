@@ -105,10 +105,10 @@ func (v *FWindow) DeferShow() *FWindow {
 	return v
 }
 func (v *FWindow) Vbox(is ...IView) *FWindow {
-	return v.Add(VBox().Append(is...))
+	return v.Add(VBox().Padding(5).Append(is...))
 }
 func (v *FWindow) HBox(is ...IView) *FWindow {
-	return v.Add(HBox().Append(is...))
+	return v.Add(HBox().Padding(5).Append(is...))
 }
 func (v *FWindow) VScroll(is ...IView) *FWindow {
 	return v.Add(VScroll().Append(is...))

@@ -122,3 +122,7 @@ func (v *FEdit) InputTypeNormal() *FEdit {
 	v.v.SetVisibility(true)
 	return v
 }
+func (v *FEdit) OnEnter(f func()) *FEdit {
+	v.v.Connect("activate", f)
+	return v
+}
