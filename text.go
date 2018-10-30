@@ -11,7 +11,8 @@ type FText struct {
 
 func Text(t string) *FText {
 	fb := &FText{}
-	v := gtk.NewLabel(t)
+	v := gtk.NewLabel("")
+	v.SetMarkup(t)
 	fb.v = v
 	fb.view = v
 	fb.widget = &v.Widget
