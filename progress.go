@@ -20,6 +20,10 @@ func Progress() *FProgress {
 }
 
 // ================================================================
+func (v *FProgress) OnEnter(f func()) *FProgress {
+	v.FBaseView.OnEnter(f)
+	return v
+}
 func (v *FProgress) Size(w, h int) *FProgress {
 	v.FBaseView.Size(w, h)
 	return v

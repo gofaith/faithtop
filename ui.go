@@ -55,3 +55,6 @@ func (v *FBaseView) GetY() int {
 func (v *FBaseView) Focus() {
 	v.widget.GrabFocus()
 }
+func (v *FBaseView) OnEnter(f func()) {
+	v.widget.Connect("activate", f)
+}

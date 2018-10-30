@@ -20,6 +20,10 @@ func MenuBar() *FMenuBar {
 }
 
 // ================================================================
+func (v *FMenuBar) OnEnter(f func()) *FMenuBar {
+	v.FBaseView.OnEnter(f)
+	return v
+}
 func (v *FMenuBar) Size(w, h int) *FMenuBar {
 	v.FBaseView.Size(w, h)
 	return v

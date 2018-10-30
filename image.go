@@ -31,6 +31,10 @@ func Image() *FImage {
 }
 
 // ================================================================
+func (v *FImage) OnEnter(f func()) *FImage {
+	v.FBaseView.OnEnter(f)
+	return v
+}
 func (v *FImage) Size(w, h int) *FImage {
 	v.FBaseView.Size(w, h)
 	return v

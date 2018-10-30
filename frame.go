@@ -24,6 +24,10 @@ func Frame(title string, child IView) *FFrame {
 }
 
 // ================================================================
+func (v *FFrame) OnEnter(f func()) *FFrame {
+	v.FBaseView.OnEnter(f)
+	return v
+}
 func (v *FFrame) Size(w, h int) *FFrame {
 	v.FBaseView.Size(w, h)
 	return v

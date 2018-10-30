@@ -118,5 +118,9 @@ func (v *FAlign) Padding(i uint) *FAlign {
 	v.padding = i
 	return v
 }
+func (v *FAlign) OnEnter(f func()) *FAlign {
+	v.FBaseView.OnEnter(f)
+	return v
+}
 
 //====================================================================

@@ -20,6 +20,10 @@ func Check() *FCheck {
 }
 
 // ================================================================
+func (v *FCheck) OnEnter(f func()) *FCheck {
+	v.FBaseView.OnEnter(f)
+	return v
+}
 func (v *FCheck) Size(w, h int) *FCheck {
 	v.FBaseView.Size(w, h)
 	return v

@@ -43,6 +43,10 @@ func HScroll() *FScroll {
 }
 
 // ================================================================
+func (v *FScroll) OnEnter(f func()) *FScroll {
+	v.FBaseView.OnEnter(f)
+	return v
+}
 func (v *FScroll) Size(w, h int) *FScroll {
 	v.FBaseView.Size(w, h)
 	return v

@@ -36,6 +36,10 @@ func Radio(groupId string) *FRadio {
 }
 
 // ================================================================
+func (v *FRadio) OnEnter(f func()) *FRadio {
+	v.FBaseView.OnEnter(f)
+	return v
+}
 func (v *FRadio) Size(w, h int) *FRadio {
 	v.FBaseView.Size(w, h)
 	return v

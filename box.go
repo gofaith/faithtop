@@ -31,6 +31,10 @@ func HBox() *FBox {
 }
 
 // ================================================================
+func (v *FBox) OnEnter(f func()) *FBox {
+	v.FBaseView.OnEnter(f)
+	return v
+}
 func (v *FBox) Size(w, h int) *FBox {
 	v.FBaseView.Size(w, h)
 	return v

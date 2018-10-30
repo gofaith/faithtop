@@ -20,6 +20,10 @@ func StatusBar() *FStatusBar {
 }
 
 // ================================================================
+func (v *FStatusBar) OnEnter(f func()) *FStatusBar {
+	v.FBaseView.OnEnter(f)
+	return v
+}
 func (v *FStatusBar) Size(w, h int) *FStatusBar {
 	v.FBaseView.Size(w, h)
 	return v

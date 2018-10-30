@@ -20,6 +20,11 @@ func Combo() *FCombo {
 }
 
 // ================================================================
+
+func (v *FCombo) OnEnter(f func()) *FCombo {
+	v.FBaseView.OnEnter(f)
+	return v
+}
 func (v *FCombo) Size(w, h int) *FCombo {
 	v.FBaseView.Size(w, h)
 	return v

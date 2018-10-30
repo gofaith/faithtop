@@ -20,6 +20,10 @@ func TabLayout() *FTabLayout {
 }
 
 // ================================================================
+func (v *FTabLayout) OnEnter(f func()) *FTabLayout {
+	v.FBaseView.OnEnter(f)
+	return v
+}
 func (v *FTabLayout) Size(w, h int) *FTabLayout {
 	v.FBaseView.Size(w, h)
 	return v

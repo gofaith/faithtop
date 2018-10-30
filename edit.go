@@ -20,6 +20,7 @@ func Edit() *FEdit {
 }
 
 // ================================================================
+
 func (v *FEdit) Size(w, h int) *FEdit {
 	v.FBaseView.Size(w, h)
 	return v
