@@ -104,7 +104,7 @@ func (v *FListView) Visible() *FListView {
 	return v
 }
 func (v *FListView) Invisible() *FListView {
-	v.v.SetVisible(false)
+	v.FBaseView.Invisible()
 	return v
 }
 

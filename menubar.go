@@ -81,7 +81,7 @@ func (v *FMenuBar) Visible() *FMenuBar {
 	return v
 }
 func (v *FMenuBar) Invisible() *FMenuBar {
-	v.v.SetVisible(false)
+	v.FBaseView.Invisible()
 	return v
 }
 

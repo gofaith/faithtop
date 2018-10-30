@@ -78,7 +78,7 @@ func (v *FEdit) Visible() *FEdit {
 	return v
 }
 func (v *FEdit) Invisible() *FEdit {
-	v.v.SetVisible(false)
+	v.FBaseView.Invisible()
 	return v
 }
 

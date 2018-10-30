@@ -97,7 +97,7 @@ func (v *FRadio) Visible() *FRadio {
 	return v
 }
 func (v *FRadio) Invisible() *FRadio {
-	v.v.SetVisible(false)
+	v.FBaseView.Invisible()
 	return v
 }
 

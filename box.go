@@ -91,7 +91,7 @@ func (v *FBox) Visible() *FBox {
 	return v
 }
 func (v *FBox) Invisible() *FBox {
-	v.v.SetVisible(false)
+	v.FBaseView.Invisible()
 	return v
 }
 

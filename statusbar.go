@@ -81,7 +81,7 @@ func (v *FStatusBar) Visible() *FStatusBar {
 	return v
 }
 func (v *FStatusBar) Invisible() *FStatusBar {
-	v.v.SetVisible(false)
+	v.FBaseView.Invisible()
 	return v
 }
 

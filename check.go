@@ -81,7 +81,7 @@ func (v *FCheck) Visible() *FCheck {
 	return v
 }
 func (v *FCheck) Invisible() *FCheck {
-	v.v.SetVisible(false)
+	v.FBaseView.Invisible()
 	return v
 }
 

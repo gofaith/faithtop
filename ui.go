@@ -58,3 +58,8 @@ func (v *FBaseView) Focus() {
 func (v *FBaseView) OnEnter(f func()) {
 	v.widget.Connect("activate", f)
 }
+func (v *FBaseView) Invisible() {
+	RunOnUIThread(func() {
+		v.widget.SetVisible(false)
+	})
+}

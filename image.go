@@ -92,7 +92,7 @@ func (v *FImage) Visible() *FImage {
 	return v
 }
 func (v *FImage) Invisible() *FImage {
-	v.v.SetVisible(false)
+	v.FBaseView.Invisible()
 	return v
 }
 

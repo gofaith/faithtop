@@ -81,7 +81,7 @@ func (v *FTabLayout) Visible() *FTabLayout {
 	return v
 }
 func (v *FTabLayout) Invisible() *FTabLayout {
-	v.v.SetVisible(false)
+	v.FBaseView.Invisible()
 	return v
 }
 

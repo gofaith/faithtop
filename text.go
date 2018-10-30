@@ -82,7 +82,7 @@ func (v *FText) Visible() *FText {
 	return v
 }
 func (v *FText) Invisible() *FText {
-	v.v.SetVisible(false)
+	v.FBaseView.Invisible()
 	return v
 }
 

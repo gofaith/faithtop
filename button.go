@@ -81,7 +81,7 @@ func (v *FButton) Visible() *FButton {
 	return v
 }
 func (v *FButton) Invisible() *FButton {
-	v.v.SetVisible(false)
+	v.FBaseView.Invisible()
 	return v
 }
 

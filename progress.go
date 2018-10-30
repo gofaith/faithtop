@@ -81,7 +81,7 @@ func (v *FProgress) Visible() *FProgress {
 	return v
 }
 func (v *FProgress) Invisible() *FProgress {
-	v.v.SetVisible(false)
+	v.FBaseView.Invisible()
 	return v
 }
 

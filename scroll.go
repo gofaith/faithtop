@@ -105,7 +105,7 @@ func (v *FScroll) Visible() *FScroll {
 	return v
 }
 func (v *FScroll) Invisible() *FScroll {
-	v.v.SetVisible(false)
+	v.FBaseView.Invisible()
 	return v
 }
 

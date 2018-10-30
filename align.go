@@ -102,7 +102,7 @@ func (v *FAlign) Visible() *FAlign {
 	return v
 }
 func (v *FAlign) Invisible() *FAlign {
-	v.v.SetVisible(false)
+	v.FBaseView.Invisible()
 	return v
 }
 

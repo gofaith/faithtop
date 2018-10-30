@@ -82,7 +82,7 @@ func (v *FCombo) Visible() *FCombo {
 	return v
 }
 func (v *FCombo) Invisible() *FCombo {
-	v.v.SetVisible(false)
+	v.FBaseView.Invisible()
 	return v
 }
 

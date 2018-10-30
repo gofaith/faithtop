@@ -85,7 +85,7 @@ func (v *FFrame) Visible() *FFrame {
 	return v
 }
 func (v *FFrame) Invisible() *FFrame {
-	v.v.SetVisible(false)
+	v.FBaseView.Invisible()
 	return v
 }
 
