@@ -119,7 +119,10 @@ func (v *FWindow) HScroll(is ...IView) *FWindow {
 func (v *FWindow) Scroll(child IView) *FWindow {
 	return v.Add(Scroll(child))
 }
-
+func (v *FWindow) Title(t string) *FWindow {
+	v.v.SetTitle(t)
+	return v
+}
 func ShowWin(i IView) *FWindow {
 	return TopWin().DeferShow().Add(i)
 }
