@@ -30,14 +30,14 @@ func PopupWin() *FWindow {
 }
 
 func TopWin() *FWindow {
-	return Win().Top().Size(200, 200)
+	return Win().Top().Size(200, 100)
 }
 func TopPopupWin() *FWindow {
-	return PopupWin().Top().Size(200, 200)
+	return PopupWin().Top().Size(200, 100)
 }
 func setupWindow(w *gtk.Window) {
 	windowCounter++
-	w.SetDefaultSize(600, 400)
+	w.SetDefaultSize(230, 130)
 	w.SetPosition(gtk.WIN_POS_CENTER)
 	w.Connect("destroy", func() {
 		windowCounter--
@@ -124,5 +124,5 @@ func (v *FWindow) Title(t string) *FWindow {
 	return v
 }
 func ShowWin(i IView) *FWindow {
-	return TopWin().DeferShow().Add(i)
+	return TopWin().Size(200, 100).Title("Infomation").DeferShow().Add(i)
 }
