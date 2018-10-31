@@ -92,7 +92,13 @@ func (v *FWindow) OnDestroy(f func()) *FWindow {
 	v.ondestroyFn = f
 	return v
 }
-
+func (v *FWindow) OnCloseClicked(f func()) *FWindow {
+	v.v.Connect("delete-event", func() bool {
+		f()
+		return false
+	})
+	return v
+}
 func (v *FWindow) DeferShow() *FWindow {
 	v.showAfter = true
 	return v
