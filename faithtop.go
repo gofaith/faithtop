@@ -17,3 +17,7 @@ var (
 func MainQuit() {
 	gtk.MainQuit()
 }
+
+func Main() {
+	gtk.Main()
+}

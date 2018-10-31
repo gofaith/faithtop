@@ -5,11 +5,12 @@ import (
 )
 
 var (
-	windowCounter int
+	wins = make(map[string]*FWindow)
 )
 
 type FWindow struct {
 	v         *gtk.Window
+	wid       string
 	showAfter bool
 	child     IView
 }
@@ -19,7 +20,13 @@ func Win() *FWindow {
 	setupWindow(w)
 	fw := &FWindow{}
 	fw.v = w
+	fw.wid = NewToken()
 	return fw
+}
+func CloseAllWin() {
+	for _, v := range wins {
+		v.Close()
+	}
 }
 func PopupWin() *FWindow {
 	w := gtk.NewWindow(gtk.WINDOW_POPUP)
@@ -36,15 +43,8 @@ func TopPopupWin() *FWindow {
 	return PopupWin().Top().Size(200, 100)
 }
 func setupWindow(w *gtk.Window) {
-	windowCounter++
 	w.SetDefaultSize(230, 130)
 	w.SetPosition(gtk.WIN_POS_CENTER)
-	w.Connect("destroy", func() {
-		windowCounter--
-		if windowCounter < 1 {
-			gtk.MainQuit()
-		}
-	})
 }
 
 func GetWinById(id string) *FWindow {
@@ -86,12 +86,11 @@ func (v *FWindow) Show() *FWindow {
 	if v.child.getBaseView().afterShownFn != nil {
 		v.child.getBaseView().afterShownFn()
 	}
-	if windowCounter == 1 {
-		gtk.Main()
-	}
+	wins[v.wid] = v
 	return v
 }
 func (v *FWindow) Close() *FWindow {
+	delete(wins, v.wid)
 	v.v.Destroy()
 	return v
 }
