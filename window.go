@@ -4,10 +4,6 @@ import (
 	"github.com/mattn/go-gtk/gtk"
 )
 
-var (
-	wins = make(map[string]*FWindow)
-)
-
 type FWindow struct {
 	v         *gtk.Window
 	wid       string
@@ -22,11 +18,6 @@ func Win() *FWindow {
 	fw.v = w
 	fw.wid = NewToken()
 	return fw
-}
-func CloseAllWin() {
-	for _, v := range wins {
-		v.Close()
-	}
 }
 func PopupWin() *FWindow {
 	w := gtk.NewWindow(gtk.WINDOW_POPUP)
@@ -82,15 +73,12 @@ func (v *FWindow) Add(i IView) *FWindow {
 
 func (v *FWindow) Show() *FWindow {
 	v.v.ShowAll()
-
 	if v.child.getBaseView().afterShownFn != nil {
 		v.child.getBaseView().afterShownFn()
 	}
-	wins[v.wid] = v
 	return v
 }
 func (v *FWindow) Close() *FWindow {
-	delete(wins, v.wid)
 	v.v.Destroy()
 	return v
 }
