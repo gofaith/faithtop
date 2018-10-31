@@ -24,10 +24,7 @@ func Frame(title string, child IView) *FFrame {
 }
 
 // ================================================================
-func (v *FFrame) OnEnter(f func()) *FFrame {
-	v.FBaseView.OnEnter(f)
-	return v
-}
+
 func (v *FFrame) Size(w, h int) *FFrame {
 	v.FBaseView.Size(w, h)
 	return v
@@ -99,6 +96,11 @@ func (v *FFrame) Focus() *FFrame {
 }
 func (v *FFrame) Padding(i uint) *FFrame {
 	v.padding = i
+	return v
+}
+
+func (v *FFrame) OnDragDrop(f func([]string)) *FFrame {
+	v.FBaseView.OnDragDrop(f)
 	return v
 }
 

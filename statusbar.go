@@ -20,8 +20,9 @@ func StatusBar() *FStatusBar {
 }
 
 // ================================================================
-func (v *FStatusBar) OnEnter(f func()) *FStatusBar {
-	v.FBaseView.OnEnter(f)
+
+func (v *FStatusBar) OnDragDrop(f func([]string)) *FStatusBar {
+	v.FBaseView.OnDragDrop(f)
 	return v
 }
 func (v *FStatusBar) Size(w, h int) *FStatusBar {

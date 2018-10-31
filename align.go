@@ -44,6 +44,11 @@ func AlignCustom(xAlign, yAlign, xScale, yScale float64, i IView) *FAlign {
 	return newAlign(i, xAlign, yAlign, xScale, yScale)
 }
 
+func (v *FAlign) OnDragDrop(f func([]string)) *FAlign {
+	v.FBaseView.OnDragDrop(f)
+	return v
+}
+
 // ================================================================
 func (v *FAlign) Size(w, h int) *FAlign {
 	v.FBaseView.Size(w, h)

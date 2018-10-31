@@ -95,6 +95,11 @@ func (v *FEdit) Padding(i uint) *FEdit {
 	return v
 }
 
+func (v *FEdit) OnDragDrop(f func([]string)) *FEdit {
+	v.FBaseView.OnDragDrop(f)
+	return v
+}
+
 //====================================================================
 func (v *FEdit) Text(t string) *FEdit {
 	v.v.SetText(t)

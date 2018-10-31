@@ -21,10 +21,6 @@ func Combo() *FCombo {
 
 // ================================================================
 
-func (v *FCombo) OnEnter(f func()) *FCombo {
-	v.FBaseView.OnEnter(f)
-	return v
-}
 func (v *FCombo) Size(w, h int) *FCombo {
 	v.FBaseView.Size(w, h)
 	return v
@@ -96,6 +92,11 @@ func (v *FCombo) Focus() *FCombo {
 }
 func (v *FCombo) Padding(i uint) *FCombo {
 	v.padding = i
+	return v
+}
+
+func (v *FCombo) OnDragDrop(f func([]string)) *FCombo {
+	v.FBaseView.OnDragDrop(f)
 	return v
 }
 

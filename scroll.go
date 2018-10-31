@@ -43,8 +43,9 @@ func HScroll() *FScroll {
 }
 
 // ================================================================
-func (v *FScroll) OnEnter(f func()) *FScroll {
-	v.FBaseView.OnEnter(f)
+
+func (v *FScroll) OnDragDrop(f func([]string)) *FScroll {
+	v.FBaseView.OnDragDrop(f)
 	return v
 }
 func (v *FScroll) Size(w, h int) *FScroll {

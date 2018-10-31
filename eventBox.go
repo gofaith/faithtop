@@ -91,6 +91,11 @@ func (v *FEventBox) Padding(i uint) *FEventBox {
 	return v
 }
 
+func (v *FEventBox) OnDragDrop(f func([]string)) *FEventBox {
+	v.FBaseView.OnDragDrop(f)
+	return v
+}
+
 //====================================================================
 func (v *FEventBox) Add(i IView) *FEventBox {
 	v.v.Add(i.getBaseView().widget)

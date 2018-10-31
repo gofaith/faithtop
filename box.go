@@ -31,10 +31,6 @@ func HBox() *FBox {
 }
 
 // ================================================================
-func (v *FBox) OnEnter(f func()) *FBox {
-	v.FBaseView.OnEnter(f)
-	return v
-}
 func (v *FBox) Size(w, h int) *FBox {
 	v.FBaseView.Size(w, h)
 	return v
@@ -105,6 +101,11 @@ func (v *FBox) Focus() *FBox {
 }
 func (v *FBox) Padding(i uint) *FBox {
 	v.padding = i
+	return v
+}
+
+func (v *FBox) OnDragDrop(f func([]string)) *FBox {
+	v.FBaseView.OnDragDrop(f)
 	return v
 }
 

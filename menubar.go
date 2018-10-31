@@ -20,10 +20,7 @@ func MenuBar() *FMenuBar {
 }
 
 // ================================================================
-func (v *FMenuBar) OnEnter(f func()) *FMenuBar {
-	v.FBaseView.OnEnter(f)
-	return v
-}
+
 func (v *FMenuBar) Size(w, h int) *FMenuBar {
 	v.FBaseView.Size(w, h)
 	return v
@@ -95,6 +92,11 @@ func (v *FMenuBar) Focus() *FMenuBar {
 }
 func (v *FMenuBar) Padding(i uint) *FMenuBar {
 	v.padding = i
+	return v
+}
+
+func (v *FMenuBar) OnDragDrop(f func([]string)) *FMenuBar {
+	v.FBaseView.OnDragDrop(f)
 	return v
 }
 

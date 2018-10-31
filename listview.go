@@ -43,10 +43,6 @@ func HlistView(createView func(*FListView) IView, bindData func(*ViewHolder, int
 }
 
 // ================================================================
-func (v *FListView) OnEnter(f func()) *FListView {
-	v.FBaseView.OnEnter(f)
-	return v
-}
 func (v *FListView) Size(w, h int) *FListView {
 	v.FBaseView.Size(w, h)
 	return v
@@ -118,6 +114,11 @@ func (v *FListView) Focus() *FListView {
 }
 func (v *FListView) Padding(i uint) *FListView {
 	v.padding = i
+	return v
+}
+
+func (v *FListView) OnDragDrop(f func([]string)) *FListView {
+	v.FBaseView.OnDragDrop(f)
 	return v
 }
 

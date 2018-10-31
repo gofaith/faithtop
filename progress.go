@@ -20,10 +20,7 @@ func Progress() *FProgress {
 }
 
 // ================================================================
-func (v *FProgress) OnEnter(f func()) *FProgress {
-	v.FBaseView.OnEnter(f)
-	return v
-}
+
 func (v *FProgress) Size(w, h int) *FProgress {
 	v.FBaseView.Size(w, h)
 	return v
@@ -95,6 +92,11 @@ func (v *FProgress) Focus() *FProgress {
 }
 func (v *FProgress) Padding(i uint) *FProgress {
 	v.padding = i
+	return v
+}
+
+func (v *FProgress) OnDragDrop(f func([]string)) *FProgress {
+	v.FBaseView.OnDragDrop(f)
 	return v
 }
 

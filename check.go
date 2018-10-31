@@ -20,10 +20,6 @@ func Check() *FCheck {
 }
 
 // ================================================================
-func (v *FCheck) OnEnter(f func()) *FCheck {
-	v.FBaseView.OnEnter(f)
-	return v
-}
 func (v *FCheck) Size(w, h int) *FCheck {
 	v.FBaseView.Size(w, h)
 	return v
@@ -95,6 +91,11 @@ func (v *FCheck) Focus() *FCheck {
 }
 func (v *FCheck) Padding(i uint) *FCheck {
 	v.padding = i
+	return v
+}
+
+func (v *FCheck) OnDragDrop(f func([]string)) *FCheck {
+	v.FBaseView.OnDragDrop(f)
 	return v
 }
 

@@ -20,8 +20,9 @@ func TabLayout() *FTabLayout {
 }
 
 // ================================================================
-func (v *FTabLayout) OnEnter(f func()) *FTabLayout {
-	v.FBaseView.OnEnter(f)
+
+func (v *FTabLayout) OnDragDrop(f func([]string)) *FTabLayout {
+	v.FBaseView.OnDragDrop(f)
 	return v
 }
 func (v *FTabLayout) Size(w, h int) *FTabLayout {

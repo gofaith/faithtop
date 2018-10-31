@@ -20,10 +20,6 @@ func Button() *FButton {
 }
 
 // ================================================================
-func (v *FButton) OnEnter(f func()) *FButton {
-	v.FBaseView.OnEnter(f)
-	return v
-}
 func (v *FButton) Size(w, h int) *FButton {
 	v.FBaseView.Size(w, h)
 	return v
@@ -95,6 +91,11 @@ func (v *FButton) Focus() *FButton {
 }
 func (v *FButton) Padding(i uint) *FButton {
 	v.padding = i
+	return v
+}
+
+func (v *FButton) OnDragDrop(f func([]string)) *FButton {
+	v.FBaseView.OnDragDrop(f)
 	return v
 }
 

@@ -1,11 +1,7 @@
 package faithtop
 
 import (
-	"github.com/mattn/go-gtk/gdk"
-	"github.com/mattn/go-gtk/glib"
 	"github.com/mattn/go-gtk/gtk"
-	"strings"
-	"unsafe"
 )
 
 type FText struct {
@@ -94,6 +90,10 @@ func (v *FText) Padding(i uint) *FText {
 	v.padding = i
 	return v
 }
+func (v *FText) OnDragDrop(f func([]string)) *FText {
+	v.FBaseView.OnDragDrop(f)
+	return v
+}
 
 //====================================================================
 
@@ -130,32 +130,5 @@ func (v *FText) CenterJustify() *FText {
 }
 func (v *FText) FillJustify() *FText {
 	v.v.SetJustify(gtk.JUSTIFY_FILL)
-	return v
-}
-func (v *FText) OnDragDrop(f func([]string)) *FText {
-	targets := []gtk.TargetEntry{
-		{"text/uri-list", 0, 0},
-		{"STRING", 0, 1},
-		{"text/plain", 0, 2},
-	}
-	v.v.DragDestSet(
-		gtk.DEST_DEFAULT_MOTION|
-			gtk.DEST_DEFAULT_HIGHLIGHT|
-			gtk.DEST_DEFAULT_DROP,
-		targets,
-		gdk.ACTION_COPY)
-	v.v.DragDestAddUriTargets()
-	v.v.Connect("drag-data-received", func(ctx *glib.CallbackContext) {
-		sdata := gtk.NewSelectionDataFromNative(unsafe.Pointer(ctx.Args(3)))
-		if sdata != nil {
-			a := (*[2000]uint8)(sdata.GetData())
-			files := strings.Split(string(a[0:sdata.GetLength()-1]), "\n")
-			for i := range files {
-				filename, _, _ := glib.FilenameFromUri(files[i])
-				files[i] = filename
-			}
-			f(files)
-		}
-	})
 	return v
 }
