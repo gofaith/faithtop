@@ -5,25 +5,26 @@ import (
 )
 
 type FWindow struct {
-	v         *gtk.Window
-	wid       string
-	showAfter bool
-	child     IView
+	v           *gtk.Window
+	wid         string
+	showAfter   bool
+	child       IView
+	ondestroyFn func()
 }
 
 func Win() *FWindow {
 	w := gtk.NewWindow(gtk.WINDOW_TOPLEVEL)
-	setupWindow(w)
 	fw := &FWindow{}
 	fw.v = w
 	fw.wid = NewToken()
+	setupWindow(fw)
 	return fw
 }
 func PopupWin() *FWindow {
 	w := gtk.NewWindow(gtk.WINDOW_POPUP)
-	setupWindow(w)
 	fw := &FWindow{}
 	fw.v = w
+	setupWindow(fw)
 	return fw
 }
 
@@ -33,9 +34,14 @@ func TopWin() *FWindow {
 func TopPopupWin() *FWindow {
 	return PopupWin().Top().Size(200, 100)
 }
-func setupWindow(w *gtk.Window) {
-	w.SetDefaultSize(230, 130)
-	w.SetPosition(gtk.WIN_POS_CENTER)
+func setupWindow(w *FWindow) {
+	w.v.SetDefaultSize(230, 130)
+	w.v.SetPosition(gtk.WIN_POS_CENTER)
+	w.v.Connect("destroy", func() {
+		if w.ondestroyFn != nil {
+			w.ondestroyFn()
+		}
+	})
 }
 
 func GetWinById(id string) *FWindow {
@@ -83,7 +89,7 @@ func (v *FWindow) Close() *FWindow {
 	return v
 }
 func (v *FWindow) OnDestroy(f func()) *FWindow {
-	v.v.Connect("destroy", f)
+	v.ondestroyFn = f
 	return v
 }
 
