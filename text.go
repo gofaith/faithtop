@@ -21,10 +21,6 @@ func Text(t string) *FText {
 }
 
 // ================================================================
-func (v *FText) OnEnter(f func()) *FText {
-	v.FBaseView.OnEnter(f)
-	return v
-}
 func (v *FText) Size(w, h int) *FText {
 	v.FBaseView.Size(w, h)
 	return v
@@ -52,10 +48,6 @@ func GetTextById(id string) *FText {
 }
 func (v *FText) getBaseView() *FBaseView {
 	return &v.FBaseView
-}
-func (v *FText) OnClick(f func()) *FText {
-	v.v.Connect("clicked", f)
-	return v
 }
 func (v *FText) SetId(id string) *FText {
 	idMap[id] = v
