@@ -11,7 +11,7 @@ Desktop GUI framework for Go ( using GTK-2 Lib )
 
 `pacman -Syy`
 
-`pacman -S vim git mingw-w64-i686-gtk2 pkg-config mingw-w64-i686-toolchain base-devel glib2-devel`
+`pacman -S vim git mingw-w64-i686-gtk2 pkg-config mingw-w64-i686-toolchain base-devel glib2-devel mingw-w64-i686-glib-networking`
 
 3. Install Go into C:\msys2\usr\local
 
