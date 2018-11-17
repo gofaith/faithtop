@@ -103,7 +103,7 @@ func (v *FWindow) DeferShow() *FWindow {
 	v.showAfter = true
 	return v
 }
-func (v *FWindow) Vbox(is ...IView) *FWindow {
+func (v *FWindow) VBox(is ...IView) *FWindow {
 	return v.Add(VBox().Padding(5).Append(is...))
 }
 func (v *FWindow) HBox(is ...IView) *FWindow {
