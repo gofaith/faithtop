@@ -12,7 +12,7 @@ type FText struct {
 func Text(t string) *FText {
 	fb := &FText{}
 	v := gtk.NewLabel("")
-	v.SetMarkup(t)
+	v.SetText(t)
 	fb.v = v
 	fb.view = v
 	fb.widget = &v.Widget
@@ -98,11 +98,11 @@ func (v *FText) OnDragDrop(f func([]string)) *FText {
 //====================================================================
 
 func (v *FText) Text(t string) *FText {
-	v.v.SetMarkup(t)
+	v.v.SetText(t)
 	return v
 }
-func (v *FText) PlainText(t string) *FText {
-	v.v.SetText(t)
+func (v *FText) Markup(t string) *FText {
+	v.v.SetMarkup(t)
 	return v
 }
 func (v *FText) GetText() string {
