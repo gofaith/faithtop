@@ -6,7 +6,8 @@ import (
 )
 
 type FStatusIcon struct {
-	v *gtk.StatusIcon
+	v        *gtk.StatusIcon
+	isClosed bool
 }
 
 func StatusIcon() *FStatusIcon {
@@ -17,38 +18,38 @@ func StatusIcon() *FStatusIcon {
 func (s *FStatusIcon) Src(url string) *FStatusIcon {
 	if StartsWidth(url, "/") {
 		s.v.SetFromFile(url)
-	}else if StartsWidth(url, "http") {
+	} else if StartsWidth(url, "http") {
 		go CacheNetFile(url, GetCacheDir(), func(fpath string) {
 			RunOnUIThread(func() {
 				s.v.SetFromFile(fpath)
 			})
 		})
-	}else if StartsWidth(url,"file://"){
+	} else if StartsWidth(url, "file://") {
 		s.v.SetFromFile(url[len("file://"):])
-	}else if StartsWidth(url, "iconName://") {
+	} else if StartsWidth(url, "iconName://") {
 		s.v.SetFromIconName(url[len("iconName://"):])
 	}
 	return s
 }
-func (s *FStatusIcon)SrcIconName(url string)*FStatusIcon  {
+func (s *FStatusIcon) SrcIconName(url string) *FStatusIcon {
 	s.v.SetFromIconName(url)
 	return s
 }
-func (s *FStatusIcon)SrcFile(url string)*FStatusIcon  {
+func (s *FStatusIcon) SrcFile(url string) *FStatusIcon {
 	s.v.SetFromFile(url)
 	return s
 }
-func (s *FStatusIcon)SrcNet(url string)*FStatusIcon  {
-	go CacheNetFile(url,GetCacheDir(), func(fpath string) {
+func (s *FStatusIcon) SrcNet(url string) *FStatusIcon {
+	go CacheNetFile(url, GetCacheDir(), func(fpath string) {
 		RunOnUIThread(func() {
 			s.v.SetFromFile(fpath)
 		})
 	})
 	return s
 }
-func (s *FStatusIcon) Menus(ms ...IMenuItem)*FStatusIcon {
-	nm:=gtk.NewMenu()
-	for _,m:=range ms{
+func (s *FStatusIcon) Menus(ms ...IMenuItem) *FStatusIcon {
+	nm := gtk.NewMenu()
+	for _, m := range ms {
 		nm.Append(m.getMenuItem())
 	}
 	nm.ShowAll()
@@ -57,15 +58,15 @@ func (s *FStatusIcon) Menus(ms ...IMenuItem)*FStatusIcon {
 	})
 	return s
 }
-func (s *FStatusIcon) Tooltips(t string)*FStatusIcon {
+func (s *FStatusIcon) Tooltips(t string) *FStatusIcon {
 	s.v.SetTooltipMarkup(t)
 	return s
 }
-func (s *FStatusIcon) Title(t string) *FStatusIcon{
+func (s *FStatusIcon) Title(t string) *FStatusIcon {
 	s.v.SetTitle(t)
 	return s
 }
-func (s *FStatusIcon) Close()*FStatusIcon  {
+func (s *FStatusIcon) Close() *FStatusIcon {
 	s.v.SetVisible(false)
 	return s
 }
