@@ -86,7 +86,9 @@ func (v *FWindow) Show() *FWindow {
 	return v
 }
 func (v *FWindow) Close() *FWindow {
-	v.v.Destroy()
+	if !v.isClosed {
+		v.v.Destroy()
+	}
 	return v
 }
 func (v *FWindow) OnDestroy(f func()) *FWindow {
