@@ -74,3 +74,6 @@ func (s *FStatusIcon) Show() *FStatusIcon {
 	s.v.SetVisible(true)
 	return s
 }
+func (f *FStatusIcon) IsClosed() bool {
+	return f.v.GetVisible()
+}
