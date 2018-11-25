@@ -13,7 +13,7 @@ type ViewHolder struct {
 	vlist map[string]IView
 }
 
-func VlistView(createView func(*FListView) IView, bindData func(*ViewHolder, int), getCount func() int) *FListView {
+func VListView(createView func(*FListView) IView, bindData func(*ViewHolder, int), getCount func() int) *FListView {
 	fb := &FListView{}
 	fb.FScroll = *VScroll()
 	fb.createView = createView
@@ -27,7 +27,7 @@ func VlistView(createView func(*FListView) IView, bindData func(*ViewHolder, int
 	fb.execBindData()
 	return fb
 }
-func HlistView(createView func(*FListView) IView, bindData func(*ViewHolder, int), getCount func() int) *FListView {
+func HListView(createView func(*FListView) IView, bindData func(*ViewHolder, int), getCount func() int) *FListView {
 	fb := &FListView{}
 	fb.FScroll = *HScroll()
 	fb.createView = createView
