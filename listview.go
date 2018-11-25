@@ -1,5 +1,9 @@
 package faithtop
 
+import (
+	"fmt"
+)
+
 type FListView struct {
 	FScroll
 	vhs             []ViewHolder
@@ -7,9 +11,11 @@ type FListView struct {
 	createView      func(*FListView) IView
 	bindData        func(*ViewHolder, int)
 	getCount        func() int
+	gotCount        int
 }
 
 type ViewHolder struct {
+	root  IView
 	vlist map[string]IView
 }
 
@@ -19,10 +25,13 @@ func VListView(createView func(*FListView) IView, bindData func(*ViewHolder, int
 	fb.createView = createView
 	fb.bindData = bindData
 	fb.getCount = getCount
-	for i := 0; i < getCount(); i++ {
+	fb.gotCount = getCount()
+	for i := 0; i < fb.gotCount; i++ {
 		fb.currentCreation = i
 		fb.vhs = append(fb.vhs, ViewHolder{vlist: make(map[string]IView)})
-		fb.Append(createView(fb))
+		createdView := createView(fb)
+		fb.Append(createdView)
+		fb.vhs[i].root = createdView
 	}
 	fb.execBindData()
 	return fb
@@ -33,10 +42,13 @@ func HListView(createView func(*FListView) IView, bindData func(*ViewHolder, int
 	fb.createView = createView
 	fb.bindData = bindData
 	fb.getCount = getCount
+	fb.gotCount = getCount()
 	for i := 0; i < getCount(); i++ {
 		fb.currentCreation = i
 		fb.vhs = append(fb.vhs, ViewHolder{vlist: make(map[string]IView)})
-		fb.Append(createView(fb))
+		createdView := createView(fb)
+		fb.Append(createdView)
+		fb.vhs[i].root = createdView
 	}
 	fb.execBindData()
 	return fb
@@ -128,4 +140,31 @@ func (v *FListView) execBindData() *FListView {
 		v.bindData(&v.vhs[i], i)
 	}
 	return v
+}
+func (fb *FListView) OnDataSetChanged() *FListView {
+	origin_size := fb.gotCount
+	new_size := fb.getCount()
+	fmt.Println(origin_size, new_size, len(fb.vhs))
+	if new_size > origin_size {
+		for i := origin_size; i < new_size; i++ {
+			fb.currentCreation = i
+			if i >= len(fb.vhs) {
+				fb.vhs = append(fb.vhs, ViewHolder{vlist: make(map[string]IView)})
+			}
+			createdView := fb.createView(fb)
+			fb.Append(createdView)
+			fb.vhs[i].root = createdView
+			createdView.getBaseView().widget.Show()
+		}
+	} else {
+		for i := new_size; i < origin_size; i++ {
+			fb.vhs[i].root.getBaseView().Invisible()
+
+		}
+	}
+	for i := 0; i < new_size; i++ {
+		fb.bindData(&fb.vhs[i], i)
+	}
+	fb.gotCount = new_size
+	return fb
 }
