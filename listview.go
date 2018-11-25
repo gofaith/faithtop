@@ -1,9 +1,5 @@
 package faithtop
 
-import (
-	"fmt"
-)
-
 type FListView struct {
 	FScroll
 	vhs             []ViewHolder
@@ -144,7 +140,6 @@ func (v *FListView) execBindData() *FListView {
 func (fb *FListView) OnDataSetChanged() *FListView {
 	origin_size := fb.gotCount
 	new_size := fb.getCount()
-	fmt.Println(origin_size, new_size, len(fb.vhs))
 	if new_size > origin_size {
 		for i := origin_size; i < new_size; i++ {
 			fb.currentCreation = i
