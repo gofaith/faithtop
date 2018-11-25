@@ -140,7 +140,7 @@ func StartsWidth(s, prefix string) bool {
 	return false
 }
 func Url2cachePath(url string) string {
-	rUrl := url
+	rUrl := strings.Split(url, "?")[0]
 	s := strings.Replace(rUrl, "://", "/", -1)
 	sep := string(os.PathSeparator)
 	s = strings.Replace(s, "/", sep, -1)

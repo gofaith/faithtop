@@ -1,6 +1,8 @@
 package faithtop
 
 import (
+	"fmt"
+
 	"github.com/mattn/go-gtk/gdkpixbuf"
 	"github.com/mattn/go-gtk/gtk"
 )
@@ -120,6 +122,7 @@ func (v *FImage) Src(url string) *FImage {
 	} else if StartsWidth(url, "http") {
 		go CacheNetFile(url, GetCacheDir(), func(fpath string) {
 			RunOnUIThread(func() {
+				fmt.Println(fpath)
 				setImageFileSrc(v, fpath)
 			})
 		})

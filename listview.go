@@ -149,7 +149,7 @@ func (fb *FListView) OnDataSetChanged() *FListView {
 			createdView := fb.createView(fb)
 			fb.Append(createdView)
 			fb.vhs[i].root = createdView
-			createdView.getBaseView().widget.Show()
+			createdView.getBaseView().widget.ShowAll()
 		}
 	} else {
 		for i := new_size; i < origin_size; i++ {
