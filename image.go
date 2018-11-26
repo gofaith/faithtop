@@ -1,7 +1,6 @@
 package faithtop
 
 import (
-	"fmt"
 
 	"github.com/mattn/go-gtk/gdkpixbuf"
 	"github.com/mattn/go-gtk/gtk"
@@ -29,6 +28,7 @@ func Image() *FImage {
 		fb.alreadyShown = true
 	}
 	fb.scaleType = 2
+	fb.Src("/")
 	return fb
 }
 
@@ -61,10 +61,6 @@ func GetImageById(id string) *FImage {
 }
 func (v *FImage) getBaseView() *FBaseView {
 	return &v.FBaseView
-}
-func (v *FImage) OnClick(f func()) *FImage {
-	v.v.Connect("clicked", f)
-	return v
 }
 func (v *FImage) SetId(id string) *FImage {
 	idMap[id] = v
@@ -122,7 +118,6 @@ func (v *FImage) Src(url string) *FImage {
 	} else if StartsWidth(url, "http") {
 		go CacheNetFile(url, GetCacheDir(), func(fpath string) {
 			RunOnUIThread(func() {
-				fmt.Println(fpath)
 				setImageFileSrc(v, fpath)
 			})
 		})
@@ -140,7 +135,10 @@ func (v *FImage) SrcGif(url string) *FImage {
 func setImageFileSrc(v *FImage, url string) {
 	var setup = func() {
 		v.alreadyShown = true
-		porigin, _ := gdkpixbuf.NewPixbufFromFile(url)
+		porigin, e := gdkpixbuf.NewPixbufFromFile(url)
+		if e != nil {
+			return
+		}
 		var w, h int = v.GetWidth(), v.GetHeight()
 		if v.initWidth == -56 { //initialize it
 			v.initWidth = v.GetWidth()
