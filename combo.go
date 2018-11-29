@@ -6,8 +6,9 @@ import (
 
 type FCombo struct {
 	FBaseView
-	v    *gtk.ComboBox
-	strs []string
+	v                 *gtk.ComboBox
+	strs              []string
+	isActivatedByCode bool
 }
 
 func Combo() *FCombo {
@@ -117,17 +118,23 @@ func (v *FCombo) AppendText(ts ...string) *FCombo {
 	}
 	v.strs = ts
 	if len(ts) > 0 {
-		v.v.SetActive(0)
+		v.ActiveText(0)
 	}
 	return v
 }
 func (f *FCombo) ActiveText(index int) *FCombo {
+	f.isActivatedByCode = true
 	f.v.SetActive(index)
 	return f
 }
-func (v *FCombo) OnChange(f func(string)) *FCombo {
+func (v *FCombo) OnChange(f func(str string, isClicked bool)) *FCombo {
 	v.v.Connect("changed", func() {
-		f(v.GetActiveText())
+		if v.isActivatedByCode {
+			f(v.GetActiveText(), false)
+			v.isActivatedByCode=false
+		} else {
+			f(v.GetActiveText(), true)
+		}
 	})
 	return v
 }
