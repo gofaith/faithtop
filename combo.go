@@ -6,7 +6,8 @@ import (
 
 type FCombo struct {
 	FBaseView
-	v *gtk.ComboBox
+	v    *gtk.ComboBox
+	strs []string
 }
 
 func Combo() *FCombo {
@@ -101,18 +102,32 @@ func (v *FCombo) OnDragDrop(f func([]string)) *FCombo {
 }
 
 //====================================================================
-func (v *FCombo) GetText() string {
+func (v *FCombo) GetActiveText() string {
 	return v.v.GetActiveText()
 }
+func (v *FCombo) GetAllText() []string {
+	return v.strs
+}
 func (v *FCombo) AppendText(ts ...string) *FCombo {
+	for i := 0; i < len(v.strs); i++ {
+		v.v.RemoveText(0)
+	}
 	for _, t := range ts {
-		v.v.AppendText(t)
+		v.v.InsertText(t, 0)
+	}
+	v.strs = ts
+	if len(ts) > 0 {
+		v.v.SetActive(0)
 	}
 	return v
 }
+func (f *FCombo) ActiveText(index int) *FCombo {
+	f.v.SetActive(index)
+	return f
+}
 func (v *FCombo) OnChange(f func(string)) *FCombo {
 	v.v.Connect("changed", func() {
-		f(v.GetText())
+		f(v.GetActiveText())
 	})
 	return v
 }
