@@ -7,6 +7,7 @@ import (
 type FButton struct {
 	FBaseView
 	v *gtk.Button
+	onClick func()
 }
 
 func Button() *FButton {
@@ -15,6 +16,11 @@ func Button() *FButton {
 	fb.v = v
 	fb.view = v
 	fb.widget = &v.Widget
+	fb.v.Connect("clicked", func(){
+		if fb.onClick!=nil{
+			fb.onClick()
+		}
+	})
 	setupWidget(fb)
 	return fb
 }
@@ -49,7 +55,7 @@ func (v *FButton) getBaseView() *FBaseView {
 	return &v.FBaseView
 }
 func (v *FButton) OnClick(f func()) *FButton {
-	v.v.Connect("clicked", f)
+	v.onClick=f
 	return v
 }
 func (v *FButton) SetId(id string) *FButton {
