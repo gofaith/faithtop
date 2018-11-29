@@ -9,7 +9,7 @@ import (
 type FImage struct {
 	FBaseView
 	v            *gtk.Image
-	onLoad       func()
+	onLoad       func(string)
 	scaleType    int
 	alreadyShown bool
 	onLoadFailed func(string)
@@ -181,16 +181,16 @@ func setImageFileSrc(v *FImage, url string) {
 			v.v.SetFromFile(url)
 		}
 		if v.onLoad != nil {
-			v.onLoad()
+			v.onLoad(url)
 		}
 	}
-	if v.alreadyShown {
+	// if v.alreadyShown {
 		setup()
 		return
-	}
-	v.getBaseView().afterShownFn = setup
+	// }
+	// v.getBaseView().afterShownFn = setup
 }
-func (v *FImage) OnLoad(f func()) *FImage {
+func (v *FImage) OnLoad(f func(string)) *FImage {
 	v.onLoad = f
 	return v
 }
