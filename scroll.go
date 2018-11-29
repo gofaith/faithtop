@@ -129,6 +129,5 @@ func (v *FScroll) Append(is ...IView) *FScroll {
 		return v
 	}
 	v.box.Append(is...)
-	v.afterShownFn = v.box.afterShownFn
 	return v
 }

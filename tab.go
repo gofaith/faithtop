@@ -113,17 +113,8 @@ func Tab(title string, view IView) *FTab {
 }
 
 func (v *FTabLayout) Tabs(ps ...*FTab) *FTabLayout {
-	var fs []func()
 	for _, p := range ps {
 		v.v.AppendPage(p.content.getBaseView().view, p.title)
-		if p.content.getBaseView().afterShownFn != nil {
-			fs = append(fs, p.content.getBaseView().afterShownFn)
-		}
-	}
-	v.afterShownFn = func() {
-		for _, f := range fs {
-			f()
-		}
 	}
 	return v
 }

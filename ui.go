@@ -17,7 +17,6 @@ type FBaseView struct {
 	widget                *gtk.Widget
 	initWidth, initHeight int
 	expand, notFill       bool
-	afterShownFn          func()
 }
 
 func setupWidget(f IView) {

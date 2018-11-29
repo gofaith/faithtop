@@ -116,6 +116,5 @@ func (v *FButton) GetText() string {
 }
 func (v *FButton) Image(img *FImage) *FButton {
 	v.v.SetImage(img.v)
-	v.afterShownFn = img.afterShownFn
 	return v
 }

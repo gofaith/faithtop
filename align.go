@@ -15,7 +15,6 @@ func newAlign(i IView, xa, ya, xs, ys float64) *FAlign {
 	f.view = f.v
 	f.widget = &f.v.Widget
 	f.v.Add(i.getBaseView().widget)
-	f.afterShownFn = i.getBaseView().afterShownFn
 	setupWidget(f)
 	return f
 }

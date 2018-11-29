@@ -28,9 +28,6 @@ func VListView(createView func(*FListView) IView, bindData func(*ViewHolder, int
 		createdView := createView(fb)
 		fb.Append(createdView)
 		fb.vhs[i].root = createdView
-		if createdView.getBaseView().afterShownFn != nil {
-			createdView.getBaseView().afterShownFn()
-		}
 	}
 	fb.execBindData()
 	return fb
@@ -153,10 +150,6 @@ func (fb *FListView) OnDataSetChanged() *FListView {
 			fb.Append(createdView)
 			fb.vhs[i].root = createdView
 			createdView.getBaseView().widget.ShowAll()
-
-			if createdView.getBaseView().afterShownFn != nil {
-				createdView.getBaseView().afterShownFn()
-			}
 		}
 	} else {
 		for i := new_size; i < origin_size; i++ {

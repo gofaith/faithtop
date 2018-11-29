@@ -99,7 +99,6 @@ func (v *FFixed) OnDragDrop(f func([]string)) *FFixed {
 
 //====================================================================
 func (v *FFixed) Append(is ...IView) *FFixed {
-	var fs []func()
 	for _, i := range is {
 		v.v.Add(i.getBaseView().widget)
 		var iv = i
@@ -107,14 +106,6 @@ func (v *FFixed) Append(is ...IView) *FFixed {
 			a := v.v.GetAllocation()
 			iv.getBaseView().widget.SetSizeRequest(a.Width, a.Height)
 		})
-		if i.getBaseView().afterShownFn != nil {
-			fs = append(fs, i.getBaseView().afterShownFn)
-		}
-	}
-	v.afterShownFn = func() {
-		for _, f := range fs {
-			f()
-		}
 	}
 	return v
 }

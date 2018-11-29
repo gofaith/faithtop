@@ -111,17 +111,8 @@ func (v *FBox) OnDragDrop(f func([]string)) *FBox {
 
 //====================================================================
 func (v *FBox) Append(is ...IView) *FBox {
-	var fs []func()
 	for _, i := range is {
 		v.v.PackStart(i.getBaseView().widget, i.getBaseView().expand, !i.getBaseView().notFill, i.getBaseView().padding)
-		if i.getBaseView().afterShownFn != nil {
-			fs = append(fs, i.getBaseView().afterShownFn)
-		}
-	}
-	v.afterShownFn = func() {
-		for _, f := range fs {
-			f()
-		}
 	}
 	return v
 }

@@ -80,9 +80,6 @@ func (v *FWindow) Add(i IView) *FWindow {
 
 func (v *FWindow) Show() *FWindow {
 	v.v.ShowAll()
-	if v.child.getBaseView().afterShownFn != nil {
-		v.child.getBaseView().afterShownFn()
-	}
 	return v
 }
 func (v *FWindow) Close() *FWindow {

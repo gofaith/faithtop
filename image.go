@@ -24,9 +24,6 @@ func Image() *FImage {
 	fb.widget = &v.Widget
 	setupWidget(fb)
 	currentImage = fb
-	fb.afterShownFn = func() {
-		fb.alreadyShown = true
-	}
 	fb.scaleType = 2
 	fb.Src("/")
 	return fb
@@ -121,9 +118,6 @@ func (v *FImage) Src(url string) *FImage {
 				setImageFileSrc(v, fpath)
 			})
 		})
-		v.afterShownFn = func() {
-			v.alreadyShown = true
-		}
 	}
 	return v
 }
@@ -184,11 +178,8 @@ func setImageFileSrc(v *FImage, url string) {
 			v.onLoad(url)
 		}
 	}
-	// if v.alreadyShown {
 		setup()
 		return
-	// }
-	// v.getBaseView().afterShownFn = setup
 }
 func (v *FImage) OnLoad(f func(string)) *FImage {
 	v.onLoad = f

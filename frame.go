@@ -18,7 +18,6 @@ func Frame(title string, child IView) *FFrame {
 	setupWidget(fb)
 	if child != nil {
 		fb.Add(child)
-		fb.afterShownFn = child.getBaseView().afterShownFn
 	}
 	return fb
 }
