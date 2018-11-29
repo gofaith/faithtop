@@ -105,3 +105,7 @@ func (f *FFileChooser) DeferShow() *FFileChooser {
 	f.showAfter=true
 	return f
 }
+func (f *FFileChooser) Close() *FFileChooser {
+	f.v.Destroy()
+	return f
+}
