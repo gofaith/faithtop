@@ -96,11 +96,10 @@ func (f *FFileChooser) Show() *FFileChooser {
 				gtk.FILE_CHOOSER_ACTION_CREATE_FOLDER,
 				gtk.STOCK_OK,
 				gtk.RESPONSE_ACCEPT)
-			w.Response(func() {
+			if w.Run() == gtk.RESPONSE_ACCEPT {
 				f.onResult(w.GetFilename())
-				w.Destroy()
-			})
-			w.Run()
+			}
+			w.Destroy()
 		} else {
 			w := wui.NewFileSaveDialog()
 			w.SetTitle(f.title)
@@ -118,11 +117,11 @@ func (f *FFileChooser) Show() *FFileChooser {
 					gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
 					gtk.STOCK_OK,
 					gtk.RESPONSE_ACCEPT)
-				w.Response(func() {
+				w.SetSelectMultiple(true)
+				if w.Run() == gtk.RESPONSE_ACCEPT {
 					f.onResults(w.GetFilenames())
-					w.Destroy()
-				})
-				w.Run()
+				}
+				w.Destroy()
 			} else { // open folder
 				w := wui.NewFolderSelectDialog()
 				w.SetTitle(f.title)
