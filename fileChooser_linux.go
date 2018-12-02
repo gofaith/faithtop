@@ -18,7 +18,7 @@ func FileChooser(w *FWindow) *FFileChooser {
 		gtk.RESPONSE_ACCEPT)
 	return f
 }
-func ShowFileChooser(w *FWindow)*FFileChooser{
+func ShowFileChooser(w *FWindow) *FFileChooser {
 	return FileChooser(w).DeferShow()
 }
 func (f *FFileChooser) Filter(pattern string) *FFileChooser {
@@ -34,7 +34,7 @@ func (f *FFileChooser) TypeSelectFile(rp func(fname string)) *FFileChooser {
 		rp(f.v.GetFilename())
 		f.v.Destroy()
 	})
-	if f.showAfter{
+	if f.showAfter {
 		f.Show()
 	}
 	return f
@@ -46,7 +46,7 @@ func (f *FFileChooser) TypeSelectFiles(rp func(fs []string)) *FFileChooser {
 		rp(f.v.GetFilenames())
 		f.v.Destroy()
 	})
-	if f.showAfter{
+	if f.showAfter {
 		f.Show()
 	}
 	return f
@@ -58,7 +58,7 @@ func (f *FFileChooser) TypeSelectFolder(rp func(dir string)) *FFileChooser {
 		rp(f.v.GetFilename())
 		f.v.Destroy()
 	})
-	if f.showAfter{
+	if f.showAfter {
 		f.Show()
 	}
 	return f
@@ -70,7 +70,7 @@ func (f *FFileChooser) TypeSelectFolders(rp func(dirs []string)) *FFileChooser {
 		rp(f.v.GetFilenames())
 		f.v.Destroy()
 	})
-	if f.showAfter{
+	if f.showAfter {
 		f.Show()
 	}
 	return f
@@ -81,7 +81,7 @@ func (f *FFileChooser) TypeSaveFile(rp func(path string)) *FFileChooser {
 		rp(f.v.GetFilename())
 		f.v.Destroy()
 	})
-	if f.showAfter{
+	if f.showAfter {
 		f.Show()
 	}
 	return f
@@ -92,7 +92,7 @@ func (f *FFileChooser) TypeSaveFolder(rp func(dir string)) *FFileChooser {
 		rp(f.v.GetFilename())
 		f.v.Destroy()
 	})
-	if f.showAfter{
+	if f.showAfter {
 		f.Show()
 	}
 	return f
@@ -102,10 +102,15 @@ func (f *FFileChooser) Show() *FFileChooser {
 	return f
 }
 func (f *FFileChooser) DeferShow() *FFileChooser {
-	f.showAfter=true
+	f.showAfter = true
 	return f
 }
 func (f *FFileChooser) Close() *FFileChooser {
 	f.v.Destroy()
+	return f
+}
+
+func (f *FFileChooser) Title(s string) *FFileChooser {
+	f.v.SetTitle(s)
 	return f
 }
