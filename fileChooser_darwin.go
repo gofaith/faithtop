@@ -1,7 +1,9 @@
 package faithtop
 
 import (
+	"github.com/StevenZack/tools/fileToolkit"
 	"github.com/mattn/go-gtk/gtk"
+	"os"
 )
 
 type FFileChooser struct {
@@ -12,6 +14,7 @@ type FFileChooser struct {
 }
 
 func FileChooser(w *FWindow) *FFileChooser {
+	os.MkdirAll(fileToolkit.GetHomeDir()+"/.local/share", 0755)
 	f := &FFileChooser{}
 	f.v = gtk.NewFileChooserDialog(
 		"Choose FIle...", w.v,
@@ -32,7 +35,7 @@ func (f *FFileChooser) Filter(pattern string) *FFileChooser {
 func (f *FFileChooser) TypeSelectFile(rp func(fname string)) *FFileChooser {
 	f.v.SetAction(gtk.FILE_CHOOSER_ACTION_OPEN)
 	f.v.SetSelectMultiple(false)
-	f.onResult=rp
+	f.onResult = rp
 	if f.showAfter {
 		f.Show()
 	}
@@ -40,7 +43,7 @@ func (f *FFileChooser) TypeSelectFile(rp func(fname string)) *FFileChooser {
 }
 func (f *FFileChooser) TypeSelectFiles(rp func(fs []string)) *FFileChooser {
 	f.v.SetAction(gtk.FILE_CHOOSER_ACTION_OPEN)
-	f.onResults=rp
+	f.onResults = rp
 	f.v.SetSelectMultiple(true)
 	if f.showAfter {
 		f.Show()
@@ -50,7 +53,7 @@ func (f *FFileChooser) TypeSelectFiles(rp func(fs []string)) *FFileChooser {
 func (f *FFileChooser) TypeSelectFolder(rp func(dir string)) *FFileChooser {
 	f.v.SetAction(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
 	f.v.SetSelectMultiple(false)
-	f.onResult=rp
+	f.onResult = rp
 	if f.showAfter {
 		f.Show()
 	}
@@ -58,7 +61,7 @@ func (f *FFileChooser) TypeSelectFolder(rp func(dir string)) *FFileChooser {
 }
 func (f *FFileChooser) TypeSelectFolders(rp func(dirs []string)) *FFileChooser {
 	f.v.SetAction(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
-	f.onResults=rp
+	f.onResults = rp
 	f.v.SetSelectMultiple(true)
 	if f.showAfter {
 		f.Show()
@@ -67,7 +70,7 @@ func (f *FFileChooser) TypeSelectFolders(rp func(dirs []string)) *FFileChooser {
 }
 func (f *FFileChooser) TypeSaveFile(rp func(path string)) *FFileChooser {
 	f.v.SetAction(gtk.FILE_CHOOSER_ACTION_SAVE)
-	f.onResult=rp
+	f.onResult = rp
 	if f.showAfter {
 		f.Show()
 	}
@@ -75,7 +78,7 @@ func (f *FFileChooser) TypeSaveFile(rp func(path string)) *FFileChooser {
 }
 func (f *FFileChooser) TypeSaveFolder(rp func(dir string)) *FFileChooser {
 	f.v.SetAction(gtk.FILE_CHOOSER_ACTION_CREATE_FOLDER)
-	f.onResult=rp
+	f.onResult = rp
 	if f.showAfter {
 		f.Show()
 	}
