@@ -1,11 +1,12 @@
 package faithtop
 
 import (
+	"strings"
+	"unsafe"
+
 	"github.com/mattn/go-gtk/gdk"
 	"github.com/mattn/go-gtk/glib"
 	"github.com/mattn/go-gtk/gtk"
-	"strings"
-	"unsafe"
 )
 
 type IView interface {
@@ -82,10 +83,11 @@ func (v *FBaseView) OnDragDrop(f func([]string)) {
 		sdata := gtk.NewSelectionDataFromNative(unsafe.Pointer(ctx.Args(3)))
 		if sdata != nil {
 			a := (*[2000]uint8)(sdata.GetData())
-			files := strings.Split(string(a[0:sdata.GetLength()-1]), "\n")
+			names := string(a[0 : sdata.GetLength()-1])
+			files := strings.Split(names, "\n")
 			for i := range files {
 				filename, _, _ := glib.FilenameFromUri(files[i])
-				files[i] = filename
+				files[i] = strings.Replace(filename, "\r", "", -1)
 			}
 			f(files)
 		}
