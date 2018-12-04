@@ -118,6 +118,7 @@ func (v *FCombo) AppendText(ts ...string) *FCombo {
 	}
 	v.strs = ts
 	if len(ts) > 0 {
+		v.isActivatedByCode=true
 		v.ActiveText(0)
 	}
 	return v
