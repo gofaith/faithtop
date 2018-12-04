@@ -9,6 +9,7 @@ type FCombo struct {
 	v                 *gtk.ComboBox
 	strs              []string
 	isActivatedByCode bool
+	currentText       string
 }
 
 func Combo() *FCombo {
@@ -118,7 +119,6 @@ func (v *FCombo) AppendText(ts ...string) *FCombo {
 	}
 	v.strs = ts
 	if len(ts) > 0 {
-		v.isActivatedByCode=true
 		v.ActiveText(0)
 	}
 	return v
@@ -128,14 +128,9 @@ func (f *FCombo) ActiveText(index int) *FCombo {
 	f.v.SetActive(index)
 	return f
 }
-func (v *FCombo) OnChange(f func(str string, isClicked bool)) *FCombo {
+func (v *FCombo) OnChange(f func(str string)) *FCombo {
 	v.v.Connect("changed", func() {
-		if v.isActivatedByCode {
-			f(v.GetActiveText(), false)
-			v.isActivatedByCode=false
-		} else {
-			f(v.GetActiveText(), true)
-		}
+		f(v.GetActiveText())
 	})
 	return v
 }
