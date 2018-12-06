@@ -13,6 +13,7 @@ func Text(t string) *FText {
 	fb := &FText{}
 	v := gtk.NewLabel("")
 	v.SetText(t)
+	v.SetLineWrap(true)
 	fb.v = v
 	fb.view = v
 	fb.widget = &v.Widget

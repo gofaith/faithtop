@@ -1,6 +1,7 @@
 package faithtop
 
 import (
+	"time"
 
 	"github.com/mattn/go-gtk/gdkpixbuf"
 	"github.com/mattn/go-gtk/gtk"
@@ -178,8 +179,13 @@ func setImageFileSrc(v *FImage, url string) {
 			v.onLoad(url)
 		}
 	}
-		setup()
-		return
+	go func() {
+		time.Sleep(time.Millisecond * 50)
+		RunOnUIThread(func() {
+			setup()
+		})
+	}()
+	return
 }
 func (v *FImage) OnLoad(f func(string)) *FImage {
 	v.onLoad = f

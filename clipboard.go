@@ -5,23 +5,40 @@ import (
 	"github.com/mattn/go-gtk/gtk"
 )
 
+var (
+	clipboard     *gtk.Clipboard
+	clipboardText string
+)
+
 type FClipboard struct {
-	v *gtk.Clipboard
 }
 
 func Clipboard() *FClipboard {
+	if clipboard == nil {
+		clipboard = gtk.NewClipboardGetForDisplay(gdk.DisplayGetDefault(), gdk.SELECTION_CLIPBOARD)
+	}
 	f := &FClipboard{}
-	f.v = gtk.NewClipboardGetForDisplay(gdk.DisplayGetDefault(), gdk.SELECTION_CLIPBOARD)
+	RunOnUIThread(func() {
+		clipboard.Connect("owner-change", func() {
+			clipboardText = clipboard.WaitForText()
+		})
+		clipboardText = clipboard.WaitForText()
+	})
 	return f
 }
 func (f *FClipboard) GetText() string {
-	return f.v.WaitForText()
+	return clipboardText
 }
 func (f *FClipboard) SetText(t string) *FClipboard {
-	f.v.SetText(t)
+	RunOnUIThread(func() {
+		clipboardText = t
+		clipboard.SetText(t)
+	})
 	return f
 }
 func (f *FClipboard) OnChange(fn func()) *FClipboard {
-	f.v.Connect("owner-change", fn)
+	clipboard.Connect("owner-change", func() {
+		go fn()
+	})
 	return f
 }
