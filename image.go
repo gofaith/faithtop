@@ -109,9 +109,7 @@ func (v *FImage) OnDragDrop(f func([]string)) *FImage {
 
 //====================================================================
 func (v *FImage) Src(url string) *FImage {
-	if StartsWidth(url, "/") {
-		setImageFileSrc(v, url)
-	} else if StartsWidth(url, "file://") {
+	if StartsWidth(url, "file://") {
 		setImageFileSrc(v, url[len("file://"):])
 	} else if StartsWidth(url, "http") {
 		go CacheNetFile(url, GetCacheDir(), func(fpath string) {
@@ -119,6 +117,8 @@ func (v *FImage) Src(url string) *FImage {
 				setImageFileSrc(v, fpath)
 			})
 		})
+	} else {
+		setImageFileSrc(v, url)
 	}
 	return v
 }
