@@ -118,3 +118,7 @@ func (v *FTabLayout) Tabs(ps ...*FTab) *FTabLayout {
 	}
 	return v
 }
+func (v *FTabLayout) OnSwitchPage(f func()) *FTabLayout {
+	v.v.Connect("switch-page", f)
+	return v
+}
