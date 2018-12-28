@@ -87,7 +87,11 @@ func (v *FBaseView) OnDragDrop(f func([]string)) {
 			files := strings.Split(names, "\n")
 			for i := range files {
 				filename, _, _ := glib.FilenameFromUri(files[i])
-				files[i] = strings.Replace(filename, "\r", "", -1)
+				str := strings.Replace(filename, "\r", "", -1)
+				if str == "" {
+					continue
+				}
+				files[i] = str
 			}
 			f(files)
 		}
