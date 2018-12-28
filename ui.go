@@ -66,6 +66,8 @@ func (v *FBaseView) Invisible() {
 		v.widget.SetVisible(false)
 	})
 }
+
+//fix fs list empty
 func (v *FBaseView) OnDragDrop(f func([]string)) {
 	targets := []gtk.TargetEntry{
 		{"text/uri-list", 0, 0},
