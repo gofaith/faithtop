@@ -88,14 +88,23 @@ func (v *FWindow) Close() *FWindow {
 	}
 	return v
 }
+
+func (f *FWindow) Hide() *FWindow {
+	f.v.Hide()
+	return f
+}
+
+func (f *FWindow) IsVisible() bool {
+	return f.v.GetVisible()
+}
+
 func (v *FWindow) OnDestroy(f func()) *FWindow {
 	v.ondestroyFn = f
 	return v
 }
-func (v *FWindow) OnCloseClicked(f func()) *FWindow {
+func (v *FWindow) OnCloseClicked(f func() bool) *FWindow {
 	v.v.Connect("delete-event", func() bool {
-		f()
-		return false
+		return f()
 	})
 	return v
 }
