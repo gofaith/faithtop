@@ -25,6 +25,10 @@ func (v *FProgress) Size(w, h int) *FProgress {
 	v.FBaseView.Size(w, h)
 	return v
 }
+func (f *FProgress) Assign(v **FProgress) *FProgress {
+	*v = f
+	return f
+}
 func (vh *ViewHolder) GetProgressByItemId(itemId string) *FProgress {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FProgress); ok {

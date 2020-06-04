@@ -42,6 +42,11 @@ func (v *FMenuItem) SubMenu(ms ...IMenuItem) *FMenuItem {
 	v.v.SetSubmenu(v.subMenu)
 	return v
 }
+
+func (f *FMenuItem) Assign(v **FMenuItem) *FMenuItem {
+	*v = f
+	return f
+}
 func (v *FMenuItem) SetId(s string) *FMenuItem {
 	idMap[s] = v
 	return v
@@ -61,6 +66,11 @@ type FCheckMenuItem struct {
 	FBaseView
 	v       *gtk.CheckMenuItem
 	subMenu *gtk.Menu
+}
+
+func (f *FCheckMenuItem) Assign(v **FCheckMenuItem) *FCheckMenuItem {
+	*v = f
+	return f
 }
 
 func (v *FCheckMenuItem) getMenuItem() *gtk.MenuItem {

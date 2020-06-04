@@ -52,6 +52,10 @@ func (v *FScroll) Size(w, h int) *FScroll {
 	v.FBaseView.Size(w, h)
 	return v
 }
+func (f *FScroll) Assign(v **FScroll) *FScroll {
+	*v = f
+	return f
+}
 func (vh *ViewHolder) GetScrollByItemId(itemId string) *FScroll {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FScroll); ok {

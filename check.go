@@ -24,6 +24,10 @@ func (v *FCheck) Size(w, h int) *FCheck {
 	v.FBaseView.Size(w, h)
 	return v
 }
+func (f *FCheck) Assign(v **FCheck) *FCheck {
+	*v = f
+	return f
+}
 func (vh *ViewHolder) GetCheckByItemId(itemId string) *FCheck {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FCheck); ok {

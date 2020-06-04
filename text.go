@@ -26,6 +26,10 @@ func (v *FText) Size(w, h int) *FText {
 	v.FBaseView.Size(w, h)
 	return v
 }
+func (f *FText) Assign(v **FText) *FText {
+	*v = f
+	return f
+}
 func (vh *ViewHolder) GetTextByItemId(itemId string) *FText {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FText); ok {

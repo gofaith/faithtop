@@ -35,6 +35,11 @@ func (v *FBox) Size(w, h int) *FBox {
 	v.FBaseView.Size(w, h)
 	return v
 }
+
+func (f *FBox) Assign(v **FBox) *FBox {
+	*v = f
+	return f
+}
 func (vh *ViewHolder) GetBoxByItemId(itemId string) *FBox {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FBox); ok {

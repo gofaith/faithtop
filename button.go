@@ -30,6 +30,10 @@ func (v *FButton) Size(w, h int) *FButton {
 	v.FBaseView.Size(w, h)
 	return v
 }
+func (f *FButton) Assign(v **FButton)*FButton  {
+	*v=f
+	return f
+}
 func (vh *ViewHolder) GetButtonByItemId(itemId string) *FButton {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FButton); ok {

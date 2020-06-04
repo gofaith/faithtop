@@ -45,6 +45,10 @@ func (v *FRadio) Size(w, h int) *FRadio {
 	v.FBaseView.Size(w, h)
 	return v
 }
+func (f *FRadio) Assign(v **FRadio) *FRadio {
+	*v = f
+	return f
+}
 func (vh *ViewHolder) GetRadioByItemId(itemId string) *FRadio {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FRadio); ok {

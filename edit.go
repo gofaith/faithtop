@@ -25,6 +25,11 @@ func (v *FEdit) Size(w, h int) *FEdit {
 	v.FBaseView.Size(w, h)
 	return v
 }
+
+func (f *FEdit) Assign(v **FEdit) *FEdit {
+	*v = f
+	return f
+}
 func (vh *ViewHolder) GetEditByItemId(itemId string) *FEdit {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FEdit); ok {

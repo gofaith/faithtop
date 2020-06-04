@@ -23,6 +23,10 @@ func (v *FFixed) Size(w, h int) *FFixed {
 	v.FBaseView.Size(w, h)
 	return v
 }
+func (f *FFixed) Assign(v **FFixed) *FFixed {
+	*v = f
+	return f
+}
 func (vh *ViewHolder) GetFixedByItemId(itemId string) *FFixed {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FFixed); ok {

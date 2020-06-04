@@ -29,6 +29,10 @@ func (v *FStatusBar) Size(w, h int) *FStatusBar {
 	v.FBaseView.Size(w, h)
 	return v
 }
+func (f *FStatusBar) Assign(v **FStatusBar) *FStatusBar {
+	*v = f
+	return f
+}
 func (vh *ViewHolder) GetStatusBarByItemId(itemId string) *FStatusBar {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FStatusBar); ok {

@@ -35,6 +35,10 @@ func (s *FStatusIcon) SrcIconName(url string) *FStatusIcon {
 	s.v.SetFromIconName(url)
 	return s
 }
+func (f *FStatusIcon) Assign(v **FStatusIcon)*FStatusIcon  {
+	*v=f
+	return f
+}
 func (s *FStatusIcon) SrcFile(url string) *FStatusIcon {
 	s.v.SetFromFile(url)
 	return s

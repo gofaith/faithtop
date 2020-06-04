@@ -6,7 +6,7 @@ import (
 
 type FEventBox struct {
 	FBaseView
-	v *gtk.EventBox
+	v       *gtk.EventBox
 	onClick func()
 }
 
@@ -15,9 +15,9 @@ func EventBox(i IView) *FEventBox {
 	f.v = gtk.NewEventBox()
 	f.view = f.v
 	f.widget = &f.v.Widget
-	
-	f.v.Connect("button-press-event", func(){
-		if f.onClick!=nil{
+
+	f.v.Connect("button-press-event", func() {
+		if f.onClick != nil {
 			f.onClick()
 		}
 	})
@@ -32,6 +32,10 @@ func EventBox(i IView) *FEventBox {
 func (v *FEventBox) Size(w, h int) *FEventBox {
 	v.FBaseView.Size(w, h)
 	return v
+}
+func (f *FEventBox) Assign(v **FEventBox) *FEventBox {
+	*v = f
+	return f
 }
 func (vh *ViewHolder) GetEventBoxByItemId(itemId string) *FEventBox {
 	if v, ok := vh.vlist[itemId]; ok {
@@ -109,6 +113,6 @@ func (v *FEventBox) Add(i IView) *FEventBox {
 	return v
 }
 func (v *FEventBox) OnClick(f func()) *FEventBox {
-	v.onClick=f
+	v.onClick = f
 	return v
 }

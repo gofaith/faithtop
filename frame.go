@@ -28,6 +28,11 @@ func (v *FFrame) Size(w, h int) *FFrame {
 	v.FBaseView.Size(w, h)
 	return v
 }
+
+func (f *FFrame) Assign(v **FFrame) *FFrame {
+	*v = f
+	return f
+}
 func (vh *ViewHolder) GetFrameByItemId(itemId string) *FFrame {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FFrame); ok {

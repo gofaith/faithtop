@@ -20,7 +20,10 @@ func TabLayout() *FTabLayout {
 }
 
 // ================================================================
-
+func (f *FTabLayout) Assign(v **FTabLayout) *FTabLayout {
+	*v = f
+	return f
+}
 func (v *FTabLayout) OnDragDrop(f func([]string)) *FTabLayout {
 	v.FBaseView.OnDragDrop(f)
 	return v

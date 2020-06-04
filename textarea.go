@@ -9,7 +9,6 @@ type FTextArea struct {
 	v *gtk.TextView
 }
 
-
 func TextArea() *FTextArea {
 	fb := &FTextArea{}
 	v := gtk.NewTextView()
@@ -20,10 +19,15 @@ func TextArea() *FTextArea {
 	setupWidget(fb)
 	return fb
 }
+
 // ================================================================
 func (v *FTextArea) Size(w, h int) *FTextArea {
 	v.FBaseView.Size(w, h)
 	return v
+}
+func (f *FTextArea) Assign(v **FTextArea) *FTextArea {
+	*v = f
+	return f
 }
 func (vh *ViewHolder) GetTextAreaByItemId(itemId string) *FTextArea {
 	if v, ok := vh.vlist[itemId]; ok {
@@ -101,7 +105,7 @@ func (f *FTextArea) Text(t string) *FTextArea {
 	return f
 }
 func (f *FTextArea) GetText() string {
-	var start,end gtk.TextIter
+	var start, end gtk.TextIter
 	f.v.GetBuffer().GetStartIter(&start)
 	f.v.GetBuffer().GetEndIter(&end)
 	return f.v.GetBuffer().GetText(&start, &end, false)

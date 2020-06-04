@@ -53,6 +53,11 @@ func (v *FAlign) Size(w, h int) *FAlign {
 	v.FBaseView.Size(w, h)
 	return v
 }
+
+func (f *FAlign) Assign(v **FAlign) *FAlign {
+	*v = f
+	return f
+}
 func (vh *ViewHolder) GetAlignByItemId(itemId string) *FAlign {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FAlign); ok {

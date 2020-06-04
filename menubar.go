@@ -25,6 +25,10 @@ func (v *FMenuBar) Size(w, h int) *FMenuBar {
 	v.FBaseView.Size(w, h)
 	return v
 }
+func (f *FMenuBar) Assign(v **FMenuBar) *FMenuBar {
+	*v = f
+	return f
+}
 func (vh *ViewHolder) GetMenuBarByItemId(itemId string) *FMenuBar {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FMenuBar); ok {
