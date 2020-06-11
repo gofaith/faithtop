@@ -5,11 +5,11 @@ import (
 )
 
 type FWindow struct {
-	v                   *gtk.Window
-	wid                 string
-	showAfter, isClosed bool
-	child               IView
-	ondestroyFn         func()
+	v           *gtk.Window
+	wid         string
+	showAfter   bool
+	child       IView
+	ondestroyFn func()
 }
 
 func Win() *FWindow {
@@ -20,25 +20,15 @@ func Win() *FWindow {
 	setupWindow(fw)
 	return fw
 }
-func PopupWin() *FWindow {
-	w := gtk.NewWindow(gtk.WINDOW_POPUP)
-	fw := &FWindow{}
-	fw.v = w
-	setupWindow(fw)
-	return fw
-}
 
 func TopWin() *FWindow {
 	return Win().Top().Size(200, 100)
 }
-func TopPopupWin() *FWindow {
-	return PopupWin().Top().Size(200, 100)
-}
+
 func setupWindow(w *FWindow) {
 	w.v.SetDefaultSize(230, 130)
 	w.v.SetPosition(gtk.WIN_POS_CENTER)
 	w.v.Connect("destroy", func() {
-		w.isClosed = true
 		if w.ondestroyFn != nil {
 			w.ondestroyFn()
 		}
@@ -159,7 +149,4 @@ func ShowErr(w *FWindow, title, err string) {
 		dialog.Destroy()
 	})
 	dialog.Run()
-}
-func (f *FWindow) IsClosed() bool {
-	return f.isClosed
 }
