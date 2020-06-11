@@ -1,14 +1,11 @@
 package faithtop
 
 import (
-	"fmt"
-
 	"github.com/mattn/go-gtk/gtk"
 )
 
 func init() {
 	gtk.Init(nil)
-	fmt.Println("gtk initialized")
 }
 
 var (
