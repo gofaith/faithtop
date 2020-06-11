@@ -15,7 +15,7 @@ func Button() *FButton {
 		v: widgets.NewQPushButton(nil),
 	}
 	f.view = f.v
-	f.v.ConnectClick(func() {
+	f.v.ConnectClicked(func(bool) {
 		if f.click != nil {
 			f.click()
 		}
@@ -23,11 +23,23 @@ func Button() *FButton {
 	return f
 }
 
+// base
 func (f *FButton) baseView() *FBaseView {
 	return &f.FBaseView
 }
 
+func (f *FButton) Assign(v **FButton) *FButton {
+	*v = f
+	return f
+}
+
+// button
 func (f *FButton) Text(s string) *FButton {
 	f.v.SetText(s)
+	return f
+}
+
+func (f *FButton) OnClick(fn func()) *FButton {
+	f.click = fn
 	return f
 }
