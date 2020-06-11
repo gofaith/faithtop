@@ -73,9 +73,7 @@ func (v *FWindow) Show() *FWindow {
 	return v
 }
 func (v *FWindow) Close() *FWindow {
-	if !v.isClosed {
-		v.v.Destroy()
-	}
+	v.v.Destroy()
 	return v
 }
 
