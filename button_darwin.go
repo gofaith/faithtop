@@ -20,7 +20,6 @@ func Button() *FButton {
 			f.click()
 		}
 	})
-	f.v.SetContentsMargins(0, 0, 0, 0)
 	return f
 }
 
