@@ -16,6 +16,17 @@ func VBox() *FBox {
 	}
 	f.layout = f.v
 	f.v.SetSpacing(0)
+	f.v.SetContentsMargins(0, 0, 0, 0)
+	return f
+}
+
+func HBox() *FBox {
+	f := &FBox{
+		h: widgets.NewQHBoxLayout2(nil),
+	}
+	f.layout = f.h
+	f.h.SetSpacing(0)
+	f.h.SetContentsMargins(0, 0, 0, 0)
 	return f
 }
 
@@ -33,12 +44,22 @@ func (f *FBox) Append(is ...IView) *FBox {
 				f.v.AddItem(i.baseView().layout)
 			} else {
 				if i.baseView().expand {
-					i.baseView().widget.QWidget_PTR().SetSizePolicy2(widgets.QSizePolicy__Minimum, widgets.QSizePolicy__Expanding)
+					i.baseView().widget.QWidget_PTR().SetSizePolicy2(0, widgets.QSizePolicy__Expanding)
 				}
 				f.v.AddWidget(i.baseView().widget, 0, i.baseView().align)
 			}
 		}
 		return f
+	}
+	for _, i := range is {
+		if i.baseView().isLayout() {
+			f.h.AddItem(i.baseView().layout)
+		} else {
+			if i.baseView().expand {
+				i.baseView().widget.QWidget_PTR().SetSizePolicy2(widgets.QSizePolicy__Expanding, 0)
+			}
+			f.h.AddWidget(i.baseView().widget, 0, i.baseView().align)
+		}
 	}
 	return f
 }
