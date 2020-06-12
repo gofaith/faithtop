@@ -20,6 +20,7 @@ func Button() *FButton {
 			f.click()
 		}
 	})
+	f.v.SetContentsMargins(0, 0, 0, 0)
 	return f
 }
 
@@ -35,23 +36,6 @@ func (f *FButton) Assign(v **FButton) *FButton {
 
 func (f *FButton) Expand() *FButton {
 	f.FBaseView.Expand(true)
-	return f
-}
-
-func (f *FButton) AlignStart() *FButton {
-	f.FBaseView.AlignStart()
-	return f
-}
-func (f *FButton) AlignEnd() *FButton {
-	f.FBaseView.AlignEnd()
-	return f
-}
-func (f *FButton) AlignCenter() *FButton {
-	f.FBaseView.AlignCenter()
-	return f
-}
-func (f *FButton) AlignStretch() *FButton {
-	f.FBaseView.AlignStretch()
 	return f
 }
 

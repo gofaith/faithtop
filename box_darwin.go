@@ -44,13 +44,9 @@ func (f *FBox) Append(is ...IView) *FBox {
 				f.v.AddItem(i.baseView().layout)
 			} else {
 				if i.baseView().expand {
-					stretch := widgets.QSizePolicy__Fixed
-					if i.baseView().align == 0 {
-						stretch = widgets.QSizePolicy__Expanding
-					}
-					i.baseView().widget.QWidget_PTR().SetSizePolicy2(stretch, widgets.QSizePolicy__Expanding)
+					i.baseView().widget.QWidget_PTR().SetSizePolicy2(widgets.QSizePolicy__Expanding, widgets.QSizePolicy__Expanding)
 				}
-				f.v.AddWidget(i.baseView().widget, 0, i.baseView().align)
+				f.v.AddWidget(i.baseView().widget, 0, 0)
 			}
 		}
 		return f
@@ -60,13 +56,9 @@ func (f *FBox) Append(is ...IView) *FBox {
 			f.h.AddItem(i.baseView().layout)
 		} else {
 			if i.baseView().expand {
-				stretch := widgets.QSizePolicy__Fixed
-				if i.baseView().align == 0 {
-					stretch = widgets.QSizePolicy__Expanding
-				}
-				i.baseView().widget.QWidget_PTR().SetSizePolicy2(widgets.QSizePolicy__Expanding, stretch)
+				i.baseView().widget.QWidget_PTR().SetSizePolicy2(widgets.QSizePolicy__Expanding, widgets.QSizePolicy__Expanding)
 			}
-			f.h.AddWidget(i.baseView().widget, 0, i.baseView().align)
+			f.h.AddWidget(i.baseView().widget, 0, 0)
 		}
 	}
 	return f
