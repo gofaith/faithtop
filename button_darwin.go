@@ -38,6 +38,11 @@ func (f *FButton) Expand() *FButton {
 	return f
 }
 
+func (f *FButton) Size(w,h int) *FButton {
+	f.FBaseView.Size(w, h)
+	return f
+}
+
 // button
 func (f *FButton) Text(s string) *FButton {
 	f.v.SetText(s)
