@@ -69,3 +69,19 @@ func (f *FBaseView) Focus() {
 func (f *FBaseView) Expand(b bool) {
 	f.expand = b
 }
+
+func (f *FBaseView) Invisible() {
+	if f.isLayout() {
+		f.layout.QLayout_PTR().Widget().SetVisible(false)
+	} else {
+		f.widget.QWidget_PTR().SetVisible(false)
+	}
+}
+
+func (f *FBaseView) Visible() {
+	if f.isLayout() {
+		f.layout.QLayout_PTR().Widget().SetVisible(true)
+	} else {
+		f.widget.QWidget_PTR().SetVisible(true)
+	}
+}
