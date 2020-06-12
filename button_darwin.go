@@ -14,7 +14,7 @@ func Button() *FButton {
 	f := &FButton{
 		v: widgets.NewQPushButton(nil),
 	}
-	f.view = f.v
+	f.widget = f.v
 	f.v.ConnectClicked(func(bool) {
 		if f.click != nil {
 			f.click()

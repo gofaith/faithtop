@@ -10,7 +10,8 @@ type (
 		baseView() *FBaseView
 	}
 	FBaseView struct {
-		view widgets.QWidget_ITF
+		widget widgets.QWidget_ITF
+		layout widgets.QLayout_ITF
 	}
 	qmlBridge struct {
 		core.QObject
@@ -31,3 +32,35 @@ func init() {
 func RunOnUIThread(f func()) {
 	qml.SendToQml(f)
 }
+
+// get
+func (f *FBaseView) isLayout() bool {
+	return f.layout != nil
+}
+
+func (f *FBaseView) Size(w, h int) {
+	f.widget.QWidget_PTR().SetMinimumSize2(w, h)
+}
+func (f *FBaseView) IsEnabled() bool {
+	return f.widget.QWidget_PTR().IsEnabled()
+}
+func (f *FBaseView) IsVisible() bool {
+	return f.widget.QWidget_PTR().IsVisible()
+}
+func (f *FBaseView) GetWidth() int {
+	return f.widget.QWidget_PTR().Width()
+}
+func (f *FBaseView) GetHeight() int {
+	return f.widget.QWidget_PTR().Height()
+}
+func (f *FBaseView) GetX() int {
+	return f.widget.QWidget_PTR().X()
+}
+func (f *FBaseView) GetY() int {
+	return f.widget.QWidget_PTR().Y()
+}
+func (f *FBaseView) Focus() {
+	f.widget.QWidget_PTR().SetFocus2()
+}
+
+// base set
