@@ -120,7 +120,7 @@ func (v *FWindow) Title(t string) *FWindow {
 	return v
 }
 func ShowWin(i IView) *FWindow {
-	return TopWin().Size(200, 100).Title("Infomation").DeferShow().Add(i)
+	return TopWin().Size(200, 100).Title("").DeferShow().Add(i)
 }
 func ShowInfo(w *FWindow, title, info string) {
 	dialog := gtk.NewMessageDialog(

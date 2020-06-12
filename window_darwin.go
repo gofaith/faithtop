@@ -92,3 +92,26 @@ func (f *FWindow) OnCloseClicked(fn func() bool) *FWindow {
 	})
 	return f
 }
+
+func ShowWin(i IView) *FWindow {
+	return TopWin().Size(200, 100).Title("").DeferShow().Add(i)
+}
+
+func ShowPrompt(w *FWindow, title, label, defaultText string, onSubmit func(string)) {
+	dialog := widgets.NewQInputDialog(nil, core.Qt__WindowStaysOnTopHint)
+	ok := false
+	str := dialog.GetText(w.w, title, label, widgets.QLineEdit__Normal, "text", &ok, core.Qt__WindowStaysOnTopHint, core.Qt__ImhExclusiveInputMask)
+	if ok {
+		onSubmit(str)
+	}
+}
+
+func ShowInfo(w *FWindow, title, info string) {
+	box := widgets.NewQMessageBox(nil)
+	box.Information(nil, title, info, widgets.QMessageBox__Ok, widgets.QMessageBox__Ok)
+}
+
+func ShowErr(w *FWindow, title, err string) {
+	box := widgets.NewQMessageBox(nil)
+	box.Critical(nil, title, err, widgets.QMessageBox__Ok, widgets.QMessageBox__Ok)
+}
