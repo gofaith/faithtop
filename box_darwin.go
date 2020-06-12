@@ -46,7 +46,7 @@ func (f *FBox) Append(is ...IView) *FBox {
 				if i.baseView().expand {
 					i.baseView().widget.QWidget_PTR().SetSizePolicy2(widgets.QSizePolicy__Expanding, widgets.QSizePolicy__Expanding)
 				}
-				f.v.AddWidget(i.baseView().widget, 0, 0)
+				f.v.InsertWidget(-1, i.baseView().widget, 0, 0)
 			}
 		}
 		return f
@@ -58,7 +58,7 @@ func (f *FBox) Append(is ...IView) *FBox {
 			if i.baseView().expand {
 				i.baseView().widget.QWidget_PTR().SetSizePolicy2(widgets.QSizePolicy__Expanding, widgets.QSizePolicy__Expanding)
 			}
-			f.h.AddWidget(i.baseView().widget, 0, 0)
+			f.h.InsertWidget(-1, i.baseView().widget, 0, 0)
 		}
 	}
 	return f

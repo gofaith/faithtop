@@ -7,9 +7,8 @@ import (
 
 type FScroll struct {
 	FBaseView
-	v       *widgets.QScrollArea
-	box     *FBox
-	central *widgets.QWidget
+	v   *widgets.QScrollArea
+	box *FBox
 }
 
 func newScroll() *FScroll {
@@ -33,8 +32,6 @@ func VScroll() *FScroll {
 	f.v.SetVerticalScrollBarPolicy(core.Qt__ScrollBarAsNeeded)
 	f.v.SetHorizontalScrollBarPolicy(core.Qt__ScrollBarAlwaysOff)
 	f.box = VBox()
-	f.central = widgets.NewQWidget(nil, 0)
-	f.central.SetLayout(f.box.v)
 	return f
 }
 
@@ -43,8 +40,6 @@ func HScroll() *FScroll {
 	f.v.SetHorizontalScrollBarPolicy(core.Qt__ScrollBarAsNeeded)
 	f.v.SetVerticalScrollBarPolicy(core.Qt__ScrollBarAlwaysOff)
 	f.box = HBox()
-	f.central = widgets.NewQWidget(nil, 0)
-	f.central.SetLayout(f.box.h)
 	return f
 }
 
@@ -53,10 +48,17 @@ func (f *FScroll) baseView() *FBaseView {
 	return &f.FBaseView
 }
 
+func (f *FScroll) Assign(v **FScroll) *FScroll {
+	*v = f
+	return f
+}
+
 // scroll
 
 func (f *FScroll) Append(is ...IView) *FScroll {
 	f.box.Append(is...)
-	f.v.SetWidget(f.central)
+	central := widgets.NewQWidget(nil, 0)
+	central.SetLayout(f.box.layout)
+	f.v.SetWidget(central)
 	return f
 }
