@@ -12,6 +12,8 @@ type (
 	FBaseView struct {
 		widget widgets.QWidget_ITF
 		layout widgets.QLayout_ITF
+		expand bool
+		align  core.Qt__AlignmentFlag
 	}
 	qmlBridge struct {
 		core.QObject
@@ -64,3 +66,23 @@ func (f *FBaseView) Focus() {
 }
 
 // base set
+
+func (f *FBaseView) Expand(b bool) {
+	f.expand = b
+}
+
+func (f *FBaseView) AlignStart() {
+	f.align = core.Qt__AlignLeading
+}
+
+func (f *FBaseView) AlignEnd() {
+	f.align = core.Qt__AlignTrailing
+}
+
+func (f *FBaseView) AlignCenter() {
+	f.align = core.Qt__AlignCenter
+}
+
+func (f *FBaseView) AlignStretch() {
+	f.align = 0
+}

@@ -33,6 +33,28 @@ func (f *FButton) Assign(v **FButton) *FButton {
 	return f
 }
 
+func (f *FButton) Expand() *FButton {
+	f.FBaseView.Expand(true)
+	return f
+}
+
+func (f *FButton) AlignStart() *FButton {
+	f.FBaseView.AlignStart()
+	return f
+}
+func (f *FButton) AlignEnd() *FButton {
+	f.FBaseView.AlignEnd()
+	return f
+}
+func (f *FButton) AlignCenter() *FButton {
+	f.FBaseView.AlignCenter()
+	return f
+}
+func (f *FButton) AlignStretch() *FButton {
+	f.FBaseView.AlignStretch()
+	return f
+}
+
 // button
 func (f *FButton) Text(s string) *FButton {
 	f.v.SetText(s)

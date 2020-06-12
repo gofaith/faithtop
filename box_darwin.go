@@ -15,6 +15,7 @@ func VBox() *FBox {
 		v: widgets.NewQVBoxLayout2(nil),
 	}
 	f.layout = f.v
+	f.v.SetSpacing(0)
 	return f
 }
 
@@ -31,7 +32,10 @@ func (f *FBox) Append(is ...IView) *FBox {
 			if i.baseView().isLayout() {
 				f.v.AddItem(i.baseView().layout)
 			} else {
-				f.v.AddWidget(i.baseView().widget, 0, 0)
+				if i.baseView().expand {
+					i.baseView().widget.QWidget_PTR().SetSizePolicy2(widgets.QSizePolicy__Minimum, widgets.QSizePolicy__Expanding)
+				}
+				f.v.AddWidget(i.baseView().widget, 0, i.baseView().align)
 			}
 		}
 		return f
