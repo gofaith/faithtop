@@ -101,7 +101,7 @@ func ShowPrompt(w *FWindow, title, label, defaultText string, onSubmit func(stri
 	dialog := widgets.NewQInputDialog(nil, core.Qt__WindowStaysOnTopHint)
 	ok := false
 	str := dialog.GetText(w.w, title, label, widgets.QLineEdit__Normal, "text", &ok, core.Qt__WindowStaysOnTopHint, core.Qt__ImhExclusiveInputMask)
-	if ok {
+	if ok && onSubmit != nil {
 		onSubmit(str)
 	}
 }
@@ -114,4 +114,19 @@ func ShowInfo(w *FWindow, title, info string) {
 func ShowErr(w *FWindow, title, err string) {
 	box := widgets.NewQMessageBox(nil)
 	box.Critical(nil, title, err, widgets.QMessageBox__Ok, widgets.QMessageBox__Ok)
+}
+
+func ShowConfirm(w *FWindow, title, text string, onOk, onCancel func()) {
+	box := widgets.NewQMessageBox(nil)
+	rp := box.Question(nil, title, text, widgets.QMessageBox__Ok|widgets.QMessageBox__No, widgets.QMessageBox__Ok)
+	switch rp {
+	case widgets.QMessageBox__Ok:
+		if onOk != nil {
+			onOk()
+		}
+	case widgets.QMessageBox__No:
+		if onCancel != nil {
+			onCancel()
+		}
+	}
 }
