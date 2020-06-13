@@ -124,6 +124,3 @@ func (v *FBox) Append(is ...IView) *FBox {
 	}
 	return v
 }
-func Space() *FBox {
-	return VBox().Expand()
-}
