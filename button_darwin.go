@@ -14,7 +14,7 @@ func Button() *FButton {
 	f := &FButton{
 		v: widgets.NewQPushButton(nil),
 	}
-	f.widget = f.v
+	
 	f.v.ConnectClicked(func(bool) {
 		if f.click != nil {
 			f.click()
@@ -34,7 +34,7 @@ func (f *FButton) Assign(v **FButton) *FButton {
 }
 
 func (f *FButton) Expand() *FButton {
-	f.FBaseView.Expand(true)
+	f.FbaseView().expand(true)
 	return f
 }
 

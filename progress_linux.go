@@ -13,9 +13,9 @@ func Progress() *FProgress {
 	v := gtk.NewProgressBar()
 	fb := &FProgress{}
 	fb.v = v
-	fb.view = v
+
 	fb.widget = &v.Widget
-	setupWidget(fb)
+	
 	return fb
 }
 
@@ -50,7 +50,7 @@ func GetProgressById(id string) *FProgress {
 	}
 	return nil
 }
-func (v *FProgress) getBaseView() *FBaseView {
+func (v *FProgress) baseView() *FBaseView {
 	return &v.FBaseView
 }
 func (v *FProgress) OnClick(f func()) *FProgress {
@@ -63,10 +63,6 @@ func (v *FProgress) SetId(id string) *FProgress {
 }
 func (v *FProgress) Expand() *FProgress {
 	v.expand = true
-	return v
-}
-func (v *FProgress) NotFill() *FProgress {
-	v.notFill = true
 	return v
 }
 func (v *FProgress) Disable() *FProgress {
@@ -92,10 +88,6 @@ func (v *FProgress) Tooltips(s string) *FProgress {
 }
 func (v *FProgress) Focus() *FProgress {
 	v.FBaseView.Focus()
-	return v
-}
-func (v *FProgress) Padding(i uint) *FProgress {
-	v.padding = i
 	return v
 }
 

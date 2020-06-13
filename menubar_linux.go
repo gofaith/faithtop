@@ -13,9 +13,9 @@ func MenuBar() *FMenuBar {
 	v := gtk.NewMenuBar()
 	fb := &FMenuBar{}
 	fb.v = v
-	fb.view = v
+
 	fb.widget = &v.Widget
-	setupWidget(fb)
+	
 	return fb
 }
 
@@ -50,7 +50,7 @@ func GetMenuBarById(id string) *FMenuBar {
 	}
 	return nil
 }
-func (v *FMenuBar) getBaseView() *FBaseView {
+func (v *FMenuBar) baseView() *FBaseView {
 	return &v.FBaseView
 }
 func (v *FMenuBar) OnClick(f func()) *FMenuBar {
@@ -63,10 +63,6 @@ func (v *FMenuBar) SetId(id string) *FMenuBar {
 }
 func (v *FMenuBar) Expand() *FMenuBar {
 	v.expand = true
-	return v
-}
-func (v *FMenuBar) NotFill() *FMenuBar {
-	v.notFill = true
 	return v
 }
 func (v *FMenuBar) Disable() *FMenuBar {
@@ -92,10 +88,6 @@ func (v *FMenuBar) Tooltips(s string) *FMenuBar {
 }
 func (v *FMenuBar) Focus() *FMenuBar {
 	v.FBaseView.Focus()
-	return v
-}
-func (v *FMenuBar) Padding(i uint) *FMenuBar {
-	v.padding = i
 	return v
 }
 

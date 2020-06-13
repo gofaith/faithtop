@@ -13,9 +13,9 @@ func Edit() *FEdit {
 	v := gtk.NewEntry()
 	fb := &FEdit{}
 	fb.v = v
-	fb.view = v
+
 	fb.widget = &v.Widget
-	setupWidget(fb)
+	
 	return fb
 }
 
@@ -51,7 +51,7 @@ func GetEditById(id string) *FEdit {
 	}
 	return nil
 }
-func (v *FEdit) getBaseView() *FBaseView {
+func (v *FEdit) baseView() *FBaseView {
 	return &v.FBaseView
 }
 func (v *FEdit) OnClick(f func()) *FEdit {
@@ -85,10 +85,6 @@ func (v *FEdit) Tooltips(s string) *FEdit {
 }
 func (v *FEdit) Focus() *FEdit {
 	v.FBaseView.Focus()
-	return v
-}
-func (v *FEdit) Padding(i uint) *FEdit {
-	v.padding = i
 	return v
 }
 

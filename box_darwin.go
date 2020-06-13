@@ -18,7 +18,7 @@ func VBox() *FBox {
 	}
 	f.layout = widgets.NewQVBoxLayout2(nil).QBoxLayout_PTR()
 	f.v.SetLayout(f.layout)
-	f.widget = f.v
+	
 	return f
 }
 
@@ -28,7 +28,7 @@ func HBox() *FBox {
 	}
 	f.layout = widgets.NewQHBoxLayout2(nil).QBoxLayout_PTR()
 	f.v.SetLayout(f.layout)
-	f.widget = f.v
+	
 	return f
 }
 

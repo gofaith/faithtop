@@ -13,9 +13,9 @@ func StatusBar() *FStatusBar {
 	v := gtk.NewStatusbar()
 	fb := &FStatusBar{}
 	fb.v = v
-	fb.view = v
+
 	fb.widget = &v.Widget
-	setupWidget(fb)
+	
 	return fb
 }
 
@@ -54,7 +54,7 @@ func GetStatusBarById(id string) *FStatusBar {
 	}
 	return nil
 }
-func (v *FStatusBar) getBaseView() *FBaseView {
+func (v *FStatusBar) baseView() *FBaseView {
 	return &v.FBaseView
 }
 func (v *FStatusBar) OnClick(f func()) *FStatusBar {
@@ -67,10 +67,6 @@ func (v *FStatusBar) SetId(id string) *FStatusBar {
 }
 func (v *FStatusBar) Expand() *FStatusBar {
 	v.expand = true
-	return v
-}
-func (v *FStatusBar) NotFill() *FStatusBar {
-	v.notFill = true
 	return v
 }
 func (v *FStatusBar) Disable() *FStatusBar {
@@ -96,10 +92,6 @@ func (v *FStatusBar) Tooltips(s string) *FStatusBar {
 }
 func (v *FStatusBar) Focus() *FStatusBar {
 	v.FBaseView.Focus()
-	return v
-}
-func (v *FStatusBar) Padding(i uint) *FStatusBar {
-	v.padding = i
 	return v
 }
 

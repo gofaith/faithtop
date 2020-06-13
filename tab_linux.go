@@ -13,9 +13,9 @@ func TabLayout() *FTabLayout {
 	v := gtk.NewNotebook()
 	fb := &FTabLayout{}
 	fb.v = v
-	fb.view = v
+
 	fb.widget = &v.Widget
-	setupWidget(fb)
+	
 	return fb
 }
 
@@ -53,7 +53,7 @@ func GetTabsById(id string) *FTabLayout {
 	}
 	return nil
 }
-func (v *FTabLayout) getBaseView() *FBaseView {
+func (v *FTabLayout) baseView() *FBaseView {
 	return &v.FBaseView
 }
 func (v *FTabLayout) OnClick(f func()) *FTabLayout {
@@ -66,10 +66,6 @@ func (v *FTabLayout) SetId(id string) *FTabLayout {
 }
 func (v *FTabLayout) Expand() *FTabLayout {
 	v.expand = true
-	return v
-}
-func (v *FTabLayout) NotFill() *FTabLayout {
-	v.notFill = true
 	return v
 }
 func (v *FTabLayout) Disable() *FTabLayout {
@@ -97,10 +93,6 @@ func (v *FTabLayout) Focus() *FTabLayout {
 	v.FBaseView.Focus()
 	return v
 }
-func (v *FTabLayout) Padding(i uint) *FTabLayout {
-	v.padding = i
-	return v
-}
 
 //====================================================================
 type FTab struct {
@@ -117,7 +109,7 @@ func Tab(title string, view IView) *FTab {
 
 func (v *FTabLayout) Tabs(ps ...*FTab) *FTabLayout {
 	for _, p := range ps {
-		v.v.AppendPage(p.content.getBaseView().view, p.title)
+		v.v.AppendPage(p.content.baseView().widget, p.title)
 	}
 	return v
 }

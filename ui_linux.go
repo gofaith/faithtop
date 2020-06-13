@@ -10,21 +10,14 @@ import (
 )
 
 type IView interface {
-	getBaseView() *FBaseView
+	baseView() *FBaseView
 }
 type FBaseView struct {
-	view                  gtk.IWidget
-	padding               uint
 	widget                *gtk.Widget
 	initWidth, initHeight int
-	expand, notFill       bool
+	expand                bool
 }
 
-func setupWidget(f IView) {
-	// f.getBaseView().widget.SetCanFocus(true)
-	f.getBaseView().initWidth = -56
-	f.getBaseView().initHeight = -56
-}
 func RunOnUIThread(f func()) {
 	glib.IdleAdd(f)
 }
@@ -40,25 +33,14 @@ func (v *FBaseView) Size(w, h int) {
 func (v *FBaseView) IsEnabled() bool {
 	return v.widget.GetSensitive()
 }
-func (v *FBaseView) IsVisible() bool {
-	return v.widget.GetVisible()
+func (f *FBaseView) Invisible() {
+	f.widget.Hide()
 }
-func (v *FBaseView) GetX() int {
-	return v.widget.GetAllocation().X
-}
-func (v *FBaseView) GetY() int {
-	return v.widget.GetAllocation().Y
+func (f *FBaseView) Visible() {
+	f.widget.Show()
 }
 func (v *FBaseView) Focus() {
-	v.widget.GrabFocus()
-}
-// func (v *FBaseView) OnEnter(f func()) {
-// 	v.widget.Connect("activate", f)
-// }
-func (v *FBaseView) Invisible() {
-	RunOnUIThread(func() {
-		v.widget.SetVisible(false)
-	})
+	v.widget.Hide()
 }
 
 //fix fs list empty

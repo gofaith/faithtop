@@ -19,7 +19,6 @@ func (v *FMenuItem) getMenuItem() *gtk.MenuItem {
 func MenuItem(s string) *FMenuItem {
 	fb := &FMenuItem{}
 	fb.v = gtk.NewMenuItemWithMnemonic(s)
-	fb.view = fb.v
 	fb.widget = &fb.v.Widget
 	return fb
 }
@@ -28,7 +27,7 @@ func (v *FMenuItem) OnClick(f func()) *FMenuItem {
 	v.v.Connect("activate", f)
 	return v
 }
-func (v *FMenuItem) getBaseView() *FBaseView {
+func (v *FMenuItem) baseView() *FBaseView {
 	return &v.FBaseView
 }
 
@@ -79,7 +78,6 @@ func (v *FCheckMenuItem) getMenuItem() *gtk.MenuItem {
 func CheckMenuItem(s string) *FCheckMenuItem {
 	fb := &FCheckMenuItem{}
 	fb.v = gtk.NewCheckMenuItemWithMnemonic(s)
-	fb.view = fb.v
 	fb.widget = &fb.v.Widget
 	return fb
 }
@@ -90,7 +88,7 @@ func (v *FCheckMenuItem) OnChange(f func(bool)) *FCheckMenuItem {
 	})
 	return v
 }
-func (v *FCheckMenuItem) getBaseView() *FBaseView {
+func (v *FCheckMenuItem) baseView() *FBaseView {
 	return &v.FBaseView
 }
 

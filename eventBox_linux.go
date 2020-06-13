@@ -13,7 +13,7 @@ type FEventBox struct {
 func EventBox(i IView) *FEventBox {
 	f := &FEventBox{}
 	f.v = gtk.NewEventBox()
-	f.view = f.v
+	
 	f.widget = &f.v.Widget
 
 	f.v.Connect("button-press-event", func() {
@@ -21,7 +21,7 @@ func EventBox(i IView) *FEventBox {
 			f.onClick()
 		}
 	})
-	setupWidget(f)
+	
 	if i != nil {
 		f.Add(i)
 	}
@@ -57,7 +57,7 @@ func GetEventBoxById(id string) *FEventBox {
 	}
 	return nil
 }
-func (v *FEventBox) getBaseView() *FBaseView {
+func (v *FEventBox) baseView() *FBaseView {
 	return &v.FBaseView
 }
 func (v *FEventBox) SetId(id string) *FEventBox {
@@ -66,10 +66,6 @@ func (v *FEventBox) SetId(id string) *FEventBox {
 }
 func (v *FEventBox) Expand() *FEventBox {
 	v.expand = true
-	return v
-}
-func (v *FEventBox) NotFill() *FEventBox {
-	v.notFill = true
 	return v
 }
 func (v *FEventBox) Disable() *FEventBox {
@@ -97,10 +93,6 @@ func (v *FEventBox) Focus() *FEventBox {
 	v.FBaseView.Focus()
 	return v
 }
-func (v *FEventBox) Padding(i uint) *FEventBox {
-	v.padding = i
-	return v
-}
 
 func (v *FEventBox) OnDragDrop(f func([]string)) *FEventBox {
 	v.FBaseView.OnDragDrop(f)
@@ -109,7 +101,7 @@ func (v *FEventBox) OnDragDrop(f func([]string)) *FEventBox {
 
 //====================================================================
 func (v *FEventBox) Add(i IView) *FEventBox {
-	v.v.Add(i.getBaseView().widget)
+	v.v.Add(i.baseView().widget)
 	return v
 }
 func (v *FEventBox) OnClick(f func()) *FEventBox {

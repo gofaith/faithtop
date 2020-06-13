@@ -13,10 +13,10 @@ func TextArea() *FTextArea {
 	fb := &FTextArea{}
 	v := gtk.NewTextView()
 	fb.v = v
-	fb.view = v
+
 	fb.widget = &v.Widget
 	fb.v.SetEditable(true)
-	setupWidget(fb)
+	
 	return fb
 }
 
@@ -50,7 +50,7 @@ func GetTextAreaById(id string) *FTextArea {
 	}
 	return nil
 }
-func (v *FTextArea) getBaseView() *FBaseView {
+func (v *FTextArea) baseView() *FBaseView {
 	return &v.FBaseView
 }
 func (v *FTextArea) SetId(id string) *FTextArea {
@@ -59,10 +59,6 @@ func (v *FTextArea) SetId(id string) *FTextArea {
 }
 func (v *FTextArea) Expand() *FTextArea {
 	v.expand = true
-	return v
-}
-func (v *FTextArea) NotFill() *FTextArea {
-	v.notFill = true
 	return v
 }
 func (v *FTextArea) Disable() *FTextArea {
@@ -88,10 +84,6 @@ func (v *FTextArea) Tooltips(s string) *FTextArea {
 }
 func (v *FTextArea) Focus() *FTextArea {
 	v.FBaseView.Focus()
-	return v
-}
-func (v *FTextArea) Padding(i uint) *FTextArea {
-	v.padding = i
 	return v
 }
 func (v *FTextArea) OnDragDrop(f func([]string)) *FTextArea {

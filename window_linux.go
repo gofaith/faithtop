@@ -60,7 +60,7 @@ func (v *FWindow) Top() *FWindow {
 }
 
 func (v *FWindow) Add(i IView) *FWindow {
-	v.v.Add(i.getBaseView().view)
+	v.v.Add(i.baseView().widget)
 	v.child = i
 	if v.showAfter {
 		v.Show()
@@ -101,10 +101,10 @@ func (v *FWindow) DeferShow() *FWindow {
 	return v
 }
 func (v *FWindow) VBox(is ...IView) *FWindow {
-	return v.Add(VBox().Padding(5).Append(is...))
+	return v.Add(VBox().Append(is...))
 }
 func (v *FWindow) HBox(is ...IView) *FWindow {
-	return v.Add(HBox().Padding(5).Append(is...))
+	return v.Add(HBox().Append(is...))
 }
 func (v *FWindow) VScroll(is ...IView) *FWindow {
 	return v.Add(VScroll().Append(is...))

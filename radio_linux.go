@@ -20,10 +20,10 @@ func Radio(groupId string) *FRadio {
 	v := gtk.NewRadioButton(group)
 	fb := &FRadio{}
 	fb.v = v
-	fb.view = v
+
 	fb.widget = &v.Widget
 	fb.groupId = groupId
-	setupWidget(fb)
+	
 	if group == nil {
 		groupIdMap[groupId] = fb
 	}
@@ -70,7 +70,7 @@ func GetRadioById(id string) *FRadio {
 	}
 	return nil
 }
-func (v *FRadio) getBaseView() *FBaseView {
+func (v *FRadio) baseView() *FBaseView {
 	return &v.FBaseView
 }
 func (v *FRadio) OnClick(f func()) *FRadio {
@@ -83,10 +83,6 @@ func (v *FRadio) SetId(id string) *FRadio {
 }
 func (v *FRadio) Expand() *FRadio {
 	v.expand = true
-	return v
-}
-func (v *FRadio) NotFill() *FRadio {
-	v.notFill = true
 	return v
 }
 func (v *FRadio) Disable() *FRadio {
@@ -112,10 +108,6 @@ func (v *FRadio) Tooltips(s string) *FRadio {
 }
 func (v *FRadio) Focus() *FRadio {
 	v.FBaseView.Focus()
-	return v
-}
-func (v *FRadio) Padding(i uint) *FRadio {
-	v.padding = i
 	return v
 }
 

@@ -14,7 +14,7 @@ func Edit() *FEdit {
 	f := &FEdit{
 		v: widgets.NewQLineEdit(nil),
 	}
-	f.widget = f.v
+	
 	f.v.ConnectTextChanged(func(text string) {
 		if f.onChange != nil {
 			f.onChange(text)
@@ -34,7 +34,7 @@ func (f *FEdit) Assign(v **FEdit) *FEdit {
 }
 
 func (f *FEdit) Expand() *FEdit {
-	f.FBaseView.Expand(true)
+	f.FbaseView().expand(true)
 	return f
 }
 

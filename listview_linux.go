@@ -79,7 +79,7 @@ func GetListViewById(id string) *FListView {
 	}
 	return nil
 }
-func (v *FListView) getBaseView() *FBaseView {
+func (v *FListView) baseView() *FBaseView {
 	return &v.FBaseView
 }
 
@@ -93,10 +93,6 @@ func (v *FListView) SetId(id string) *FListView {
 }
 func (v *FListView) Expand() *FListView {
 	v.expand = true
-	return v
-}
-func (v *FListView) NotFill() *FListView {
-	v.notFill = true
 	return v
 }
 func (v *FListView) Disable() *FListView {
@@ -124,10 +120,6 @@ func (v *FListView) Focus() *FListView {
 	v.FBaseView.Focus()
 	return v
 }
-func (v *FListView) Padding(i uint) *FListView {
-	v.padding = i
-	return v
-}
 
 func (v *FListView) OnDragDrop(f func([]string)) *FListView {
 	v.FBaseView.OnDragDrop(f)
@@ -151,13 +143,13 @@ func (fb *FListView) OnDataSetChanged() *FListView {
 				fb.vhs = append(fb.vhs, ViewHolder{vlist: make(map[string]IView)})
 			}
 			createdView := fb.createView(fb)
-			createdView.getBaseView().widget.ShowAll()
+			createdView.baseView().widget.ShowAll()
 			fb.Append(createdView)
 			fb.vhs[i].root = createdView
 		}
 	} else {
 		for i := new_size; i < origin_size; i++ {
-			fb.vhs[i].root.getBaseView().Invisible()
+			fb.vhs[i].root.baseView().Invisible()
 
 		}
 	}

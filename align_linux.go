@@ -12,10 +12,9 @@ type FAlign struct {
 func newAlign(i IView, xa, ya, xs, ys float64) *FAlign {
 	f := &FAlign{}
 	f.v = gtk.NewAlignment(xa, ya, xs, ys)
-	f.view = f.v
 	f.widget = &f.v.Widget
-	f.v.Add(i.getBaseView().widget)
-	setupWidget(f)
+	f.v.Add(i.baseView().widget)
+
 	return f
 }
 func AlignLeft(i IView) *FAlign {
@@ -71,7 +70,7 @@ func GetAlignById(id string) *FAlign {
 	}
 	return nil
 }
-func (v *FAlign) getBaseView() *FBaseView {
+func (v *FAlign) baseView() *FBaseView {
 	return &v.FBaseView
 }
 func (v *FAlign) OnClick(f func()) *FAlign {
@@ -84,10 +83,6 @@ func (v *FAlign) SetId(id string) *FAlign {
 }
 func (v *FAlign) Expand() *FAlign {
 	v.expand = true
-	return v
-}
-func (v *FAlign) NotFill() *FAlign {
-	v.notFill = true
 	return v
 }
 func (v *FAlign) Disable() *FAlign {
@@ -113,10 +108,6 @@ func (v *FAlign) Tooltips(s string) *FAlign {
 }
 func (v *FAlign) Focus() *FAlign {
 	v.FBaseView.Focus()
-	return v
-}
-func (v *FAlign) Padding(i uint) *FAlign {
-	v.padding = i
 	return v
 }
 

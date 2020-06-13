@@ -15,9 +15,9 @@ func Text(t string) *FText {
 	v.SetText(t)
 	v.SetLineWrap(true)
 	fb.v = v
-	fb.view = v
+
 	fb.widget = &v.Widget
-	setupWidget(fb)
+	
 	return fb
 }
 
@@ -51,7 +51,7 @@ func GetTextById(id string) *FText {
 	}
 	return nil
 }
-func (v *FText) getBaseView() *FBaseView {
+func (v *FText) baseView() *FBaseView {
 	return &v.FBaseView
 }
 func (v *FText) SetId(id string) *FText {
@@ -60,10 +60,6 @@ func (v *FText) SetId(id string) *FText {
 }
 func (v *FText) Expand() *FText {
 	v.expand = true
-	return v
-}
-func (v *FText) NotFill() *FText {
-	v.notFill = true
 	return v
 }
 func (v *FText) Disable() *FText {
@@ -89,10 +85,6 @@ func (v *FText) Tooltips(s string) *FText {
 }
 func (v *FText) Focus() *FText {
 	v.FBaseView.Focus()
-	return v
-}
-func (v *FText) Padding(i uint) *FText {
-	v.padding = i
 	return v
 }
 func (v *FText) OnDragDrop(f func([]string)) *FText {

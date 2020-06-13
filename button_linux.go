@@ -6,7 +6,7 @@ import (
 
 type FButton struct {
 	FBaseView
-	v *gtk.Button
+	v       *gtk.Button
 	onClick func()
 }
 
@@ -14,14 +14,13 @@ func Button() *FButton {
 	v := gtk.NewButton()
 	fb := &FButton{}
 	fb.v = v
-	fb.view = v
 	fb.widget = &v.Widget
-	fb.v.Connect("clicked", func(){
-		if fb.onClick!=nil{
+	fb.v.Connect("clicked", func() {
+		if fb.onClick != nil {
 			fb.onClick()
 		}
 	})
-	setupWidget(fb)
+
 	return fb
 }
 
@@ -30,8 +29,8 @@ func (v *FButton) Size(w, h int) *FButton {
 	v.FBaseView.Size(w, h)
 	return v
 }
-func (f *FButton) Assign(v **FButton)*FButton  {
-	*v=f
+func (f *FButton) Assign(v **FButton) *FButton {
+	*v = f
 	return f
 }
 func (vh *ViewHolder) GetButtonByItemId(itemId string) *FButton {
@@ -55,11 +54,11 @@ func GetButtonById(id string) *FButton {
 	}
 	return nil
 }
-func (v *FButton) getBaseView() *FBaseView {
+func (v *FButton) baseView() *FBaseView {
 	return &v.FBaseView
 }
 func (v *FButton) OnClick(f func()) *FButton {
-	v.onClick=f
+	v.onClick = f
 	return v
 }
 func (v *FButton) SetId(id string) *FButton {
@@ -68,10 +67,6 @@ func (v *FButton) SetId(id string) *FButton {
 }
 func (v *FButton) Expand() *FButton {
 	v.expand = true
-	return v
-}
-func (v *FButton) NotFill() *FButton {
-	v.notFill = true
 	return v
 }
 func (v *FButton) Disable() *FButton {
@@ -97,10 +92,6 @@ func (v *FButton) Tooltips(s string) *FButton {
 }
 func (v *FButton) Focus() *FButton {
 	v.FBaseView.Focus()
-	return v
-}
-func (v *FButton) Padding(i uint) *FButton {
-	v.padding = i
 	return v
 }
 

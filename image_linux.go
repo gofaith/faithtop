@@ -21,9 +21,9 @@ func Image() *FImage {
 	v := gtk.NewImage()
 	fb := &FImage{}
 	fb.v = v
-	fb.view = v
+
 	fb.widget = &v.Widget
-	setupWidget(fb)
+	
 	currentImage = fb
 	fb.scaleType = 2
 	fb.Src("/")
@@ -61,7 +61,7 @@ func GetImageById(id string) *FImage {
 	}
 	return nil
 }
-func (v *FImage) getBaseView() *FBaseView {
+func (v *FImage) baseView() *FBaseView {
 	return &v.FBaseView
 }
 func (v *FImage) SetId(id string) *FImage {
@@ -70,10 +70,6 @@ func (v *FImage) SetId(id string) *FImage {
 }
 func (v *FImage) Expand() *FImage {
 	v.expand = true
-	return v
-}
-func (v *FImage) NotFill() *FImage {
-	v.notFill = true
 	return v
 }
 func (v *FImage) Disable() *FImage {
@@ -99,10 +95,6 @@ func (v *FImage) Tooltips(s string) *FImage {
 }
 func (v *FImage) Focus() *FImage {
 	v.FBaseView.Focus()
-	return v
-}
-func (v *FImage) Padding(i uint) *FImage {
-	v.padding = i
 	return v
 }
 

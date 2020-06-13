@@ -13,9 +13,8 @@ func Check() *FCheck {
 	v := gtk.NewCheckButton()
 	fb := &FCheck{}
 	fb.v = v
-	fb.view = v
 	fb.widget = &v.Widget
-	setupWidget(fb)
+	
 	return fb
 }
 
@@ -49,7 +48,7 @@ func GetCheckById(id string) *FCheck {
 	}
 	return nil
 }
-func (v *FCheck) getBaseView() *FBaseView {
+func (v *FCheck) baseView() *FBaseView {
 	return &v.FBaseView
 }
 func (v *FCheck) OnClick(f func()) *FCheck {
@@ -62,10 +61,6 @@ func (v *FCheck) SetId(id string) *FCheck {
 }
 func (v *FCheck) Expand() *FCheck {
 	v.expand = true
-	return v
-}
-func (v *FCheck) NotFill() *FCheck {
-	v.notFill = true
 	return v
 }
 func (v *FCheck) Disable() *FCheck {
@@ -91,10 +86,6 @@ func (v *FCheck) Tooltips(s string) *FCheck {
 }
 func (v *FCheck) Focus() *FCheck {
 	v.FBaseView.Focus()
-	return v
-}
-func (v *FCheck) Padding(i uint) *FCheck {
-	v.padding = i
 	return v
 }
 

@@ -16,9 +16,9 @@ func Combo() *FCombo {
 	v := gtk.NewComboBoxNewText()
 	fb := &FCombo{}
 	fb.v = v
-	fb.view = v
+
 	fb.widget = &v.Widget
-	setupWidget(fb)
+	
 	return fb
 }
 
@@ -54,7 +54,7 @@ func GetComboById(id string) *FCombo {
 	}
 	return nil
 }
-func (v *FCombo) getBaseView() *FBaseView {
+func (v *FCombo) baseView() *FBaseView {
 	return &v.FBaseView
 }
 func (v *FCombo) OnClick(f func()) *FCombo {
@@ -67,10 +67,6 @@ func (v *FCombo) SetId(id string) *FCombo {
 }
 func (v *FCombo) Expand() *FCombo {
 	v.expand = true
-	return v
-}
-func (v *FCombo) NotFill() *FCombo {
-	v.notFill = true
 	return v
 }
 func (v *FCombo) Disable() *FCombo {
@@ -96,10 +92,6 @@ func (v *FCombo) Tooltips(s string) *FCombo {
 }
 func (v *FCombo) Focus() *FCombo {
 	v.FBaseView.Focus()
-	return v
-}
-func (v *FCombo) Padding(i uint) *FCombo {
-	v.padding = i
 	return v
 }
 

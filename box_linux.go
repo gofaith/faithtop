@@ -13,20 +13,19 @@ type FBox struct {
 func VBox() *FBox {
 	f := &FBox{}
 	f.v = &gtk.NewVBox(false, 0).Box
-	f.view = f.v
 	f.widget = &f.v.Widget
 	f.isHorizontal = false
-	setupWidget(f)
+
 	return f
 }
 
 func HBox() *FBox {
 	f := &FBox{}
 	f.v = &gtk.NewHBox(false, 0).Box
-	f.view = f.v
+
 	f.widget = &f.v.Widget
 	f.isHorizontal = true
-	setupWidget(f)
+
 	return f
 }
 
@@ -60,7 +59,7 @@ func GetBoxById(id string) *FBox {
 	}
 	return nil
 }
-func (v *FBox) getBaseView() *FBaseView {
+func (v *FBox) baseView() *FBaseView {
 	return &v.FBaseView
 }
 func (v *FBox) OnClick(f func()) *FBox {
@@ -73,10 +72,6 @@ func (v *FBox) SetId(id string) *FBox {
 }
 func (v *FBox) Expand() *FBox {
 	v.expand = true
-	return v
-}
-func (v *FBox) NotFill() *FBox {
-	v.notFill = true
 	return v
 }
 func (v *FBox) Disable() *FBox {
@@ -104,10 +99,6 @@ func (v *FBox) Focus() *FBox {
 	v.FBaseView.Focus()
 	return v
 }
-func (v *FBox) Padding(i uint) *FBox {
-	v.padding = i
-	return v
-}
 
 func (v *FBox) OnDragDrop(f func([]string)) *FBox {
 	v.FBaseView.OnDragDrop(f)
@@ -120,7 +111,7 @@ func (v *FBox) Append(is ...IView) *FBox {
 		if i == nil {
 			continue
 		}
-		v.v.PackStart(i.getBaseView().widget, i.getBaseView().expand, !i.getBaseView().notFill, i.getBaseView().padding)
+		v.v.PackStart(i.baseView().widget, i.baseView().expand, true, 0)
 	}
 	return v
 }

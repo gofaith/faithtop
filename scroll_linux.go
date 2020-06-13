@@ -13,9 +13,8 @@ type FScroll struct {
 func newScroll() *FScroll {
 	v := gtk.NewScrolledWindow(nil, nil)
 	f := &FScroll{}
-	setupWidget(f)
+
 	f.v = v
-	f.view = v
 	f.widget = &v.Widget
 	return f
 }
@@ -23,7 +22,7 @@ func newScroll() *FScroll {
 func Scroll(child IView) *FScroll {
 	fb := newScroll()
 	fb.v.SetPolicy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-	fb.v.Add(child.getBaseView().widget)
+	fb.v.Add(child.baseView().widget)
 	return fb
 }
 func VScroll() *FScroll {
@@ -77,7 +76,7 @@ func GetScrollById(id string) *FScroll {
 	}
 	return nil
 }
-func (v *FScroll) getBaseView() *FBaseView {
+func (v *FScroll) baseView() *FBaseView {
 	return &v.FBaseView
 }
 
@@ -91,10 +90,6 @@ func (v *FScroll) SetId(id string) *FScroll {
 }
 func (v *FScroll) Expand() *FScroll {
 	v.expand = true
-	return v
-}
-func (v *FScroll) NotFill() *FScroll {
-	v.notFill = true
 	return v
 }
 func (v *FScroll) Disable() *FScroll {
@@ -120,10 +115,6 @@ func (v *FScroll) Tooltips(s string) *FScroll {
 }
 func (v *FScroll) Focus() *FScroll {
 	v.FBaseView.Focus()
-	return v
-}
-func (v *FScroll) Padding(i uint) *FScroll {
-	v.padding = i
 	return v
 }
 
