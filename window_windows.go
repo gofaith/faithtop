@@ -19,10 +19,12 @@ var DefaultWindowIcon *walk.Icon
 func Win() *FWindow {
 	f := &FWindow{}
 	f.dec = declarative.MainWindow{
-		Icon:     DefaultWindowIcon,
 		AssignTo: &f.w,
 		Size:     declarative.Size{Width: 300, Height: 300},
 		Layout:   declarative.VBox{MarginsZero: true, SpacingZero: true},
+	}
+	if DefaultWindowIcon != nil {
+		f.dec.Icon = DefaultWindowIcon
 	}
 	return f
 }
@@ -83,5 +85,13 @@ func (f *FWindow) DeferShow() *FWindow {
 
 func (f *FWindow) OnCloseClicked(fn func() bool) *FWindow {
 	f.closeClicked = fn
+	return f
+}
+
+func (f *FWindow) Add(i IView) *FWindow {
+	f.dec.Children = []declarative.Widget{i.declarative()}
+	if f.showAfter {
+		f.Show()
+	}
 	return f
 }
