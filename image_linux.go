@@ -138,17 +138,17 @@ func setImageFileSrc(v *FImage, url string) {
 		if e != nil {
 			return
 		}
-		var w, h int = v.GetWidth(), v.GetHeight()
+		var w, h int = v.v.GetAllocation().Width, v.v.GetAllocation().Height
 		if v.initWidth == -56 { //initialize it
-			v.initWidth = v.GetWidth()
-			v.initHeight = v.GetHeight()
+			v.initWidth = v.v.GetAllocation().Width
+			v.initHeight = v.v.GetAllocation().Height
 		}
 		var widthIsWrap, heightIsWrap = (v.initWidth < 2), (v.initHeight < 2)
 		if v.scaleType == 0 { //fitCenter
 			if widthIsWrap && !heightIsWrap {
-				w = int(float64(v.GetHeight()) / float64(porigin.GetHeight()) * float64(porigin.GetWidth()))
+				w = int(float64(v.v.GetAllocation().Height) / float64(porigin.GetHeight()) * float64(porigin.GetWidth()))
 			} else if heightIsWrap && !widthIsWrap {
-				h = int(float64(v.GetWidth()) / float64(porigin.GetWidth()) * float64(porigin.GetHeight()))
+				h = int(float64(v.v.GetAllocation().Width) / float64(porigin.GetWidth()) * float64(porigin.GetHeight()))
 			} else if widthIsWrap && heightIsWrap {
 				w = porigin.GetWidth()
 				h = porigin.GetHeight()

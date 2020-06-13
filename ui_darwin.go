@@ -48,12 +48,6 @@ func (f *FBaseView) IsEnabled() bool {
 func (f *FBaseView) IsVisible() bool {
 	return f.widget.QWidget_PTR().IsVisible()
 }
-func (f *FBaseView) GetWidth() int {
-	return f.widget.QWidget_PTR().Width()
-}
-func (f *FBaseView) GetHeight() int {
-	return f.widget.QWidget_PTR().Height()
-}
 func (f *FBaseView) GetX() int {
 	return f.widget.QWidget_PTR().X()
 }

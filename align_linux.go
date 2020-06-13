@@ -40,7 +40,6 @@ func AlignCenter(i IView) *FAlign {
 	return newAlign(i, 0.5, 0.5, 0, 0)
 }
 
-
 // ================================================================
 func (v *FAlign) Size(w, h int) *FAlign {
 	v.FBaseView.Size(w, h)
@@ -118,10 +117,6 @@ func (v *FAlign) Focus() *FAlign {
 }
 func (v *FAlign) Padding(i uint) *FAlign {
 	v.padding = i
-	return v
-}
-func (v *FAlign) OnEnter(f func()) *FAlign {
-	v.FBaseView.OnEnter(f)
 	return v
 }
 
