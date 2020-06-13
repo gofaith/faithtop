@@ -3,3 +3,4 @@ moc.h
 moc_moc.h
 moc_cgo_darwin_darwin_amd64.go
 moc.cpp
+.idea/
