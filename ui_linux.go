@@ -43,12 +43,6 @@ func (v *FBaseView) IsEnabled() bool {
 func (v *FBaseView) IsVisible() bool {
 	return v.widget.GetVisible()
 }
-func (v *FBaseView) GetWidth() int {
-	return v.widget.GetAllocation().Width
-}
-func (v *FBaseView) GetHeight() int {
-	return v.widget.GetAllocation().Height
-}
 func (v *FBaseView) GetX() int {
 	return v.widget.GetAllocation().X
 }
@@ -58,9 +52,9 @@ func (v *FBaseView) GetY() int {
 func (v *FBaseView) Focus() {
 	v.widget.GrabFocus()
 }
-func (v *FBaseView) OnEnter(f func()) {
-	v.widget.Connect("activate", f)
-}
+// func (v *FBaseView) OnEnter(f func()) {
+// 	v.widget.Connect("activate", f)
+// }
 func (v *FBaseView) Invisible() {
 	RunOnUIThread(func() {
 		v.widget.SetVisible(false)

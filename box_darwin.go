@@ -6,27 +6,29 @@ import (
 
 type FBox struct {
 	FBaseView
-	v *widgets.QVBoxLayout
-	h *widgets.QHBoxLayout
+	layout     *widgets.QBoxLayout
+	v          *widgets.QWidget
+	isVertical bool
 }
 
 func VBox() *FBox {
 	f := &FBox{
-		v: widgets.NewQVBoxLayout2(nil),
+		v:          widgets.NewQWidget(nil, 0),
+		isVertical: true,
 	}
-	f.layout = f.v
-	f.v.SetSpacing(0)
-	f.v.SetContentsMargins(0, 0, 0, 0)
+	f.layout = widgets.NewQVBoxLayout2(nil).QBoxLayout_PTR()
+	f.v.SetLayout(f.layout)
+	f.widget = f.v
 	return f
 }
 
 func HBox() *FBox {
 	f := &FBox{
-		h: widgets.NewQHBoxLayout2(nil),
+		v: widgets.NewQWidget(nil, 0),
 	}
-	f.layout = f.h
-	f.h.SetSpacing(0)
-	f.h.SetContentsMargins(0, 0, 0, 0)
+	f.layout = widgets.NewQHBoxLayout2(nil).QBoxLayout_PTR()
+	f.v.SetLayout(f.layout)
+	f.widget = f.v
 	return f
 }
 
@@ -38,28 +40,26 @@ func (f *FBox) baseView() *FBaseView {
 // box
 
 func (f *FBox) Append(is ...IView) *FBox {
-	if f.v != nil {
+	if f.isVertical {
 		for _, i := range is {
-			if i.baseView().isLayout() {
-				f.v.AddItem(i.baseView().layout)
-			} else {
-				if i.baseView().expand {
-					i.baseView().widget.QWidget_PTR().SetSizePolicy2(widgets.QSizePolicy__Expanding, widgets.QSizePolicy__Expanding)
-				}
-				f.v.InsertWidget(-1, i.baseView().widget, 0, 0)
+			if i.baseView().expand {
+				i.baseView().widget.QWidget_PTR().SetSizePolicy2(widgets.QSizePolicy__Expanding, widgets.QSizePolicy__Expanding)
 			}
+
+			f.layout.InsertWidget(-1, i.baseView().widget, 0, 0)
 		}
 		return f
 	}
 	for _, i := range is {
-		if i.baseView().isLayout() {
-			f.h.AddItem(i.baseView().layout)
-		} else {
-			if i.baseView().expand {
-				i.baseView().widget.QWidget_PTR().SetSizePolicy2(widgets.QSizePolicy__Expanding, widgets.QSizePolicy__Expanding)
-			}
-			f.h.InsertWidget(-1, i.baseView().widget, 0, 0)
+		if i.baseView().expand {
+			i.baseView().widget.QWidget_PTR().SetSizePolicy2(widgets.QSizePolicy__Expanding, widgets.QSizePolicy__Expanding)
 		}
+		f.layout.InsertWidget(-1, i.baseView().widget, 0, 0)
 	}
+	return f
+}
+
+func (f *FBox) OnDragDrop(fn func([]string)) *FBox {
+	f.FBaseView.OnDragDrop(fn)
 	return f
 }

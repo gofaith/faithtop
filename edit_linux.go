@@ -58,16 +58,8 @@ func (v *FEdit) OnClick(f func()) *FEdit {
 	v.v.Connect("clicked", f)
 	return v
 }
-func (v *FEdit) SetId(id string) *FEdit {
-	idMap[id] = v
-	return v
-}
 func (v *FEdit) Expand() *FEdit {
 	v.expand = true
-	return v
-}
-func (v *FEdit) NotFill() *FEdit {
-	v.notFill = true
 	return v
 }
 func (v *FEdit) Disable() *FEdit {

@@ -69,13 +69,7 @@ func (f *FWindow) DeferShow() *FWindow {
 }
 
 func (f *FWindow) Add(i IView) *FWindow {
-	if i.baseView().isLayout() {
-		central := widgets.NewQWidget(f.w, 0)
-		central.SetLayout(i.baseView().layout)
-		f.w.SetCentralWidget(central)
-	} else {
-		f.w.SetCentralWidget(i.baseView().widget)
-	}
+	f.w.SetCentralWidget(i.baseView().widget)
 
 	if f.showAfter {
 		f.Show()

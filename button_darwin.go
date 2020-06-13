@@ -38,11 +38,19 @@ func (f *FButton) Expand() *FButton {
 	return f
 }
 
-func (f *FButton) Size(w,h int) *FButton {
+func (f *FButton) Size(w, h int) *FButton {
 	f.FBaseView.Size(w, h)
 	return f
 }
 
+func (f *FButton) Invisible() *FButton {
+	f.FBaseView.Invisible()
+	return f
+}
+func (f *FButton) Visible() *FButton {
+	f.FBaseView.Visible()
+	return f
+}
 // button
 func (f *FButton) Text(s string) *FButton {
 	f.v.SetText(s)
@@ -51,5 +59,15 @@ func (f *FButton) Text(s string) *FButton {
 
 func (f *FButton) OnClick(fn func()) *FButton {
 	f.click = fn
+	return f
+}
+
+func (f *FButton) Disable() *FButton {
+	f.v.SetEnabled(false)
+	return f
+}
+
+func (f *FButton) Enable() *FButton {
+	f.v.SetEnabled(true)
 	return f
 }
