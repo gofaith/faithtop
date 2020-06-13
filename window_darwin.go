@@ -9,7 +9,6 @@ import (
 type FWindow struct {
 	w         *widgets.QMainWindow
 	showAfter bool
-	destroy   func()
 }
 
 func Win() *FWindow {
@@ -49,14 +48,12 @@ func (f *FWindow) Show() *FWindow {
 	return f
 }
 
-func (f *FWindow) Close() *FWindow {
+func (f *FWindow) Close()  {
 	f.w.DestroyQMainWindow()
-	return f
 }
 
-func (f *FWindow) Hide() *FWindow {
+func (f *FWindow) Hide()  {
 	f.w.Hide()
-	return f
 }
 
 func (f *FWindow) IsVisible() bool {
@@ -75,11 +72,6 @@ func (f *FWindow) Add(i IView) *FWindow {
 		f.Show()
 		f.showAfter = false
 	}
-	return f
-}
-
-func (f *FWindow) OnDestroy(fn func()) *FWindow {
-	f.destroy = fn
 	return f
 }
 

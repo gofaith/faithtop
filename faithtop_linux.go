@@ -9,9 +9,8 @@ func init() {
 }
 
 var (
-	idMap        = make(map[string]interface{})
-	groupIdMap   = make(map[string]*FRadio)
-	currentImage *FImage
+	idMap      = make(map[string]interface{})
+	groupIdMap = make(map[string]*FRadio)
 )
 
 func MainQuit() {

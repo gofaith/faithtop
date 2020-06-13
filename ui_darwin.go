@@ -60,8 +60,8 @@ func (f *FBaseView) Focus() {
 
 // base set
 
-func (f *FBaseView) Expand(b bool) {
-	f.expand = b
+func (f *FBaseView) Expand() {
+	f.expand = true
 }
 
 func (f *FBaseView) Invisible() {

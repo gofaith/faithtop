@@ -9,7 +9,6 @@ type FWindow struct {
 	wid         string
 	showAfter   bool
 	child       IView
-	ondestroyFn func()
 }
 
 func Win() *FWindow {
@@ -72,14 +71,13 @@ func (v *FWindow) Show() *FWindow {
 	v.v.ShowAll()
 	return v
 }
-func (v *FWindow) Close() *FWindow {
+func (v *FWindow) Close()  {
 	v.v.Destroy()
 	return v
 }
 
-func (f *FWindow) Hide() *FWindow {
+func (f *FWindow) Hide() {
 	f.v.Hide()
-	return f
 }
 
 func (f *FWindow) IsVisible() bool {
