@@ -58,6 +58,12 @@ func (f *FScroll) Assign(v **FScroll) *FScroll {
 	return f
 }
 
+func (f *FScroll) Size(w, h int) *FScroll {
+	f.dec.MaxSize.Width = w
+	f.dec.MaxSize.Height = h
+	return f
+}
+
 func (f *FScroll) Append(is ...IView) *FScroll {
 	if f.v != nil {
 		builder := declarative.NewBuilder(f.v)

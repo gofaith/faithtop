@@ -69,6 +69,11 @@ func (f *FListView) NotifyDataChange() *FListView {
 	return f
 }
 
+func (f *FListView) Size(w,h int) *FListView {
+	f.scroll.Size(w,h)
+	return f
+}
+
 func (f *FListView) baseView() *FBaseView {
 	return &f.FBaseView
 }
