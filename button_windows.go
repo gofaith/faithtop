@@ -21,7 +21,7 @@ func Button() *FButton {
 				f.click()
 			}
 		},
-		AlwaysConsumeSpace:true,
+		AlwaysConsumeSpace: true,
 	}
 	return f
 }
@@ -29,7 +29,10 @@ func Button() *FButton {
 func (f *FButton) baseView() *FBaseView {
 	return &f.FBaseView
 }
-func (f *FButton) widget() walk.Widget {
+func (f *FButton) widget(builder *declarative.Builder) walk.Widget {
+	if f.v == nil {
+		f.dec.Create(builder)
+	}
 	return f.v
 }
 func (f *FButton) declarative() declarative.Widget {
@@ -42,7 +45,7 @@ func (f *FButton) Assign(v **FButton) *FButton {
 }
 
 func (f *FButton) Expand() *FButton {
-	f.expand=true
+	f.expand = true
 	return f
 }
 

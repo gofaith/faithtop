@@ -8,7 +8,7 @@ import (
 
 type IView interface {
 	baseView() *FBaseView
-	widget() walk.Widget
+	widget(builder *declarative.Builder) walk.Widget
 	declarative() declarative.Widget
 }
 type FBaseView struct {

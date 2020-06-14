@@ -20,9 +20,9 @@ func Win() *FWindow {
 	f := &FWindow{}
 	f.dec = declarative.MainWindow{
 		AssignTo: &f.w,
-		Size:     declarative.Size{Width: 300, Height: 300},
 		Layout:   declarative.VBox{MarginsZero: true, SpacingZero: true},
 	}
+	f.Size(300, 300)
 	if DefaultWindowIcon != nil {
 		f.dec.Icon = DefaultWindowIcon
 	}
@@ -30,13 +30,25 @@ func Win() *FWindow {
 }
 
 func (f *FWindow) Title(s string) *FWindow {
+	if f.w != nil {
+		f.w.SetTitle(s)
+		return f
+	}
 	f.dec.Title = s
 	return f
 }
 
 func (f *FWindow) Size(w, h int) *FWindow {
+	if f.w != nil {
+		size := walk.Size{Width: w, Height: h}
+		f.w.SetSize(size)
+		f.w.SetMinMaxSize(size, size)
+		return f
+	}
 	f.dec.Size.Width = w
 	f.dec.Size.Height = h
+	f.dec.MaxSize.Width = w
+	f.dec.MaxSize.Height = h
 	return f
 }
 
@@ -89,7 +101,18 @@ func (f *FWindow) OnCloseClicked(fn func() bool) *FWindow {
 }
 
 func (f *FWindow) Add(i IView) *FWindow {
-	f.dec.Children = []declarative.Widget{i.declarative()}
+	f.dec.Children = append(f.dec.Children, i.declarative())
+	if f.showAfter {
+		f.Show()
+	}
+	return f
+}
+
+func (f *FWindow) VBox(is ...IView) *FWindow {
+	f.dec.Layout = declarative.VBox{SpacingZero: true, MarginsZero: true}
+	for _, i := range is {
+		f.dec.Children = append(f.dec.Children, i.declarative())
+	}
 	if f.showAfter {
 		f.Show()
 	}

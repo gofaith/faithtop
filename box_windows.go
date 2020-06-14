@@ -46,6 +46,13 @@ func (f *FBox) Assign(v **FBox) *FBox {
 }
 
 func (f *FBox) Append(is ...IView) *FBox {
+	if f.v != nil {
+		builder := declarative.NewBuilder(f.v)
+		for _, i := range is {
+			f.v.Children().Add(i.widget(builder))
+		}
+		return f
+	}
 	for _, i := range is {
 		f.dec.Children = append(f.dec.Children, i.declarative())
 	}
