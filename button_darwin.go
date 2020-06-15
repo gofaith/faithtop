@@ -14,7 +14,7 @@ func Button() *FButton {
 	f := &FButton{
 		v: widgets.NewQPushButton(nil),
 	}
-	
+	f.widget = f.v
 	f.v.ConnectClicked(func(bool) {
 		if f.click != nil {
 			f.click()
@@ -34,7 +34,7 @@ func (f *FButton) Assign(v **FButton) *FButton {
 }
 
 func (f *FButton) Expand() *FButton {
-	f.FbaseView().expand(true)
+	f.FBaseView.Expand()
 	return f
 }
 
@@ -51,6 +51,7 @@ func (f *FButton) Visible() *FButton {
 	f.FBaseView.Visible()
 	return f
 }
+
 // button
 func (f *FButton) Text(s string) *FButton {
 	f.v.SetText(s)

@@ -29,3 +29,7 @@ func AlignVCenter(i IView) *FAlign {
 func AlignCenter(i IView) *FAlign {
 	return AlignVCenter(AlignHCenter(i))
 }
+
+func (f *FAlign) baseView() *FBaseView {
+	return &f.FBaseView
+}

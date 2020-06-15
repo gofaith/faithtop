@@ -28,7 +28,7 @@ func (f *FText) Assign(v **FText) *FText {
 }
 
 func (f *FText) Expand() *FText {
-	f.FbaseView().expand(true)
+	f.FBaseView.Expand()
 	return f
 }
 

@@ -15,11 +15,6 @@ func Win() *FWindow {
 	w := widgets.NewQMainWindow(nil, 0)
 	f := &FWindow{w: w}
 	f.Size(230, 130)
-	f.w.ConnectDestroyed(func(*core.QObject) {
-		if f.destroy != nil {
-			f.destroy()
-		}
-	})
 	return f
 }
 
@@ -48,11 +43,11 @@ func (f *FWindow) Show() *FWindow {
 	return f
 }
 
-func (f *FWindow) Close()  {
+func (f *FWindow) Close() {
 	f.w.DestroyQMainWindow()
 }
 
-func (f *FWindow) Hide()  {
+func (f *FWindow) Hide() {
 	f.w.Hide()
 }
 
