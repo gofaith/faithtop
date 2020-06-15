@@ -117,3 +117,11 @@ func ShowConfirm(w *FWindow, title, text string, onOk, onCancel func()) {
 		}
 	}
 }
+
+func (f *FWindow) VBox(is ...IView) *FWindow {
+	return f.Add(VBox().Append(is...))
+}
+
+func (f *FWindow) HBox(is ...IView) *FWindow {
+	return f.Add(HBox().Append(is...))
+}
