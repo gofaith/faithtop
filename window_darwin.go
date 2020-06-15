@@ -65,7 +65,6 @@ func (f *FWindow) Add(i IView) *FWindow {
 
 	if f.showAfter {
 		f.Show()
-		f.showAfter = false
 	}
 	return f
 }
