@@ -65,6 +65,7 @@ func (f *FEdit) OnEnter(fn func()) *FEdit {
 }
 
 func (f *FEdit) BindText(str *livedata.String) *FEdit {
+	f.Text(str.Get())
 	str.ObserveForever(func(s string) {
 		if f.v.IsVisible() {
 			if s == f.GetText() {

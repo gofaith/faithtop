@@ -129,7 +129,9 @@ func (f *FWindow) HBox(is ...IView) *FWindow {
 func (f *FWindow) BindInfo(title string, str *livedata.String) *FWindow {
 	str.ObserveForever(func(s string) {
 		if s != "" {
-			ShowInfo(f, title, s)
+			RunOnUIThread(func() {
+				ShowInfo(f, title, s)
+			})
 		}
 	})
 	return f
