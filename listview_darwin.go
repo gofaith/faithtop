@@ -65,3 +65,11 @@ func (f *FListView) NotifyDataChange() *FListView {
 	f.gotCount = newSize
 	return f
 }
+
+func (v *ViewHolder) GetButton(id string) *FButton {
+	return v.vlist[id].(*FButton)
+}
+
+func (v *ViewHolder) GetText(id string) *FText {
+	return v.vlist[id].(*FText)
+}

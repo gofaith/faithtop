@@ -1,6 +1,7 @@
 package faithtop
 
 import (
+	"github.com/StevenZack/livedata"
 	"github.com/therecipe/qt/widgets"
 )
 
@@ -60,5 +61,25 @@ func (f *FEdit) GetText() string {
 
 func (f *FEdit) OnEnter(fn func()) *FEdit {
 	f.v.ConnectReturnPressed(fn)
+	return f
+}
+
+func (f *FEdit) BindText(str *livedata.String) *FEdit {
+	str.ObserveForever(func(s string) {
+		if f.v.IsVisible() {
+			if s == f.GetText() {
+				return
+			}
+			RunOnUIThread(func() {
+				f.Text(s)
+			})
+		}
+	})
+	f.OnChange(func(text string) {
+		if str.Get() == text {
+			return
+		}
+		str.Post(text)
+	})
 	return f
 }

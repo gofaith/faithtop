@@ -13,7 +13,7 @@ func Space() *FSpace {
 	f := &FSpace{
 		v: widgets.NewQWidget(nil, 0),
 	}
-	
+	f.widget = f.v
 	f.Expand()
 	return f
 }

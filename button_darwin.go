@@ -52,6 +52,11 @@ func (f *FButton) Visible() *FButton {
 	return f
 }
 
+func (f *FButton) SetItemId(l *FListView,id string)*FButton  {
+	l.vhs[l.currentCreation].vlist[id]=f
+	return f
+}
+
 // button
 func (f *FButton) Text(s string) *FButton {
 	f.v.SetText(s)

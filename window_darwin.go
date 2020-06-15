@@ -1,6 +1,7 @@
 package faithtop
 
 import (
+	"github.com/StevenZack/livedata"
 	"github.com/therecipe/qt/core"
 	"github.com/therecipe/qt/gui"
 	"github.com/therecipe/qt/widgets"
@@ -123,4 +124,13 @@ func (f *FWindow) VBox(is ...IView) *FWindow {
 
 func (f *FWindow) HBox(is ...IView) *FWindow {
 	return f.Add(HBox().Append(is...))
+}
+
+func (f *FWindow) BindInfo(title string, str *livedata.String) *FWindow {
+	str.ObserveForever(func(s string) {
+		if s != "" {
+			ShowInfo(f, title, s)
+		}
+	})
+	return f
 }

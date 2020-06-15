@@ -13,7 +13,7 @@ func Text(text string) *FText {
 	f := &FText{
 		v: widgets.NewQLabel2(text, nil, 0),
 	}
-	
+	f.widget = f.v
 	return f
 }
 
@@ -29,6 +29,11 @@ func (f *FText) Assign(v **FText) *FText {
 
 func (f *FText) Expand() *FText {
 	f.FBaseView.Expand()
+	return f
+}
+
+func (f *FText) SetItemId(l *FListView, id string) *FText {
+	l.vhs[l.currentCreation].vlist[id] = f
 	return f
 }
 

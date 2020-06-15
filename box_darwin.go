@@ -16,10 +16,10 @@ func VBox() *FBox {
 		v:          widgets.NewQWidget(nil, 0),
 		isVertical: true,
 	}
-	f.widget = f.v
 	f.layout = widgets.NewQVBoxLayout2(nil).QBoxLayout_PTR()
 	f.v.SetLayout(f.layout)
 
+	f.widget = f.v
 	return f
 }
 
@@ -30,6 +30,7 @@ func HBox() *FBox {
 	f.layout = widgets.NewQHBoxLayout2(nil).QBoxLayout_PTR()
 	f.v.SetLayout(f.layout)
 
+	f.widget = f.v
 	return f
 }
 
@@ -46,7 +47,6 @@ func (f *FBox) Append(is ...IView) *FBox {
 			if i.baseView().expand {
 				i.baseView().widget.QWidget_PTR().SetSizePolicy2(widgets.QSizePolicy__Expanding, widgets.QSizePolicy__Expanding)
 			}
-
 			f.layout.InsertWidget(-1, i.baseView().widget, 0, 0)
 		}
 		return f
