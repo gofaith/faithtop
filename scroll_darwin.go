@@ -15,7 +15,7 @@ func newScroll() *FScroll {
 	f := &FScroll{
 		v: widgets.NewQScrollArea(nil),
 	}
-	
+	f.widget = f.v
 	return f
 }
 

@@ -1,5 +1,9 @@
 package faithtop
 
+import (
+	"github.com/StevenZack/livedata"
+)
+
 type FListView struct {
 	FScroll
 	vhs             []ViewHolder
@@ -72,4 +76,15 @@ func (v *ViewHolder) GetButton(id string) *FButton {
 
 func (v *ViewHolder) GetText(id string) *FText {
 	return v.vlist[id].(*FText)
+}
+
+func (f *FListView) BindChange(l *livedata.Bool) *FListView {
+	l.ObserveForever(func(b bool) {
+		if b {
+			RunOnUIThread(func() {
+				f.NotifyDataChange()
+			})
+		}
+	})
+	return f
 }

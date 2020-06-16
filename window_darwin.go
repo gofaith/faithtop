@@ -136,3 +136,14 @@ func (f *FWindow) BindInfo(title string, str *livedata.String) *FWindow {
 	})
 	return f
 }
+
+func (f *FWindow) BindClose(c *livedata.Bool) *FWindow {
+	c.ObserveForever(func(b bool) {
+		if b {
+			RunOnUIThread(func() {
+				f.Close()
+			})
+		}
+	})
+	return f
+}
