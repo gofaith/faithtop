@@ -1,6 +1,7 @@
 package faithtop
 
 import (
+	"github.com/StevenZack/livedata"
 	"github.com/therecipe/qt/widgets"
 )
 
@@ -75,5 +76,14 @@ func (f *FButton) Disable() *FButton {
 
 func (f *FButton) Enable() *FButton {
 	f.v.SetEnabled(true)
+	return f
+}
+
+func (f *FButton) BindEnabled(l *livedata.Bool)*FButton  {
+	l.ObserveForever(func(b bool){
+		RunOnUIThread(func(){
+			f.v.SetEnabled(b)
+		})
+	})
 	return f
 }

@@ -39,8 +39,9 @@ func (f *FBaseView) baseView() *FBaseView {
 }
 
 // get
-func (f *FBaseView) Size(w, h int) {
+func (f *FBaseView) Size(w, h int) *FBaseView {
 	f.widget.QWidget_PTR().SetMinimumSize2(w, h)
+	return f
 }
 func (f *FBaseView) IsEnabled() bool {
 	return f.widget.QWidget_PTR().IsEnabled()
@@ -54,14 +55,16 @@ func (f *FBaseView) GetX() int {
 func (f *FBaseView) GetY() int {
 	return f.widget.QWidget_PTR().Y()
 }
-func (f *FBaseView) Focus() {
+func (f *FBaseView) Focus() *FBaseView {
 	f.widget.QWidget_PTR().SetFocus2()
+	return f
 }
 
 // base set
 
-func (f *FBaseView) Expand() {
+func (f *FBaseView) Expand() *FBaseView {
 	f.expand = true
+	return f
 }
 
 func (f *FBaseView) Invisible() {

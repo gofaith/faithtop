@@ -1,6 +1,7 @@
 package faithtop
 
 import (
+	"github.com/StevenZack/livedata"
 	"github.com/therecipe/qt/widgets"
 )
 
@@ -46,3 +47,13 @@ func (f *FText) Text(s string) *FText {
 func (f *FText) GetText() string {
 	return f.v.Text()
 }
+
+func (f *FText) BindText(t *livedata.String) *FText {
+	t.ObserveForever(func(s string) {
+		RunOnUIThread(func() {
+			f.Text(s)
+		})
+	})
+	return f
+}
+
