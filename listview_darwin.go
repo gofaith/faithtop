@@ -88,3 +88,7 @@ func (f *FListView) BindChange(l *livedata.Bool) *FListView {
 	})
 	return f
 }
+
+func (v *ViewHolder) GetEdit(id string) *FEdit {
+	return v.vlist[id].(*FEdit)
+}

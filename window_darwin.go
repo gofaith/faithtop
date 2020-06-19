@@ -35,7 +35,7 @@ func (f *FWindow) Title(s string) *FWindow {
 
 func (f *FWindow) Size(w, h int) *FWindow {
 	f.w.SetMinimumSize2(w, h)
-	f.w.SetMaximumSize2(w, h)
+	// f.w.SetMaximumSize2(w, h)
 	return f
 }
 

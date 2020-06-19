@@ -40,7 +40,10 @@ func (f *FBaseView) baseView() *FBaseView {
 
 // get
 func (f *FBaseView) Size(w, h int) *FBaseView {
+	f.widget.QWidget_PTR().SetFixedWidth(w)
+	f.widget.QWidget_PTR().SetFixedHeight(h)
 	f.widget.QWidget_PTR().SetMinimumSize2(w, h)
+	f.widget.QWidget_PTR().SetMaximumSize2(w, h)
 	return f
 }
 func (f *FBaseView) IsEnabled() bool {

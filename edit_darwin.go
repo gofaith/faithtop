@@ -84,3 +84,22 @@ func (f *FEdit) BindText(str *livedata.String) *FEdit {
 	})
 	return f
 }
+
+func (f *FEdit) SetItemId(l *FListView, id string) *FEdit {
+	l.vhs[l.currentCreation].vlist[id] = f
+	return f
+}
+
+func (f *FEdit) Hint(text string) *FEdit {
+	f.v.SetPlaceholderText(text)
+	return f
+}
+func (f *FEdit) Disable() *FEdit {
+	f.v.SetEnabled(false)
+	return f
+}
+
+func (f *FEdit) Enable() *FEdit {
+	f.v.SetEnabled(true)
+	return f
+}

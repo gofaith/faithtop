@@ -1,6 +1,7 @@
 package faithtop
 
 import (
+	"github.com/StevenZack/livedata"
 	"github.com/therecipe/qt/widgets"
 )
 
@@ -51,5 +52,14 @@ func (f *FCombo) SetData(texts []string) *FCombo {
 
 func (f *FCombo) OnChange(fn func(text string)) *FCombo {
 	f.change = fn
+	return f
+}
+
+func (f *FCombo) BindData(signal *livedata.Bool,fn func(*FCombo))*FCombo  {
+	signal.ObserveForever(func(b bool){
+		if b{
+			fn(f)
+		}
+	})
 	return f
 }
