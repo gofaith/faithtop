@@ -5,10 +5,10 @@ import (
 )
 
 type FWindow struct {
-	v           *gtk.Window
-	wid         string
-	showAfter   bool
-	child       IView
+	v         *gtk.Window
+	wid       string
+	showAfter bool
+	child     IView
 }
 
 func Win() *FWindow {
@@ -27,21 +27,6 @@ func TopWin() *FWindow {
 func setupWindow(w *FWindow) {
 	w.v.SetDefaultSize(230, 130)
 	w.v.SetPosition(gtk.WIN_POS_CENTER)
-	w.v.Connect("destroy", func() {
-		if w.ondestroyFn != nil {
-			w.ondestroyFn()
-		}
-	})
-}
-
-func GetWinById(id string) *FWindow {
-	v, ok := idMap[id]
-	if ok {
-		if w, is := v.(*FWindow); is {
-			return w
-		}
-	}
-	return nil
 }
 
 func (v *FWindow) SetId(id string) *FWindow {
@@ -71,9 +56,8 @@ func (v *FWindow) Show() *FWindow {
 	v.v.ShowAll()
 	return v
 }
-func (v *FWindow) Close()  {
+func (v *FWindow) Close() {
 	v.v.Destroy()
-	return v
 }
 
 func (f *FWindow) Hide() {
@@ -84,10 +68,6 @@ func (f *FWindow) IsVisible() bool {
 	return f.v.GetVisible()
 }
 
-func (v *FWindow) OnDestroy(f func()) *FWindow {
-	v.ondestroyFn = f
-	return v
-}
 func (v *FWindow) OnCloseClicked(f func() bool) *FWindow {
 	v.v.Connect("delete-event", func() bool {
 		return f()

@@ -23,8 +23,7 @@ func Image() *FImage {
 	fb.v = v
 
 	fb.widget = &v.Widget
-	
-	currentImage = fb
+
 	fb.scaleType = 2
 	fb.Src("/")
 	return fb
