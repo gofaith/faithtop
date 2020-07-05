@@ -1,12 +1,15 @@
 package faithtop
 
 import (
+	"github.com/StevenZack/livedata"
+	"github.com/mattn/go-gtk/glib"
 	"github.com/mattn/go-gtk/gtk"
 )
 
 type FEdit struct {
 	FBaseView
-	v *gtk.Entry
+	v        *gtk.Entry
+	onChange func(text string)
 }
 
 func Edit() *FEdit {
@@ -15,7 +18,11 @@ func Edit() *FEdit {
 	fb.v = v
 
 	fb.widget = &v.Widget
-	
+	fb.v.Connect("changed", func(ctx *glib.CallbackContext) {
+		if fb.onChange != nil {
+			fb.onChange(fb.GetText())
+		}
+	})
 	return fb
 }
 
@@ -101,12 +108,8 @@ func (v *FEdit) Text(t string) *FEdit {
 func (v *FEdit) GetText() string {
 	return v.v.GetText()
 }
-func (v *FEdit) Editable() *FEdit {
-	v.v.SetEditable(true)
-	return v
-}
-func (v *FEdit) Ineditable() *FEdit {
-	v.v.SetEditable(false)
+func (v *FEdit) Editable(b bool) *FEdit {
+	v.v.SetEditable(b)
 	return v
 }
 func (v *FEdit) MaxLength(l int) *FEdit {
@@ -124,4 +127,28 @@ func (v *FEdit) InputTypeNormal() *FEdit {
 func (v *FEdit) OnEnter(f func()) *FEdit {
 	v.v.Connect("activate", f)
 	return v
+}
+
+func (f *FEdit) OnChange(fn func(text string)) *FEdit {
+	f.onChange = fn
+	return f
+}
+
+func (f *FEdit) BindText(str *livedata.String) *FEdit {
+	f.Text(str.Get())
+	str.ObserveForever(func(s string) {
+		if s == f.GetText() {
+			return
+		}
+		RunOnUIThread(func() {
+			f.Text(s)
+		})
+	})
+	f.OnChange(func(text string) {
+		if str.Get() == text {
+			return
+		}
+		str.Post(text)
+	})
+	return f
 }
