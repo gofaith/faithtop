@@ -1,6 +1,8 @@
 package faithtop
 
 import (
+	"github.com/StevenZack/livedata"
+	"github.com/mattn/go-gtk/glib"
 	"github.com/mattn/go-gtk/gtk"
 )
 
@@ -97,6 +99,16 @@ func (v *FWindow) Title(t string) *FWindow {
 	v.v.SetTitle(t)
 	return v
 }
+func (f *FWindow) BindInfo(title string, str *livedata.String) *FWindow {
+	str.ObserveForever(func(s string) {
+		if s != "" {
+			RunOnUIThread(func() {
+				ShowInfo(f, title, s)
+			})
+		}
+	})
+	return f
+}
 func ShowWin(i IView) *FWindow {
 	return TopWin().Size(200, 100).Title("").DeferShow().Add(i)
 }
@@ -108,10 +120,34 @@ func ShowInfo(w *FWindow, title, info string) {
 		gtk.BUTTONS_OK,
 		info)
 	dialog.SetTitle(title)
-	dialog.Response(func() {
+	dialog.Response(func(ctx *glib.CallbackContext) {
 		dialog.Destroy()
 	})
 	dialog.Run()
+}
+func ShowConfirm(w *FWindow, title, info, ok, cancel string, yes, no func()) {
+	dialog := gtk.NewMessageDialog(
+		w.v,
+		gtk.DIALOG_MODAL,
+		gtk.MESSAGE_QUESTION,
+		gtk.BUTTONS_NONE,
+		info,
+	)
+	dialog.AddButton(ok, gtk.RESPONSE_YES)
+	dialog.AddButton(cancel, gtk.RESPONSE_NO)
+	dialog.SetDefaultResponse(gtk.RESPONSE_YES)
+	dialog.SetTitle(title)
+	switch dialog.Run() {
+	case gtk.RESPONSE_YES:
+		if yes != nil {
+			yes()
+		}
+	case gtk.RESPONSE_NO:
+		if no != nil {
+			no()
+		}
+	}
+	dialog.Destroy()
 }
 func ShowErr(w *FWindow, title, err string) {
 	dialog := gtk.NewMessageDialog(
