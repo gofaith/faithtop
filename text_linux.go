@@ -1,6 +1,7 @@
 package faithtop
 
 import (
+	"github.com/StevenZack/livedata"
 	"github.com/mattn/go-gtk/gtk"
 )
 
@@ -17,7 +18,7 @@ func Text(t string) *FText {
 	fb.v = v
 
 	fb.widget = &v.Widget
-	
+
 	return fb
 }
 
@@ -105,27 +106,12 @@ func (v *FText) Markup(t string) *FText {
 func (v *FText) GetText() string {
 	return v.v.GetText()
 }
-func (v *FText) Selectable() *FText {
-	v.v.SetSelectable(true)
-	return v
-}
-func (v *FText) Unselectable() *FText {
-	v.v.SetSelectable(false)
-	return v
-}
-func (v *FText) LeftJustify() *FText {
-	v.v.SetJustify(gtk.JUSTIFY_LEFT)
-	return v
-}
-func (v *FText) RightJustify() *FText {
-	v.v.SetJustify(gtk.JUSTIFY_RIGHT)
-	return v
-}
-func (v *FText) CenterJustify() *FText {
-	v.v.SetJustify(gtk.JUSTIFY_CENTER)
-	return v
-}
-func (v *FText) FillJustify() *FText {
-	v.v.SetJustify(gtk.JUSTIFY_FILL)
-	return v
+
+func (f *FText) BindText(t *livedata.String) *FText {
+	t.ObserveForever(func(s string) {
+		RunOnUIThread(func() {
+			f.Text(s)
+		})
+	})
+	return f
 }
