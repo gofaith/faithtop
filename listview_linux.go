@@ -15,6 +15,9 @@ type ViewHolder struct {
 	vlist map[string]IView
 }
 
+func (v *ViewHolder) RootView() IView {
+	return v.root
+}
 func VListView(createView func(*FListView) IView, bindData func(*ViewHolder, int), getCount func() int) *FListView {
 	fb := &FListView{}
 	fb.FScroll = *VScroll()

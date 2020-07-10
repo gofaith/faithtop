@@ -1,6 +1,7 @@
 package faithtop
 
 import (
+	"github.com/StevenZack/livedata"
 	"github.com/mattn/go-gtk/gtk"
 )
 
@@ -112,4 +113,17 @@ func (v *FButton) GetText() string {
 func (v *FButton) Image(img *FImage) *FButton {
 	v.v.SetImage(img.v)
 	return v
+}
+
+func (f *FButton) BindEnabled(l *livedata.Bool) *FButton {
+	l.ObserveForever(func(b bool) {
+		RunOnUIThread(func() {
+			if b {
+				f.Enable()
+			} else {
+				f.Disable()
+			}
+		})
+	})
+	return f
 }
