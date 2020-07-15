@@ -133,7 +133,9 @@ func (v *FCombo) OnChange(f func(str string)) *FCombo {
 func (f *FCombo) BindData(signal *livedata.Bool, fn func(*FCombo)) *FCombo {
 	signal.ObserveForever(func(b bool) {
 		if b {
-			fn(f)
+			RunOnUIThread(func() {
+				fn(f)
+			})
 		}
 	})
 	return f
@@ -144,7 +146,9 @@ func (f *FCombo) BindSelection(i *livedata.Int) *FCombo {
 		if idx == f.GetSelection() || idx < 0 {
 			return
 		}
-		f.Select(idx)
+		RunOnUIThread(func() {
+			f.Select(idx)
+		})
 	})
 	f.v.Connect("changed", func() {
 		sel := f.GetSelection()

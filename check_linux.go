@@ -1,6 +1,7 @@
 package faithtop
 
 import (
+	"github.com/StevenZack/livedata"
 	"github.com/mattn/go-gtk/gtk"
 )
 
@@ -14,7 +15,7 @@ func Check() *FCheck {
 	fb := &FCheck{}
 	fb.v = v
 	fb.widget = &v.Widget
-	
+
 	return fb
 }
 
@@ -105,12 +106,8 @@ func (v *FCheck) OnChange(f func(bool)) *FCheck {
 	})
 	return v
 }
-func (v *FCheck) Checked() *FCheck {
-	v.v.SetActive(true)
-	return v
-}
-func (v *FCheck) Unchecked() *FCheck {
-	v.v.SetActive(false)
+func (v *FCheck) Checked(b bool) *FCheck {
+	v.v.SetActive(b)
 	return v
 }
 func (v *FCheck) GetChecked() bool {
@@ -119,4 +116,16 @@ func (v *FCheck) GetChecked() bool {
 func (v *FCheck) Text(t string) *FCheck {
 	v.v.SetLabel(t)
 	return v
+}
+
+func (f *FCheck) BindCheck(l *livedata.Bool) *FCheck {
+	l.ObserveForever(func(b bool) {
+		RunOnUIThread(func() {
+			f.Checked(b)
+		})
+	})
+	f.v.Connect("toggled", func() {
+		l.Post(f.GetChecked())
+	})
+	return f
 }

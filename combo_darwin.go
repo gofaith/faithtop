@@ -55,10 +55,12 @@ func (f *FCombo) OnChange(fn func(text string)) *FCombo {
 	return f
 }
 
-func (f *FCombo) BindData(signal *livedata.Bool,fn func(*FCombo))*FCombo  {
-	signal.ObserveForever(func(b bool){
-		if b{
-			fn(f)
+func (f *FCombo) BindData(signal *livedata.Bool, fn func(*FCombo)) *FCombo {
+	signal.ObserveForever(func(b bool) {
+		if b {
+			RunOnUIThread(func() {
+				fn(f)
+			})
 		}
 	})
 	return f

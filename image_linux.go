@@ -237,7 +237,9 @@ func (v *FImage) OnLoadFailed(f func(string)) *FImage {
 func (f *FImage) BindSrc(l *livedata.String) *FImage {
 	l.ObserveForever(func(s string) {
 		if s != "" {
-			f.Src(s)
+			RunOnUIThread(func() {
+				f.Src(s)
+			})
 		}
 	})
 	return f
