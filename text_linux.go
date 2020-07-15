@@ -115,3 +115,12 @@ func (f *FText) BindText(t *livedata.String) *FText {
 	})
 	return f
 }
+
+func (f *FText) BindMarkup(t *livedata.String) *FText {
+	t.ObserveForever(func(s string) {
+		RunOnUIThread(func() {
+			f.Markup(s)
+		})
+	})
+	return f
+}

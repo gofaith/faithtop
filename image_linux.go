@@ -5,6 +5,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/StevenZack/livedata"
+
 	"github.com/mattn/go-gtk/gdkpixbuf"
 	"github.com/mattn/go-gtk/gtk"
 )
@@ -230,4 +232,13 @@ func (v *FImage) ScaleTypeFitImage() *FImage {
 func (v *FImage) OnLoadFailed(f func(string)) *FImage {
 	v.onLoadFailed = f
 	return v
+}
+
+func (f *FImage) BindSrc(l *livedata.String) *FImage {
+	l.ObserveForever(func(s string) {
+		if s != "" {
+			f.Src(s)
+		}
+	})
+	return f
 }
