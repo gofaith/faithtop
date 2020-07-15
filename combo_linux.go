@@ -1,6 +1,7 @@
 package faithtop
 
 import (
+	"github.com/StevenZack/livedata"
 	"github.com/mattn/go-gtk/gtk"
 )
 
@@ -18,7 +19,7 @@ func Combo() *FCombo {
 	fb.v = v
 
 	fb.widget = &v.Widget
-	
+
 	return fb
 }
 
@@ -101,13 +102,10 @@ func (v *FCombo) OnDragDrop(f func([]string)) *FCombo {
 }
 
 //====================================================================
-func (v *FCombo) GetActiveText() string {
+func (v *FCombo) GetSelectedText() string {
 	return v.v.GetActiveText()
 }
-func (v *FCombo) GetAllText() []string {
-	return v.strs
-}
-func (v *FCombo) AppendText(ts ...string) *FCombo {
+func (v *FCombo) SetData(ts []string) *FCombo {
 	for i := 0; i < len(v.strs); i++ {
 		v.v.RemoveText(0)
 	}
@@ -116,18 +114,46 @@ func (v *FCombo) AppendText(ts ...string) *FCombo {
 	}
 	v.strs = ts
 	if len(ts) > 0 {
-		v.ActiveText(0)
+		v.Select(0)
 	}
 	return v
 }
-func (f *FCombo) ActiveText(index int) *FCombo {
+func (f *FCombo) GetSelection() int {
+	return f.v.GetActive()
+}
+func (f *FCombo) Select(index int) *FCombo {
 	f.isActivatedByCode = true
 	f.v.SetActive(index)
 	return f
 }
 func (v *FCombo) OnChange(f func(str string)) *FCombo {
 	v.v.Connect("changed", func() {
-		f(v.GetActiveText())
+		f(v.GetSelectedText())
 	})
 	return v
+}
+
+func (f *FCombo) BindData(signal *livedata.Bool, fn func(*FCombo)) *FCombo {
+	signal.ObserveForever(func(b bool) {
+		if b {
+			fn(f)
+		}
+	})
+	return f
+}
+
+func (f *FCombo) BindSelection(i *livedata.Int) *FCombo {
+	i.ObserveForever(func(idx int) {
+		if idx == f.GetSelection() || idx < 0 {
+			return
+		}
+		f.Select(idx)
+	})
+	f.v.Connect("changed", func() {
+		sel := f.GetSelection()
+		if sel != i.Get() {
+			i.Post(sel)
+		}
+	})
+	return f
 }

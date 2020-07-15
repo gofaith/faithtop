@@ -1,6 +1,8 @@
 package faithtop
 
 import (
+	"log"
+	"strings"
 	"time"
 
 	"github.com/mattn/go-gtk/gdkpixbuf"
@@ -25,7 +27,7 @@ func Image() *FImage {
 	fb.widget = &v.Widget
 
 	fb.scaleType = 2
-	fb.Src("/")
+	fb.Src("")
 	return fb
 }
 
@@ -104,9 +106,12 @@ func (v *FImage) OnDragDrop(f func([]string)) *FImage {
 
 //====================================================================
 func (v *FImage) Src(url string) *FImage {
-	if StartsWidth(url, "file://") {
+	if url == "" {
+		return v
+	}
+	if strings.HasPrefix(url, "file://") {
 		setImageFileSrc(v, url[len("file://"):])
-	} else if StartsWidth(url, "http") {
+	} else if strings.HasPrefix(url, "http") {
 		go CacheNetFile(url, GetCacheDir(), func(fpath string) {
 			RunOnUIThread(func() {
 				setImageFileSrc(v, fpath)
@@ -127,6 +132,7 @@ func setImageFileSrc(v *FImage, url string) {
 		v.alreadyShown = true
 		porigin, e := gdkpixbuf.NewPixbufFromFile(url)
 		if e != nil {
+			log.Println(e)
 			return
 		}
 		var w, h int = v.v.GetAllocation().Width, v.v.GetAllocation().Height

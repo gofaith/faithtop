@@ -121,30 +121,12 @@ func CacheNetFile(url, cacheDir string, callback func(string)) {
 	}
 	callback(f)
 }
-func EndsWith(s, suffix string) bool {
-	if len(suffix) > len(s) {
-		return false
-	}
-	if s[len(s)-len(suffix):] == suffix {
-		return true
-	}
-	return false
-}
-func StartsWidth(s, prefix string) bool {
-	if len(prefix) > len(s) {
-		return false
-	}
-	if s[:len(prefix)] == prefix {
-		return true
-	}
-	return false
-}
 func Url2cachePath(url string) string {
 	rUrl := strings.Split(url, "?")[0]
 	s := strings.Replace(rUrl, "://", "/", -1)
 	sep := string(os.PathSeparator)
 	s = strings.Replace(s, "/", sep, -1)
-	if EndsWith(s, sep) {
+	if strings.HasSuffix(s, sep) {
 		return s[:len(s)-1]
 	}
 	return s

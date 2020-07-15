@@ -1,5 +1,9 @@
 package faithtop
 
+import (
+	"github.com/StevenZack/livedata"
+)
+
 type FListView struct {
 	FScroll
 	vhs             []ViewHolder
@@ -136,7 +140,7 @@ func (v *FListView) execBindData() *FListView {
 	}
 	return v
 }
-func (fb *FListView) OnDataSetChanged() *FListView {
+func (fb *FListView) NotifyDataChange() *FListView {
 	origin_size := fb.gotCount
 	new_size := fb.getCount()
 	if new_size > origin_size {
@@ -161,4 +165,15 @@ func (fb *FListView) OnDataSetChanged() *FListView {
 	}
 	fb.gotCount = new_size
 	return fb
+}
+
+func (f *FListView) BindChange(l *livedata.Bool) *FListView {
+	l.ObserveForever(func(b bool) {
+		if b {
+			RunOnUIThread(func() {
+				f.NotifyDataChange()
+			})
+		}
+	})
+	return f
 }

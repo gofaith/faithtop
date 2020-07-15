@@ -1,6 +1,7 @@
 package faithtop
 
 import (
+	"github.com/StevenZack/livedata"
 	"github.com/mattn/go-gtk/gtk"
 )
 
@@ -118,11 +119,29 @@ func (v *FTabLayout) OnSwitchPage(f func()) *FTabLayout {
 	return v
 }
 
-func (f *FTabLayout) CurrentIndex() int {
+func (f *FTabLayout) GetSelection() int {
 	return f.v.GetCurrentPage()
 }
 
-func (f *FTabLayout) SelectTab(i int) *FTabLayout {
+func (f *FTabLayout) Select(i int) *FTabLayout {
 	f.v.SetCurrentPage(i)
+	return f
+}
+
+func (f *FTabLayout) BindIndex(i *livedata.Int) *FTabLayout {
+	i.ObserveForever(func(idx int) {
+		if idx == f.GetSelection() {
+			return
+		}
+		RunOnUIThread(func() {
+			f.Select(idx)
+		})
+	})
+	f.v.Connect("switch-page", func() {
+		idx := f.GetSelection()
+		if idx >= 0 && idx != i.Get() {
+			i.Post(f.GetSelection())
+		}
+	})
 	return f
 }

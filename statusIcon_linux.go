@@ -1,6 +1,8 @@
 package faithtop
 
 import (
+	"strings"
+
 	"github.com/mattn/go-gtk/glib"
 	"github.com/mattn/go-gtk/gtk"
 )
@@ -16,17 +18,17 @@ func StatusIcon() *FStatusIcon {
 	return s
 }
 func (s *FStatusIcon) Src(url string) *FStatusIcon {
-	if StartsWidth(url, "/") {
+	if strings.HasPrefix(url, "/") {
 		s.v.SetFromFile(url)
-	} else if StartsWidth(url, "http") {
+	} else if strings.HasPrefix(url, "http") {
 		go CacheNetFile(url, GetCacheDir(), func(fpath string) {
 			RunOnUIThread(func() {
 				s.v.SetFromFile(fpath)
 			})
 		})
-	} else if StartsWidth(url, "file://") {
+	} else if strings.HasPrefix(url, "file://") {
 		s.v.SetFromFile(url[len("file://"):])
-	} else if StartsWidth(url, "iconName://") {
+	} else if strings.HasPrefix(url, "iconName://") {
 		s.v.SetFromIconName(url[len("iconName://"):])
 	}
 	return s
@@ -35,8 +37,8 @@ func (s *FStatusIcon) SrcIconName(url string) *FStatusIcon {
 	s.v.SetFromIconName(url)
 	return s
 }
-func (f *FStatusIcon) Assign(v **FStatusIcon)*FStatusIcon  {
-	*v=f
+func (f *FStatusIcon) Assign(v **FStatusIcon) *FStatusIcon {
+	*v = f
 	return f
 }
 func (s *FStatusIcon) SrcFile(url string) *FStatusIcon {
