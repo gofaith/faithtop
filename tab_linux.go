@@ -15,7 +15,7 @@ func TabLayout() *FTabLayout {
 	fb.v = v
 
 	fb.widget = &v.Widget
-	
+
 	return fb
 }
 
@@ -116,4 +116,13 @@ func (v *FTabLayout) Tabs(ps ...*FTab) *FTabLayout {
 func (v *FTabLayout) OnSwitchPage(f func()) *FTabLayout {
 	v.v.Connect("switch-page", f)
 	return v
+}
+
+func (f *FTabLayout) CurrentIndex() int {
+	return f.v.GetCurrentPage()
+}
+
+func (f *FTabLayout) SelectTab(i int) *FTabLayout {
+	f.v.SetCurrentPage(i)
+	return f
 }

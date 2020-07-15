@@ -2,6 +2,7 @@ package faithtop
 
 import (
 	"github.com/StevenZack/livedata"
+	"github.com/gen2brain/beeep"
 	"github.com/mattn/go-gtk/glib"
 	"github.com/mattn/go-gtk/gtk"
 )
@@ -161,4 +162,8 @@ func ShowErr(w *FWindow, title, err string) {
 		dialog.Destroy()
 	})
 	dialog.Run()
+}
+
+func ShowToast(title, info string) {
+	beeep.Notify(title, info, "")
 }
