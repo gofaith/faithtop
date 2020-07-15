@@ -110,12 +110,9 @@ func (v *FCombo) SetData(ts []string) *FCombo {
 		v.v.RemoveText(0)
 	}
 	for _, t := range ts {
-		v.v.InsertText(t, 0)
+		v.v.AppendText(t)
 	}
 	v.strs = ts
-	if len(ts) > 0 {
-		v.Select(0)
-	}
 	return v
 }
 func (f *FCombo) GetSelection() int {
