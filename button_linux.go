@@ -127,3 +127,29 @@ func (f *FButton) BindEnabled(l *livedata.Bool) *FButton {
 	})
 	return f
 }
+
+func (f *FButton) BindVisible(l *livedata.Bool) *FButton {
+	l.ObserveForever(func(b bool) {
+		RunOnUIThread(func() {
+			if b {
+				f.Visible()
+			} else {
+				f.Invisible()
+			}
+		})
+	})
+	return f
+}
+
+func (f *FButton) BindInvisible(l *livedata.Bool) *FButton {
+	l.ObserveForever(func(b bool) {
+		RunOnUIThread(func() {
+			if b {
+				f.Invisible()
+			} else {
+				f.Visible()
+			}
+		})
+	})
+	return f
+}
