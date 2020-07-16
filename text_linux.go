@@ -31,7 +31,7 @@ func (f *FText) Assign(v **FText) *FText {
 	*v = f
 	return f
 }
-func (vh *ViewHolder) GetTextByItemId(itemId string) *FText {
+func (vh *ViewHolder) GetText(itemId string) *FText {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FText); ok {
 			return lv
@@ -120,6 +120,32 @@ func (f *FText) BindMarkup(t *livedata.String) *FText {
 	t.ObserveForever(func(s string) {
 		RunOnUIThread(func() {
 			f.Markup(s)
+		})
+	})
+	return f
+}
+
+func (f *FText) BindVisible(l *livedata.Bool) *FText {
+	l.ObserveForever(func(b bool) {
+		RunOnUIThread(func() {
+			if b {
+				f.Visible()
+			} else {
+				f.Invisible()
+			}
+		})
+	})
+	return f
+}
+
+func (f *FText) BindInvisible(l *livedata.Bool) *FText {
+	l.ObserveForever(func(b bool) {
+		RunOnUIThread(func() {
+			if b {
+				f.Invisible()
+			} else {
+				f.Visible()
+			}
 		})
 	})
 	return f

@@ -55,7 +55,7 @@ func (f *FScroll) Assign(v **FScroll) *FScroll {
 	*v = f
 	return f
 }
-func (vh *ViewHolder) GetScrollByItemId(itemId string) *FScroll {
+func (vh *ViewHolder) GetScroll(itemId string) *FScroll {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FScroll); ok {
 			return lv

@@ -28,7 +28,7 @@ func (f *FCheck) Assign(v **FCheck) *FCheck {
 	*v = f
 	return f
 }
-func (vh *ViewHolder) GetCheckByItemId(itemId string) *FCheck {
+func (vh *ViewHolder) GetCheck(itemId string) *FCheck {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FCheck); ok {
 			return lv

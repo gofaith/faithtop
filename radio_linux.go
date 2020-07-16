@@ -49,7 +49,7 @@ func (f *FRadio) Assign(v **FRadio) *FRadio {
 	*v = f
 	return f
 }
-func (vh *ViewHolder) GetRadioByItemId(itemId string) *FRadio {
+func (vh *ViewHolder) GetRadio(itemId string) *FRadio {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FRadio); ok {
 			return lv

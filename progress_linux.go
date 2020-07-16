@@ -29,7 +29,7 @@ func (f *FProgress) Assign(v **FProgress) *FProgress {
 	*v = f
 	return f
 }
-func (vh *ViewHolder) GetProgressByItemId(itemId string) *FProgress {
+func (vh *ViewHolder) GetProgress(itemId string) *FProgress {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FProgress); ok {
 			return lv

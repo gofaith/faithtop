@@ -49,7 +49,7 @@ func (f *FAlign) Assign(v **FAlign) *FAlign {
 	*v = f
 	return f
 }
-func (vh *ViewHolder) GetAlignByItemId(itemId string) *FAlign {
+func (vh *ViewHolder) GetAlign(itemId string) *FAlign {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FAlign); ok {
 			return lv

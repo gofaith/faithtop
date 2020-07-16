@@ -1,6 +1,7 @@
 package faithtop
 
 import (
+	"github.com/StevenZack/livedata"
 	"github.com/mattn/go-gtk/gtk"
 )
 
@@ -16,7 +17,7 @@ func TextArea() *FTextArea {
 
 	fb.widget = &v.Widget
 	fb.v.SetEditable(true)
-	
+
 	return fb
 }
 
@@ -29,7 +30,7 @@ func (f *FTextArea) Assign(v **FTextArea) *FTextArea {
 	*v = f
 	return f
 }
-func (vh *ViewHolder) GetTextAreaByItemId(itemId string) *FTextArea {
+func (vh *ViewHolder) GetTextArea(itemId string) *FTextArea {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FTextArea); ok {
 			return lv
@@ -104,5 +105,30 @@ func (f *FTextArea) GetText() string {
 }
 func (f *FTextArea) Editable(b bool) *FTextArea {
 	f.v.SetEditable(b)
+	return f
+}
+
+func (f *FTextArea) OnChange(fn func(str string)) *FTextArea {
+	f.v.Connect("event-after", func() {
+		fn(f.GetText())
+	})
+	return f
+}
+
+func (f *FTextArea) BindText(l *livedata.String) *FTextArea {
+	l.ObserveForever(func(str string) {
+		if str == f.GetText() {
+			return
+		}
+		RunOnUIThread(func() {
+			f.Text(str)
+		})
+	})
+	f.v.Connect("event-after", func() {
+		text := f.GetText()
+		if text != l.Get() {
+			l.Post(text)
+		}
+	})
 	return f
 }

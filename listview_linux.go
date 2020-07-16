@@ -66,7 +66,7 @@ func (f *FListView) Assign(v **FListView) *FListView {
 	*v = f
 	return f
 }
-func (vh *ViewHolder) GetListViewByItemId(itemId string) *FListView {
+func (vh *ViewHolder) GetListView(itemId string) *FListView {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FListView); ok {
 			return lv

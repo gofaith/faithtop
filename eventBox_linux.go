@@ -37,7 +37,7 @@ func (f *FEventBox) Assign(v **FEventBox) *FEventBox {
 	*v = f
 	return f
 }
-func (vh *ViewHolder) GetEventBoxByItemId(itemId string) *FEventBox {
+func (vh *ViewHolder) GetEventBox(itemId string) *FEventBox {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FEventBox); ok {
 			return lv

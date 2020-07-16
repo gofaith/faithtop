@@ -29,7 +29,7 @@ func (f *FMenuBar) Assign(v **FMenuBar) *FMenuBar {
 	*v = f
 	return f
 }
-func (vh *ViewHolder) GetMenuBarByItemId(itemId string) *FMenuBar {
+func (vh *ViewHolder) GetMenuBar(itemId string) *FMenuBar {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FMenuBar); ok {
 			return lv

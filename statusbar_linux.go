@@ -33,7 +33,7 @@ func (f *FStatusBar) Assign(v **FStatusBar) *FStatusBar {
 	*v = f
 	return f
 }
-func (vh *ViewHolder) GetStatusBarByItemId(itemId string) *FStatusBar {
+func (vh *ViewHolder) GetStatusBar(itemId string) *FStatusBar {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FStatusBar); ok {
 			return lv

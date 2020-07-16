@@ -43,7 +43,7 @@ func (f *FImage) Assign(v **FImage) *FImage {
 	*v = f
 	return f
 }
-func (vh *ViewHolder) GetImageByItemId(itemId string) *FImage {
+func (vh *ViewHolder) GetImage(itemId string) *FImage {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FImage); ok {
 			return lv

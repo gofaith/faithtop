@@ -34,7 +34,7 @@ func (f *FCombo) Assign(v **FCombo) *FCombo {
 	*v = f
 	return f
 }
-func (vh *ViewHolder) GetComboByItemId(itemId string) *FCombo {
+func (vh *ViewHolder) GetCombo(itemId string) *FCombo {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FCombo); ok {
 			return lv

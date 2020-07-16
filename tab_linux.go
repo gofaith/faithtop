@@ -33,7 +33,7 @@ func (v *FTabLayout) Size(w, h int) *FTabLayout {
 	v.FBaseView.Size(w, h)
 	return v
 }
-func (vh *ViewHolder) GetTabsByItemId(itemId string) *FTabLayout {
+func (vh *ViewHolder) GetTabs(itemId string) *FTabLayout {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FTabLayout); ok {
 			return lv

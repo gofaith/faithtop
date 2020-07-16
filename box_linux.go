@@ -1,6 +1,7 @@
 package faithtop
 
 import (
+	"github.com/StevenZack/livedata"
 	"github.com/mattn/go-gtk/gtk"
 )
 
@@ -39,7 +40,7 @@ func (f *FBox) Assign(v **FBox) *FBox {
 	*v = f
 	return f
 }
-func (vh *ViewHolder) GetBoxByItemId(itemId string) *FBox {
+func (vh *ViewHolder) GetBox(itemId string) *FBox {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FBox); ok {
 			return lv
@@ -114,4 +115,30 @@ func (v *FBox) Append(is ...IView) *FBox {
 		v.v.PackStart(i.baseView().widget, i.baseView().expand, true, 0)
 	}
 	return v
+}
+
+func (f *FBox) BindVisible(l *livedata.Bool) *FBox {
+	l.ObserveForever(func(b bool) {
+		RunOnUIThread(func() {
+			if b {
+				f.Visible()
+			} else {
+				f.Invisible()
+			}
+		})
+	})
+	return f
+}
+
+func (f *FBox) BindInvisible(l *livedata.Bool) *FBox {
+	l.ObserveForever(func(b bool) {
+		RunOnUIThread(func() {
+			if b {
+				f.Invisible()
+			} else {
+				f.Visible()
+			}
+		})
+	})
+	return f
 }

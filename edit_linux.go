@@ -37,7 +37,7 @@ func (f *FEdit) Assign(v **FEdit) *FEdit {
 	*v = f
 	return f
 }
-func (vh *ViewHolder) GetEditByItemId(itemId string) *FEdit {
+func (vh *ViewHolder) GetEdit(itemId string) *FEdit {
 	if v, ok := vh.vlist[itemId]; ok {
 		if lv, ok := v.(*FEdit); ok {
 			return lv
