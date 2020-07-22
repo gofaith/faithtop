@@ -1,6 +1,8 @@
 package faithtop
 
 import (
+	"time"
+
 	"github.com/StevenZack/livedata"
 	"github.com/mattn/go-gtk/gtk"
 )
@@ -138,10 +140,13 @@ func (f *FTabLayout) BindIndex(i *livedata.Int) *FTabLayout {
 		})
 	})
 	f.v.Connect("switch-page", func() {
-		idx := f.GetSelection()
-		if idx >= 0 && idx != i.Get() {
-			i.Post(f.GetSelection())
-		}
+		go func() {
+			time.Sleep(time.Millisecond * 100)
+			idx := f.GetSelection()
+			if idx >= 0 && idx != i.Get() {
+				i.Post(f.GetSelection())
+			}
+		}()
 	})
 	return f
 }

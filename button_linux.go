@@ -153,3 +153,15 @@ func (f *FButton) BindInvisible(l *livedata.Bool) *FButton {
 	})
 	return f
 }
+
+func (f *FButton) BindText(l *livedata.String)*FButton  {
+	l.ObserveForever(func(s string){
+		if s==f.GetText(){
+			return
+		}
+		RunOnUIThread(func(){
+			f.Text(s)
+		})
+	})
+	return f
+}
