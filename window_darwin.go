@@ -84,7 +84,7 @@ func ShowWin(i IView) *FWindow {
 	return TopWin().Size(200, 100).Title("").DeferShow().Add(i)
 }
 
-func ShowPrompt(w *FWindow, title, label, defaultText string, onSubmit func(string)) {
+func ShowPrompt(w *FWindow, title, label, defaultText,ok,cancel string, onSubmit func(string)) {
 	dialog := widgets.NewQInputDialog(nil, core.Qt__WindowStaysOnTopHint)
 	ok := false
 	str := dialog.GetText(w.w, title, label, widgets.QLineEdit__Normal, "text", &ok, core.Qt__WindowStaysOnTopHint, core.Qt__ImhExclusiveInputMask)

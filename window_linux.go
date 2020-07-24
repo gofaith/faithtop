@@ -150,6 +150,32 @@ func ShowConfirm(w *FWindow, title, info, ok, cancel string, yes, no func()) {
 	}
 	dialog.Destroy()
 }
+
+func ShowPrompt(w *FWindow, title, label, defaultText, ok, cancel string, onSubmit func(string)) {
+	var e *FEdit
+	var dialog *FWindow
+	dialog = Win().Size(200, 100).DeferShow().Title(title).VBox(
+		AlignLeft(Text(label)),
+		Edit().Assign(&e).Text(defaultText).OnEnter(func() {
+			if onSubmit != nil {
+				onSubmit(e.GetText())
+			}
+			dialog.Close()
+		}),
+		HBox().Append(
+			Button().Text(ok).OnClick(func() {
+				if onSubmit != nil {
+					onSubmit(e.GetText())
+				}
+				dialog.Close()
+			}),
+			Button().Text(cancel).OnClick(func() {
+				dialog.Close()
+			}),
+		),
+	)
+}
+
 func ShowErr(w *FWindow, title, err string) {
 	dialog := gtk.NewMessageDialog(
 		w.v,

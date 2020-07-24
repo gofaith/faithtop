@@ -1,6 +1,8 @@
 package faithtop
 
 import (
+	"strconv"
+
 	"github.com/StevenZack/livedata"
 	"github.com/mattn/go-gtk/gtk"
 )
@@ -147,6 +149,18 @@ func (f *FText) BindInvisible(l *livedata.Bool) *FText {
 				f.Visible()
 			}
 		})
+	})
+	return f
+}
+
+func (f *FText) BindTextInt(l *livedata.Int) *FText {
+	l.ObserveForever(func(i int) {
+		str := strconv.Itoa(i)
+		if str != f.GetText() {
+			RunOnUIThread(func() {
+				f.Text(str)
+			})
+		}
 	})
 	return f
 }
