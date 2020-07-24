@@ -34,6 +34,15 @@ func VListView(create func(*FListView) IView, bind func(*ViewHolder, int), count
 	return f.NotifyDataChange()
 }
 
+func HListView(create func(*FListView) IView, bind func(*ViewHolder, int), count func() int) *FListView {
+	f := &FListView{}
+	f.scroll = HScroll()
+	f.create = create
+	f.bind = bind
+	f.count = count
+	return f.NotifyDataChange()
+}
+
 func (f *FListView) Assign(v **FListView) *FListView {
 	*v = f
 	return f
@@ -69,8 +78,8 @@ func (f *FListView) NotifyDataChange() *FListView {
 	return f
 }
 
-func (f *FListView) Size(w,h int) *FListView {
-	f.scroll.Size(w,h)
+func (f *FListView) Size(w, h int) *FListView {
+	f.scroll.Size(w, h)
 	return f
 }
 
