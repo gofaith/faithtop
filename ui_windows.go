@@ -16,6 +16,7 @@ type FBaseView struct {
 }
 
 //
-func (f *FBaseView) Expand() {
-	f.expand = true
+
+func RunOnUIThread(fn func()) {
+	go fn()
 }

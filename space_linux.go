@@ -1,11 +1,9 @@
 package faithtop
 
-type FSpace FBox
-
-func Space() *FSpace {
-	return (*FSpace)(VBox().Expand())
+func HSpace() *FBox {
+	return VBox().Expand()
 }
 
-func (f *FSpace) baseView() *FBaseView {
-	return &f.FBaseView
+func VSpace() *FBox {
+	return HBox().Expand()
 }

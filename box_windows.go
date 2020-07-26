@@ -33,7 +33,10 @@ func (f *FBox) baseView() *FBaseView {
 	return &f.FBaseView
 }
 
-func (f *FBox) widget() walk.Widget {
+func (f *FBox) widget(builder *declarative.Builder) walk.Widget {
+	if f.v == nil {
+		f.dec.Create(builder)
+	}
 	return f.v
 }
 func (f *FBox) declarative() declarative.Widget {
@@ -59,3 +62,7 @@ func (f *FBox) Append(is ...IView) *FBox {
 	return f
 }
 
+func (f *FBox) Expand() *FBox {
+	f.expand = true
+	return f
+}

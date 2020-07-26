@@ -13,7 +13,7 @@ type FEventBox struct {
 func EventBox(i IView) *FEventBox {
 	f := &FEventBox{}
 	f.v = gtk.NewEventBox()
-	
+
 	f.widget = &f.v.Widget
 
 	f.v.Connect("button-press-event", func() {
@@ -21,9 +21,9 @@ func EventBox(i IView) *FEventBox {
 			f.onClick()
 		}
 	})
-	
+
 	if i != nil {
-		f.Add(i)
+		f.v.Add(i.baseView().widget)
 	}
 	return f
 }
@@ -100,10 +100,6 @@ func (v *FEventBox) OnDragDrop(f func([]string)) *FEventBox {
 }
 
 //====================================================================
-func (v *FEventBox) Add(i IView) *FEventBox {
-	v.v.Add(i.baseView().widget)
-	return v
-}
 func (v *FEventBox) OnClick(f func()) *FEventBox {
 	v.onClick = f
 	return v

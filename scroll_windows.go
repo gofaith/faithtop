@@ -78,3 +78,8 @@ func (f *FScroll) Append(is ...IView) *FScroll {
 	}
 	return f
 }
+
+func (f *FScroll) Expand() *FScroll {
+	f.expand = true
+	return f
+}
