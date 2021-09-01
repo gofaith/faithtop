@@ -9,7 +9,7 @@ type WindowImpl struct {
 }
 
 func init() {
-	windowImpl = func() IWindow {
+	newWindowImpl = func() IWindow {
 		return &WindowImpl{
 			window: widgets.NewQMainWindow(nil, 0),
 		}
@@ -26,5 +26,10 @@ func (w *WindowImpl) Size(width, height int) IWindow {
 }
 func (w *WindowImpl) Show() IWindow {
 	w.window.Show()
+	return w
+}
+
+func (w *WindowImpl) CenterWidget(widget IWidget) IWindow {
+	w.window.SetCentralWidget(widget.(*WidgetImpl).widget)
 	return w
 }
