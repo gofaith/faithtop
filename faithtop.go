@@ -1,22 +1,14 @@
 package faithtop
 
-import (
-	"github.com/mattn/go-gtk/gtk"
-)
-
-func init() {
-	gtk.Init(nil)
+type IApp interface {
+	Run() int
 }
 
-var (
-	idMap      = make(map[string]interface{})
-	groupIdMap = make(map[string]*FRadio)
-)
+var appImpl func() IApp
 
-func MainQuit() {
-	gtk.MainQuit()
-}
-
-func Main() {
-	gtk.Main()
+func NewApp() IApp {
+	if appImpl == nil {
+		panic("please build go code with impl tag: go build -tags impl")
+	}
+	return appImpl()
 }
