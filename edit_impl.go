@@ -32,3 +32,17 @@ func (l *EditImpl) Text(s string) IEdit {
 func (l *EditImpl) GetText() string {
 	return l.edit.Text()
 }
+
+func (l *EditImpl) Placeholder(s string) IEdit {
+	l.edit.SetPlaceholderText(s)
+	return l
+}
+
+func (l *EditImpl) PasswordMode(b bool) IEdit {
+	if b {
+		l.edit.SetEchoMode(widgets.QLineEdit__Password)
+	} else {
+		l.edit.SetEchoMode(widgets.QLineEdit__Normal)
+	}
+	return l
+}

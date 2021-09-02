@@ -5,6 +5,8 @@ type IEdit interface {
 	Assign(v *IEdit) IEdit
 	Text(s string) IEdit
 	GetText() string
+	Placeholder(s string) IEdit
+	PasswordMode(b bool) IEdit
 }
 
 var newEditImpl func() IEdit

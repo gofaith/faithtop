@@ -12,20 +12,11 @@ qtdeploy -tags=impl build desktop
 ## todo
 
 - layout
-    - boxlayout
-        - spacing
-        - margin
-        - padding
     - gridlayout
-    - formlayout
-
-- label
-- text
 - textarea
 - listview
 - treeview
 - tableview
-- 
 
 ## 使用Faithdroid开发的App
 
