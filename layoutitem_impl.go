@@ -14,6 +14,6 @@ func layoutItemImplFrom(parent *widgets.QLayoutItem) *LayoutItemImpl {
 	}
 }
 
-func (l *LayoutItemImpl) LayoutItem() ILayoutItem {
+func (l *LayoutItemImpl) getLayoutItem() ILayoutItem {
 	return l
 }

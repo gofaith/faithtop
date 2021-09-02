@@ -1,7 +1,7 @@
 package faithtop
 
 type IWidget interface {
-	Widget() IWidget
+	getWidget() IWidget
 	Layout(layout ILayout) IWidget
 	Align(align AlignmentFlag)IWidget
 }

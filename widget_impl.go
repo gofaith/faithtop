@@ -19,7 +19,7 @@ func init() {
 	}
 }
 
-func (w *WidgetImpl) Widget() IWidget {
+func (w *WidgetImpl) getWidget() IWidget {
 	return w
 }
 
@@ -30,7 +30,7 @@ func widgetImplFrom(parent *widgets.QWidget) *WidgetImpl {
 }
 
 func (w *WidgetImpl) Layout(layout ILayout) IWidget {
-	w.widget.SetLayout(layout.Layout().(*LayoutImpl).layout)
+	w.widget.SetLayout(layout.getLayout().(*LayoutImpl).layout)
 	return w
 }
 

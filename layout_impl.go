@@ -8,7 +8,7 @@ type LayoutImpl struct {
 	layout *widgets.QLayout
 }
 
-func (l *LayoutImpl) Layout() ILayout {
+func (l *LayoutImpl) getLayout() ILayout {
 	return l
 }
 

@@ -29,7 +29,7 @@ func (l *BoxLayoutImpl) Align(align AlignmentFlag) IBoxLayout {
 
 func (l *BoxLayoutImpl) AppendWidgets(children ...IWidget) IBoxLayout {
 	for _, child := range children {
-		v := child.Widget().(*WidgetImpl)
+		v := child.getWidget().(*WidgetImpl)
 		align := v.alignmentFlag
 		if align == 0 {
 			align = l.defaultAlignment
@@ -41,7 +41,7 @@ func (l *BoxLayoutImpl) AppendWidgets(children ...IWidget) IBoxLayout {
 
 func (l *BoxLayoutImpl) AppendItems(items ...ILayoutItem) IBoxLayout {
 	for _, item := range items {
-		l.boxLayout.AddItem(item.LayoutItem().(*LayoutItemImpl).layoutItem)
+		l.boxLayout.AddItem(item.getLayoutItem().(*LayoutItemImpl).layoutItem)
 	}
 	return l
 }
