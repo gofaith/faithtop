@@ -15,8 +15,7 @@ type BoxLayoutImpl struct {
 
 func boxLayoutImplFrom(parent *widgets.QBoxLayout) *BoxLayoutImpl {
 	v := &BoxLayoutImpl{
-		boxLayout:        parent,
-		defaultAlignment: AlignLeading,
+		boxLayout: parent,
 	}
 	v.LayoutImpl = layoutImplFrom(v.boxLayout.QLayout_PTR())
 	return v
