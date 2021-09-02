@@ -5,7 +5,8 @@ package faithtop
 import "github.com/therecipe/qt/widgets"
 
 type WindowImpl struct {
-	window *widgets.QMainWindow
+	window    *widgets.QMainWindow
+	deferShow bool
 }
 
 func init() {
@@ -24,6 +25,11 @@ func (w *WindowImpl) Size(width, height int) IWindow {
 	w.window.SetMinimumSize2(width, height)
 	return w
 }
+
+func (w *WindowImpl) DeferShow() IWindow {
+	w.deferShow = true
+	return w
+}
 func (w *WindowImpl) Show() IWindow {
 	w.window.Show()
 	return w
@@ -31,5 +37,8 @@ func (w *WindowImpl) Show() IWindow {
 
 func (w *WindowImpl) CenterWidget(widget IWidget) IWindow {
 	w.window.SetCentralWidget(widget.(*WidgetImpl).widget)
+	if w.deferShow {
+		w.Show()
+	}
 	return w
 }

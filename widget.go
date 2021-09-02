@@ -5,6 +5,11 @@ type IWidget interface {
 	Size(width, height SizePolicy) IWidget
 	Layout(layout ILayout) IWidget
 	Align(align AlignmentFlag) IWidget
+	/** Style set a CSS stylesheet string to a widget.
+	e.g.
+	Button().Style(`QPushButton{background-color:blue;color:white;} QPushButton:hover{background-color:red;} QPushButton:pressed{background-color:white;color:grey}`)
+	*/
+	Style(styleSheet string) IWidget
 }
 
 var newWidgetImpl func() IWidget
