@@ -13,16 +13,12 @@ qtdeploy -tags=impl build desktop
 
 - layout
     - boxlayout
-        - hboxlayout
         - spacing
         - margin
         - padding
     - gridlayout
     - formlayout
 
-- widget
-    - margin
-    - padding
 - label
 - text
 - textarea

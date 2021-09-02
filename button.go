@@ -13,3 +13,7 @@ var newButtonImpl func() IButton
 func Button() IButton {
 	return newButtonImpl()
 }
+
+func Button2(text string) IButton {
+	return newButtonImpl().Text(text)
+}

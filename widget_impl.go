@@ -48,3 +48,23 @@ func (w *WidgetImpl) Style(styleSheet string) IWidget {
 	w.widget.SetStyleSheet(styleSheet)
 	return w
 }
+
+func (w *WidgetImpl) MinWidth(width int) IWidget {
+	w.widget.SetMinimumWidth(width)
+	return w
+}
+
+func (w *WidgetImpl) MinHeight(height int) IWidget {
+	w.widget.SetMinimumHeight(height)
+	return w
+}
+
+func (w *WidgetImpl) MaxWidth(width int) IWidget {
+	w.widget.SetMaximumWidth(width)
+	return w
+}
+
+func (w *WidgetImpl) MaxHeight(height int) IWidget {
+	w.widget.SetMaximumHeight(height)
+	return w
+}

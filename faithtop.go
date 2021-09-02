@@ -4,6 +4,10 @@ type IApp interface {
 	Run() int
 }
 
+const (
+	MAX_SIZE = 16777215
+)
+
 var appImpl func() IApp
 
 func NewApp() IApp {
