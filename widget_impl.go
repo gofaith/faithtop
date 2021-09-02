@@ -3,12 +3,12 @@
 package faithtop
 
 import (
-	"github.com/therecipe/qt/core"
 	"github.com/therecipe/qt/widgets"
 )
 
 type WidgetImpl struct {
-	widget *widgets.QWidget
+	widget        *widgets.QWidget
+	alignmentFlag AlignmentFlag
 }
 
 func init() {
@@ -29,12 +29,12 @@ func widgetImplFrom(parent *widgets.QWidget) *WidgetImpl {
 	}
 }
 
-func (w *WidgetImpl) VBox(children ...IWidget) IWidget {
-	layout := widgets.NewQVBoxLayout()
-	for _, child := range children {
-		widget := child.Widget().(*WidgetImpl)
-		layout.AddWidget(widget.widget, 1, core.Qt__AlignCenter)
-	}
-	w.widget.SetLayout(layout)
+func (w *WidgetImpl) Layout(layout ILayout) IWidget {
+	w.widget.SetLayout(layout.Layout().(*LayoutImpl).layout)
+	return w
+}
+
+func (w *WidgetImpl) Align(align AlignmentFlag) IWidget {
+	w.alignmentFlag = align
 	return w
 }

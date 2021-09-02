@@ -2,7 +2,8 @@ package faithtop
 
 type IWidget interface {
 	Widget() IWidget
-	VBox(children ...IWidget) IWidget
+	Layout(layout ILayout) IWidget
+	Align(align AlignmentFlag)IWidget
 }
 
 var newWidgetImpl func() IWidget

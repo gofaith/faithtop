@@ -5,6 +5,7 @@ type IButton interface {
 	Text(s string) IButton
 	OnClick(fn func()) IButton
 	Enabled(b bool) IButton
+	Flat(b bool) IButton
 }
 
 var newButtonImpl func() IButton
