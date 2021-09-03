@@ -2,7 +2,7 @@ package faithtop
 
 type IWidget interface {
 	getWidget() IWidget
-	Size(width, height SizePolicy) IWidget
+	SizePolicy(width, height SizePolicy) IWidget
 	MinWidth(width int) IWidget
 	MinHeight(height int) IWidget
 	MaxWidth(width int) IWidget

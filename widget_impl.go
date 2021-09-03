@@ -39,7 +39,7 @@ func (w *WidgetImpl) Align(align AlignmentFlag) IWidget {
 	return w
 }
 
-func (w *WidgetImpl) Size(width, height SizePolicy) IWidget {
+func (w *WidgetImpl) SizePolicy(width, height SizePolicy) IWidget {
 	w.widget.SetSizePolicy2(widgets.QSizePolicy__Policy(width), widgets.QSizePolicy__Policy(height))
 	return w
 }

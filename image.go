@@ -13,10 +13,10 @@ var (
 	newImageImpl func() IImage
 )
 
-func Image() IImage {
-	return newImageImpl()
+func Image(w, h int) IImage {
+	return newImageImpl().ScaleTo(w, h)
 }
 
-func Image2(url string) IImage {
-	return newImageImpl().Src(url)
+func Image2(w, h int, url string) IImage {
+	return Image(w, h).Src(url)
 }
