@@ -18,6 +18,18 @@ qtdeploy -tags=impl build desktop
 - treeview
 - tableview
 
+- tab
+- combo box
+- date picker
+- font picker
+- scroll
+- dialog buttons
+- radio button
+- tool button
+- check box
+- image
+- progress
+
 ## 使用Faithdroid开发的App
 
-[局域网精灵专业版](https://jywjl.github.io)
+[局域网精灵专业版](https://lan-genius.com)
