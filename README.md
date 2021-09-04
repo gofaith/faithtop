@@ -13,7 +13,6 @@ qtdeploy -tags=impl build desktop
 
 - layout
     - gridlayout
-- textarea
 - listview
 - treeview
 - tableview
@@ -27,7 +26,6 @@ qtdeploy -tags=impl build desktop
 - radio button
 - tool button
 - check box
-- image
 
 ## 使用Faithdroid开发的App
 

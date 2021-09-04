@@ -51,3 +51,7 @@ func (l *LabelImpl) Image(url string, w, h int) ILabel {
 	builder.WriteString(">")
 	return l.Text(builder.String())
 }
+
+func (l *LabelImpl) GetText() string {
+	return l.label.Text()
+}

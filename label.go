@@ -11,6 +11,7 @@ type ILabel interface {
 	Text(s string) ILabel
 	Image(url string, w, h int) ILabel
 	Interaction(interaction TextInteractionFlag) ILabel
+	GetText() string
 }
 
 var newLabelImpl func() ILabel
