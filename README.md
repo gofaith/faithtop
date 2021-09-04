@@ -28,7 +28,6 @@ qtdeploy -tags=impl build desktop
 - tool button
 - check box
 - image
-- progress
 
 ## 使用Faithdroid开发的App
 
