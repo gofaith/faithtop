@@ -214,7 +214,7 @@ func (t *TableViewImpl) RemoveRows(from, count int) {
 	if len(t.model.modelData) == 0 {
 		return
 	}
-	t.model.BeginRemoveRows(core.NewQModelIndex(), from, from+count)
+	t.model.BeginRemoveRows(core.NewQModelIndex(), from, from+count-1)
 	t.model.modelData = append(t.model.modelData[:from], t.model.modelData[from+count:]...)
 	t.model.EndRemoveRows()
 }
@@ -235,7 +235,7 @@ func (t *TableViewImpl) AddRow(row int) {
 }
 
 func (t *TableViewImpl) AddRows(row, count int) {
-	t.model.BeginInsertRows(core.NewQModelIndex(), row, row+count)
+	t.model.BeginInsertRows(core.NewQModelIndex(), row, row+count-1)
 	columnCount := t.ColumnCount()
 
 	widgetData := []tableViewModelWidgetData{}
@@ -243,7 +243,7 @@ func (t *TableViewImpl) AddRows(row, count int) {
 	for i := 0; i < count; i++ {
 		qvs := []*core.QVariant{}
 		for column := 0; column < columnCount; column++ {
-			qv, widget := t.createData(row, column)
+			qv, widget := t.createData(row+i, column)
 			qvs = append(qvs, qv)
 			widgetData = append(widgetData, widget...)
 		}
