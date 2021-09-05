@@ -24,6 +24,7 @@ type (
 		_          func() `constructor:"init"`
 		headerData []*core.QVariant
 		modelData  [][]*core.QVariant
+		widgetData []tableViewModelWidgetData
 		locker     sync.Mutex
 	}
 	tableViewModelWidgetData struct {
@@ -48,6 +49,7 @@ func init() {
 
 		v.tableView.SetModel(v.model)
 
+		v.model.widgetData = widgetData
 		v.loadWidgets(widgetData)
 		return v
 	}
@@ -201,12 +203,28 @@ func (t *TableViewImpl) HeaderCount() int {
 	return len(t.model.headerData)
 }
 
-func (t *TableViewImpl) RemoveRow(i int) {
+func (t *TableViewImpl) RemoveRow(row int) {
 	if len(t.model.modelData) == 0 {
 		return
 	}
-	t.model.BeginRemoveRows(core.NewQModelIndex(), i, i)
-	t.model.modelData = append(t.model.modelData[:i], t.model.modelData[i+1:]...)
+	t.model.BeginRemoveRows(core.NewQModelIndex(), row, row)
+	t.model.modelData = append(t.model.modelData[:row], t.model.modelData[row+1:]...)
+	//widgetData
+	widgetDataChanged := []tableViewModelWidgetData{}
+	newWidgetData := []tableViewModelWidgetData{}
+	for _, widget := range t.model.widgetData {
+		if widget.row < row {
+			newWidgetData = append(newWidgetData, widget)
+		} else if widget.row == row {
+		} else {
+			widget.row--
+			newWidgetData = append(newWidgetData, widget)
+			widgetDataChanged = append(widgetDataChanged, widget)
+		}
+	}
+	t.loadWidgets(widgetDataChanged)
+	t.model.widgetData = newWidgetData
+
 	t.model.EndRemoveRows()
 }
 
@@ -216,6 +234,22 @@ func (t *TableViewImpl) RemoveRows(from, count int) {
 	}
 	t.model.BeginRemoveRows(core.NewQModelIndex(), from, from+count-1)
 	t.model.modelData = append(t.model.modelData[:from], t.model.modelData[from+count:]...)
+	//widgetData
+	widgetDataChanged := []tableViewModelWidgetData{}
+	newWidgetData := []tableViewModelWidgetData{}
+	for _, widget := range t.model.widgetData {
+		if widget.row < from {
+			newWidgetData = append(newWidgetData, widget)
+		} else if widget.row < from+count {
+		} else {
+			widget.row -= count
+			newWidgetData = append(newWidgetData, widget)
+			widgetDataChanged = append(widgetDataChanged, widget)
+		}
+	}
+	t.loadWidgets(widgetDataChanged)
+	t.model.widgetData = newWidgetData
+
 	t.model.EndRemoveRows()
 }
 
@@ -230,7 +264,25 @@ func (t *TableViewImpl) AddRow(row int) {
 		widgetData = append(widgetData, widget...)
 	}
 	t.model.modelData = append(append(t.model.modelData[:row], qvs), t.model.modelData[row:]...)
+
+	//widgetData
+	newWidgetData := []tableViewModelWidgetData{}
+	newWidgetData = append(newWidgetData, widgetData...)
+	for i, widget := range t.model.widgetData {
+		if widget.row >= row {
+			ws := t.updateData(widget.row+1, widget.column)
+			if len(ws) > 0 {
+				t.model.widgetData[i] = ws[0]
+				widgetData = append(widgetData, ws[0])
+				newWidgetData = append(newWidgetData, ws[0])
+			}
+		} else {
+			newWidgetData = append(newWidgetData, widget)
+		}
+	}
 	t.loadWidgets(widgetData)
+	t.model.widgetData = newWidgetData
+
 	t.model.EndInsertRows()
 }
 
@@ -251,6 +303,24 @@ func (t *TableViewImpl) AddRows(row, count int) {
 	}
 
 	t.model.modelData = append(append(t.model.modelData[:row], qvss...), t.model.modelData[row:]...)
+
+	//widgetData
+	newWidgetData := []tableViewModelWidgetData{}
+	newWidgetData = append(newWidgetData, widgetData...)
+	for i, widget := range t.model.widgetData {
+		if widget.row >= row {
+			ws := t.updateData(widget.row+count, widget.column)
+			if len(ws) > 0 {
+				t.model.widgetData[i] = ws[0]
+				widgetData = append(widgetData, ws[0])
+				newWidgetData = append(newWidgetData, ws[0])
+			}
+		} else {
+			newWidgetData = append(newWidgetData, widget)
+		}
+	}
 	t.loadWidgets(widgetData)
+	t.model.widgetData = newWidgetData
+
 	t.model.EndInsertRows()
 }
