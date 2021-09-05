@@ -4,7 +4,6 @@ type IButton interface {
 	IWidget
 	Text(s string) IButton
 	OnClick(fn func()) IButton
-	Enabled(b bool) IButton
 	Flat(b bool) IButton
 }
 

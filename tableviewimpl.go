@@ -3,6 +3,7 @@
 package faithtop
 
 import (
+	"fmt"
 	"sync"
 
 	"github.com/therecipe/qt/core"
@@ -24,10 +25,9 @@ type (
 		_          func() `constructor:"init"`
 		headerData []*core.QVariant
 		modelData  [][]*core.QVariant
-		widgetData []tableViewModelData
 		locker     sync.Mutex
 	}
-	tableViewModelData struct {
+	tableViewModelWidgetData struct {
 		row, column int
 		widget      widgets.QWidget_ITF
 	}
@@ -45,11 +45,11 @@ func init() {
 		v.WidgetImpl = widgetImplFrom(v.tableView.QWidget_PTR())
 
 		v.model = NewTableViewModel(nil)
-		v.createData()
+		widgetData := v.createDataAll()
 
 		v.tableView.SetModel(v.model)
 
-		v.loadWidgets()
+		v.loadWidgets(widgetData)
 		return v
 	}
 }
@@ -88,7 +88,7 @@ func (t *tableViewModel) init() {
 	})
 }
 
-func (t *TableViewImpl) createData() {
+func (t *TableViewImpl) createDataAll() []tableViewModelWidgetData {
 	headerData := []*core.QVariant{}
 	columnCount := t.columnCount()
 	for i := 0; i < columnCount; i++ {
@@ -96,20 +96,21 @@ func (t *TableViewImpl) createData() {
 	}
 
 	modelData := [][]*core.QVariant{}
-	widgetData := []tableViewModelData{}
+	widgetData := []tableViewModelWidgetData{}
 	rowCount := t.rowCount()
-	for i := 0; i < rowCount; i++ {
+	for rowNum := 0; rowNum < rowCount; rowNum++ {
 		row := []*core.QVariant{}
-		for j := 0; j < columnCount; j++ {
-			v := t.data(i, j)
+		for columnNum := 0; columnNum < columnCount; columnNum++ {
 
+			//load widget
+			v := t.data(rowNum, columnNum)
 			var variant *core.QVariant
 			if str, ok := v.(string); ok {
 				variant = core.NewQVariant1(str)
 			} else if iwidget, ok := v.(IWidget); ok {
-				widgetItem := tableViewModelData{
-					row:    i,
-					column: j,
+				widgetItem := tableViewModelWidgetData{
+					row:    rowNum,
+					column: columnNum,
 					widget: iwidget.getWidget().(*WidgetImpl).widget,
 				}
 				widgetData = append(widgetData, widgetItem)
@@ -126,11 +127,76 @@ func (t *TableViewImpl) createData() {
 	defer t.model.locker.Unlock()
 	t.model.headerData = headerData
 	t.model.modelData = modelData
-	t.model.widgetData = widgetData
+	return widgetData
 }
 
-func (t *TableViewImpl) loadWidgets() {
-	for _, item := range t.model.widgetData {
+func (t *TableViewImpl) updateData(row, column int) []tableViewModelWidgetData {
+	v := t.data(row, column)
+	var variant *core.QVariant
+	widgetData := []tableViewModelWidgetData{}
+
+	if str, ok := v.(string); ok {
+		variant = core.NewQVariant1(str)
+	} else if iwidget, ok := v.(IWidget); ok {
+		widgetItem := tableViewModelWidgetData{
+			row:    row,
+			column: column,
+			widget: iwidget.getWidget().(*WidgetImpl).widget,
+		}
+		widgetData = append(widgetData, widgetItem)
+	}
+	if variant == nil {
+		variant = core.NewQVariant()
+	}
+
+	t.model.modelData[row][column] = variant
+	return widgetData
+}
+
+func (t *TableViewImpl) loadWidgets(widgetData []tableViewModelWidgetData) {
+	for _, item := range widgetData {
 		t.tableView.SetIndexWidget(t.model.Index(item.row, item.column, nil), item.widget)
 	}
+}
+
+func (t *TableViewImpl) Assign(v *ITableView) ITableView {
+	*v = t
+	return t
+}
+
+func (t *TableViewImpl) DataChanged(left, top, right, bottom int) ITableView {
+	r, r2 := t.rowCount(), t.RowCount()
+	c, c2 := t.columnCount(), t.ColumnCount()
+	widgetData := []tableViewModelWidgetData{}
+	for columnNum := left; columnNum <= right; columnNum++ {
+		for rowNum := top; rowNum <= bottom; rowNum++ {
+			if columnNum < c && columnNum < c2 && rowNum < r && rowNum < r2 {
+				fmt.Println(columnNum, "<", c, "\t", columnNum, "<", c2, "\t", rowNum, "<", r, "\t", rowNum, "<", r2)
+				widget := t.updateData(rowNum,columnNum)
+				widgetData = append(widgetData, widget...)
+			}
+		}
+	}
+	t.loadWidgets(widgetData)
+	t.model.DataChanged(t.model.Index(top, left, core.NewQModelIndex()), t.model.Index(bottom, right, core.NewQModelIndex()), []int{int(core.Qt__DisplayRole)})
+	return t
+}
+
+func (t *TableViewImpl) Reload() ITableView {
+	rowCount := t.RowCount()
+	columnCount := t.ColumnCount()
+	t.loadWidgets(t.createDataAll())
+	t.DataChanged(0, 0, columnCount-1, rowCount-1)
+	return t
+}
+
+func (t *TableViewImpl) RowCount() int {
+	return len(t.model.modelData)
+}
+func (t *TableViewImpl) ColumnCount() int {
+	return len(t.model.headerData)
+}
+
+func (t *TableViewImpl) HeaderCount() int {
+	return len(t.model.headerData)
 }

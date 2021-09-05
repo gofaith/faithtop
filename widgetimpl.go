@@ -68,3 +68,8 @@ func (w *WidgetImpl) MaxHeight(height int) IWidget {
 	w.widget.SetMaximumHeight(height)
 	return w
 }
+
+func (w *WidgetImpl) Enabled(b bool) IWidget {
+	w.widget.SetEnabled(b)
+	return w
+}

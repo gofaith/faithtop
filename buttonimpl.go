@@ -33,11 +33,6 @@ func (b *ButtonImpl) OnClick(fn func()) IButton {
 	return b
 }
 
-func (b *ButtonImpl) Enabled(enabled bool) IButton {
-	b.button.SetEnabled(enabled)
-	return b
-}
-
 func (b *ButtonImpl) Flat(flat bool) IButton {
 	b.button.SetFlat(flat)
 	return b
