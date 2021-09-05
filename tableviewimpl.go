@@ -3,7 +3,6 @@
 package faithtop
 
 import (
-	"fmt"
 	"sync"
 
 	"github.com/therecipe/qt/core"
@@ -129,8 +128,7 @@ func (t *TableViewImpl) createDataAll() []tableViewModelWidgetData {
 	t.model.modelData = modelData
 	return widgetData
 }
-
-func (t *TableViewImpl) updateData(row, column int) []tableViewModelWidgetData {
+func (t *TableViewImpl) createData(row, column int) (*core.QVariant, []tableViewModelWidgetData) {
 	v := t.data(row, column)
 	var variant *core.QVariant
 	widgetData := []tableViewModelWidgetData{}
@@ -148,7 +146,10 @@ func (t *TableViewImpl) updateData(row, column int) []tableViewModelWidgetData {
 	if variant == nil {
 		variant = core.NewQVariant()
 	}
-
+	return variant, widgetData
+}
+func (t *TableViewImpl) updateData(row, column int) []tableViewModelWidgetData {
+	variant, widgetData := t.createData(row, column)
 	t.model.modelData[row][column] = variant
 	return widgetData
 }
@@ -171,8 +172,7 @@ func (t *TableViewImpl) DataChanged(left, top, right, bottom int) ITableView {
 	for columnNum := left; columnNum <= right; columnNum++ {
 		for rowNum := top; rowNum <= bottom; rowNum++ {
 			if columnNum < c && columnNum < c2 && rowNum < r && rowNum < r2 {
-				fmt.Println(columnNum, "<", c, "\t", columnNum, "<", c2, "\t", rowNum, "<", r, "\t", rowNum, "<", r2)
-				widget := t.updateData(rowNum,columnNum)
+				widget := t.updateData(rowNum, columnNum)
 				widgetData = append(widgetData, widget...)
 			}
 		}
@@ -199,4 +199,58 @@ func (t *TableViewImpl) ColumnCount() int {
 
 func (t *TableViewImpl) HeaderCount() int {
 	return len(t.model.headerData)
+}
+
+func (t *TableViewImpl) RemoveRow(i int) {
+	if len(t.model.modelData) == 0 {
+		return
+	}
+	t.model.BeginRemoveRows(core.NewQModelIndex(), i, i)
+	t.model.modelData = append(t.model.modelData[:i], t.model.modelData[i+1:]...)
+	t.model.EndRemoveRows()
+}
+
+func (t *TableViewImpl) RemoveRows(from, count int) {
+	if len(t.model.modelData) == 0 {
+		return
+	}
+	t.model.BeginRemoveRows(core.NewQModelIndex(), from, from+count)
+	t.model.modelData = append(t.model.modelData[:from], t.model.modelData[from+count:]...)
+	t.model.EndRemoveRows()
+}
+
+func (t *TableViewImpl) AddRow(row int) {
+	t.model.BeginInsertRows(core.NewQModelIndex(), row, row)
+	columnCount := t.ColumnCount()
+	widgetData := []tableViewModelWidgetData{}
+	qvs := []*core.QVariant{}
+	for column := 0; column < columnCount; column++ {
+		qv, widget := t.createData(row, column)
+		qvs = append(qvs, qv)
+		widgetData = append(widgetData, widget...)
+	}
+	t.model.modelData = append(append(t.model.modelData[:row], qvs), t.model.modelData[row:]...)
+	t.loadWidgets(widgetData)
+	t.model.EndInsertRows()
+}
+
+func (t *TableViewImpl) AddRows(row, count int) {
+	t.model.BeginInsertRows(core.NewQModelIndex(), row, row+count)
+	columnCount := t.ColumnCount()
+
+	widgetData := []tableViewModelWidgetData{}
+	qvss := [][]*core.QVariant{}
+	for i := 0; i < count; i++ {
+		qvs := []*core.QVariant{}
+		for column := 0; column < columnCount; column++ {
+			qv, widget := t.createData(row, column)
+			qvs = append(qvs, qv)
+			widgetData = append(widgetData, widget...)
+		}
+		qvss = append(qvss, qvs)
+	}
+
+	t.model.modelData = append(append(t.model.modelData[:row], qvss...), t.model.modelData[row:]...)
+	t.loadWidgets(widgetData)
+	t.model.EndInsertRows()
 }
