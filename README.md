@@ -15,7 +15,6 @@ qtdeploy -tags=impl build desktop
     - gridlayout
 - listview
 - treeview
-- tableview
 
 - tab
 - combo box
