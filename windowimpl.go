@@ -36,7 +36,7 @@ func (w *WindowImpl) Show() IWindow {
 }
 
 func (w *WindowImpl) CenterWidget(widget IWidget) IWindow {
-	w.window.SetCentralWidget(widget.(*WidgetImpl).widget)
+	w.window.SetCentralWidget(widget.getWidget().(*WidgetImpl).widget)
 	if w.deferShow {
 		w.Show()
 	}

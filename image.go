@@ -17,6 +17,6 @@ func Image(w, h int) IImage {
 	return newImageImpl().ScaleTo(w, h)
 }
 
-func Image2(w, h int, url string) IImage {
+func Image2(url string, w, h int) IImage {
 	return Image(w, h).Src(url)
 }

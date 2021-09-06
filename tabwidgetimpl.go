@@ -41,3 +41,8 @@ func (t *TabWidgetImpl) OnIndexChanged(fn func(i int)) ITabWidget {
 	t.tabWidget.ConnectCurrentChanged(fn)
 	return t
 }
+
+func (t *TabWidgetImpl) TabText(i int, text string) ITabWidget {
+	t.tabWidget.SetTabText(i, text)
+	return t
+}

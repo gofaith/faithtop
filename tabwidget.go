@@ -6,6 +6,7 @@ type (
 		Assign(v *ITabWidget) ITabWidget
 		CurrentIndex(i int) ITabWidget
 		GetCurrentIndex() int
+		TabText(i int, text string) ITabWidget
 		OnIndexChanged(fn func(i int)) ITabWidget
 	}
 	TabPage struct {
