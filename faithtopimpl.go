@@ -23,3 +23,7 @@ func init() {
 func (a *AppImpl) Run() int {
 	return a.app.Exec()
 }
+
+func (a *AppImpl) Quit() {
+	a.app.Quit()
+}

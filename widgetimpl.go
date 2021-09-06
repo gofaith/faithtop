@@ -136,3 +136,11 @@ func (w *WidgetImpl) OnMouseRelease(fn func(widget IWidget)) IWidget {
 	})
 	return w
 }
+
+func (w *WidgetImpl) OnKeyPress(fn func(widget IWidget, key Key)) IWidget {
+	w.widget.ConnectKeyPressEvent(func(event *gui.QKeyEvent) {
+		fn(w, Key(event.Key()))
+		event.Accept()
+	})
+	return w
+}

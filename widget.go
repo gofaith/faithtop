@@ -23,6 +23,7 @@ type IWidget interface {
 	Cursor(shape CursorShape) IWidget
 	OnMousePress(fn func(widget IWidget)) IWidget
 	OnMouseRelease(fn func(widget IWidget)) IWidget
+	OnKeyPress(fn func(widget IWidget, key Key)) IWidget
 }
 
 var newWidgetImpl func() IWidget

@@ -2,6 +2,7 @@ package faithtop
 
 type IApp interface {
 	Run() int
+	Quit()
 }
 
 const (
