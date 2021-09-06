@@ -49,3 +49,21 @@ func (c *CheckBoxImpl) OnChanged(fn func(b bool)) ICheckBox {
 	})
 	return c
 }
+
+func (c *CheckBoxImpl) OnStateChanged(fn func(state CheckState)) ICheckBox {
+	c.checkbox.ConnectStateChanged(func(state int) {
+		if fn != nil {
+			fn(CheckState(state))
+		}
+	})
+	return c
+}
+
+func (c *CheckBoxImpl) GetCheckState() CheckState {
+	return CheckState(c.checkbox.CheckState())
+}
+
+func (c *CheckBoxImpl) CheckState(state CheckState) ICheckBox {
+	c.checkbox.SetCheckState(core.Qt__CheckState(state))
+	return c
+}

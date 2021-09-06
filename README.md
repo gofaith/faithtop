@@ -16,7 +16,6 @@ qtdeploy -tags=impl build desktop
 - listview
 - treeview
 
-- combo box
 - date picker
 - font picker
 - scroll
@@ -24,7 +23,6 @@ qtdeploy -tags=impl build desktop
 - radio button
 - tool button
 - drag n drop file
-- check box
 
 ## 使用Faithdroid开发的App
 
