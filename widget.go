@@ -2,6 +2,7 @@ package faithtop
 
 type IWidget interface {
 	getWidget() IWidget
+	AssignWidget(v *IWidget) IWidget
 	SizePolicy(width, height SizePolicy) IWidget
 	MinWidth(width int) IWidget
 	MinHeight(height int) IWidget
@@ -14,6 +15,9 @@ type IWidget interface {
 	Button().Style(`QPushButton{background-color:blue;color:white;} QPushButton:hover{background-color:red;} QPushButton:pressed{background-color:white;color:grey}`)
 	*/
 	Style(styleSheet string) IWidget
+	OnDragEnter(fn func()) IWidget
+	OnDragLeave(fn func()) IWidget
+	OnDrop(fn func(urls []string)) IWidget
 	Enabled(b bool) IWidget
 }
 

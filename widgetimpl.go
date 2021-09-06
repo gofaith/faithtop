@@ -3,7 +3,9 @@
 package faithtop
 
 import (
+	"github.com/therecipe/qt/gui"
 	"github.com/therecipe/qt/widgets"
+	"strings"
 )
 
 type WidgetImpl struct {
@@ -71,5 +73,51 @@ func (w *WidgetImpl) MaxHeight(height int) IWidget {
 
 func (w *WidgetImpl) Enabled(b bool) IWidget {
 	w.widget.SetEnabled(b)
+	return w
+}
+
+func (w *WidgetImpl) OnDragEnter(fn func()) IWidget {
+	w.widget.SetAcceptDrops(true)
+	w.widget.ConnectDragEnterEvent(func(event *gui.QDragEnterEvent) {
+		if fn != nil {
+			fn()
+			event.AcceptProposedAction()
+		}
+	})
+	return w
+}
+
+func (w *WidgetImpl) OnDragLeave(fn func()) IWidget {
+	w.widget.ConnectDragLeaveEvent(func(event *gui.QDragLeaveEvent) {
+		if fn != nil {
+			fn()
+		}
+	})
+	return w
+}
+
+func (w *WidgetImpl) OnDrop(fn func(urls []string)) IWidget {
+	w.widget.SetAcceptDrops(true)
+	w.widget.ConnectDropEvent(func(event *gui.QDropEvent) {
+		if fn == nil {
+			return
+		}
+		urls := []string{}
+		for _, format := range event.MimeData().Formats() {
+			d := event.MimeData().Data(format).Data()
+			for _, line := range strings.Split(d, "\r\n") {
+				if line != "" {
+					urls = append(urls, line)
+				}
+			}
+		}
+		fn(urls)
+		event.AcceptProposedAction()
+	})
+	return w
+}
+
+func (w *WidgetImpl) AssignWidget(v *IWidget) IWidget {
+	*v = w
 	return w
 }

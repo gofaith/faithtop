@@ -21,10 +21,9 @@ qtdeploy -tags=impl build desktop
 - scroll
 - dialog buttons
 - groupbox
-- radio button
 - tool button
 - drag n drop file
-
+- clipboard
 - msgbox
 ## 使用Faithdroid开发的App
 
