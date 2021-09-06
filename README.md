@@ -20,10 +20,12 @@ qtdeploy -tags=impl build desktop
 - font picker
 - scroll
 - dialog buttons
+- groupbox
 - radio button
 - tool button
 - drag n drop file
 
+- msgbox
 ## 使用Faithdroid开发的App
 
 [局域网精灵专业版](https://lan-genius.com)
