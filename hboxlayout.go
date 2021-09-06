@@ -1,11 +1,15 @@
 package faithtop
 
 type IHBoxLayout interface {
-	IBoxLayout	
+	IBoxLayout
 }
 
-var newHBoxLayoutImpl func()IHBoxLayout
+var newHBoxLayoutImpl func() IHBoxLayout
 
-func HBoxLayout()IHBoxLayout{
+func HBoxLayout() IHBoxLayout {
 	return newHBoxLayoutImpl()
+}
+
+func HBox(widgets ...IWidget) IWidget {
+	return Widget().Layout(HBoxLayout().AppendWidgets(widgets...))
 }

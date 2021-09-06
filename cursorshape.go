@@ -1,0 +1,31 @@
+package faithtop
+
+type CursorShape int64
+
+const (
+	CursorShape_ArrowCursor        CursorShape = CursorShape(0)
+	CursorShape_UpArrowCursor      CursorShape = CursorShape(1)
+	CursorShape_CrossCursor        CursorShape = CursorShape(2)
+	CursorShape_WaitCursor         CursorShape = CursorShape(3)
+	CursorShape_IBeamCursor        CursorShape = CursorShape(4)
+	CursorShape_SizeVerCursor      CursorShape = CursorShape(5)
+	CursorShape_SizeHorCursor      CursorShape = CursorShape(6)
+	CursorShape_SizeBDiagCursor    CursorShape = CursorShape(7)
+	CursorShape_SizeFDiagCursor    CursorShape = CursorShape(8)
+	CursorShape_SizeAllCursor      CursorShape = CursorShape(9)
+	CursorShape_BlankCursor        CursorShape = CursorShape(10)
+	CursorShape_SplitVCursor       CursorShape = CursorShape(11)
+	CursorShape_SplitHCursor       CursorShape = CursorShape(12)
+	CursorShape_PointingHandCursor CursorShape = CursorShape(13)
+	CursorShape_ForbiddenCursor    CursorShape = CursorShape(14)
+	CursorShape_WhatsThisCursor    CursorShape = CursorShape(15)
+	CursorShape_BusyCursor         CursorShape = CursorShape(16)
+	CursorShape_OpenHandCursor     CursorShape = CursorShape(17)
+	CursorShape_ClosedHandCursor   CursorShape = CursorShape(18)
+	CursorShape_DragCopyCursor     CursorShape = CursorShape(19)
+	CursorShape_DragMoveCursor     CursorShape = CursorShape(20)
+	CursorShape_DragLinkCursor     CursorShape = CursorShape(21)
+	CursorShape_LastCursor         CursorShape = CursorShape(CursorShape_DragLinkCursor)
+	CursorShape_BitmapCursor       CursorShape = CursorShape(24)
+	CursorShape_CustomCursor       CursorShape = CursorShape(25)
+)

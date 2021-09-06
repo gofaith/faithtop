@@ -3,6 +3,7 @@
 package faithtop
 
 import (
+	"github.com/therecipe/qt/core"
 	"github.com/therecipe/qt/gui"
 	"github.com/therecipe/qt/widgets"
 	"strings"
@@ -76,32 +77,25 @@ func (w *WidgetImpl) Enabled(b bool) IWidget {
 	return w
 }
 
-func (w *WidgetImpl) OnDragEnter(fn func()) IWidget {
+func (w *WidgetImpl) OnDragEnter(fn func(widget IWidget)) IWidget {
 	w.widget.SetAcceptDrops(true)
 	w.widget.ConnectDragEnterEvent(func(event *gui.QDragEnterEvent) {
-		if fn != nil {
-			fn()
-			event.AcceptProposedAction()
-		}
+		fn(w)
+		event.AcceptProposedAction()
 	})
 	return w
 }
 
-func (w *WidgetImpl) OnDragLeave(fn func()) IWidget {
+func (w *WidgetImpl) OnDragLeave(fn func(widget IWidget)) IWidget {
 	w.widget.ConnectDragLeaveEvent(func(event *gui.QDragLeaveEvent) {
-		if fn != nil {
-			fn()
-		}
+		fn(w)
 	})
 	return w
 }
 
-func (w *WidgetImpl) OnDrop(fn func(urls []string)) IWidget {
+func (w *WidgetImpl) OnDrop(fn func(widget IWidget, urls []string)) IWidget {
 	w.widget.SetAcceptDrops(true)
 	w.widget.ConnectDropEvent(func(event *gui.QDropEvent) {
-		if fn == nil {
-			return
-		}
 		urls := []string{}
 		for _, format := range event.MimeData().Formats() {
 			d := event.MimeData().Data(format).Data()
@@ -111,7 +105,7 @@ func (w *WidgetImpl) OnDrop(fn func(urls []string)) IWidget {
 				}
 			}
 		}
-		fn(urls)
+		fn(w, urls)
 		event.AcceptProposedAction()
 	})
 	return w
@@ -119,5 +113,26 @@ func (w *WidgetImpl) OnDrop(fn func(urls []string)) IWidget {
 
 func (w *WidgetImpl) AssignWidget(v *IWidget) IWidget {
 	*v = w
+	return w
+}
+
+func (w *WidgetImpl) Cursor(shape CursorShape) IWidget {
+	w.widget.SetCursor(gui.NewQCursor2(core.Qt__CursorShape(shape)))
+	return w
+}
+
+func (w *WidgetImpl) OnMousePress(fn func(widget IWidget)) IWidget {
+	w.widget.ConnectMousePressEvent(func(event *gui.QMouseEvent) {
+		fn(w)
+		event.Accept()
+	})
+	return w
+}
+
+func (w *WidgetImpl) OnMouseRelease(fn func(widget IWidget)) IWidget {
+	w.widget.ConnectMouseReleaseEvent(func(event *gui.QMouseEvent) {
+		fn(w)
+		event.Accept()
+	})
 	return w
 }
