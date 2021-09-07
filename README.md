@@ -17,12 +17,10 @@ qtdeploy -tags=impl build desktop
 - treeview
 
 - scroll
-- groupbox
 - clipboard
 - msgbox
 - menubar
 - system tray icon
-- tooltips
 - menu button
 
 ## 使用Faithdroid开发的App

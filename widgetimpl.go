@@ -144,3 +144,8 @@ func (w *WidgetImpl) OnKeyPress(fn func(widget IWidget, key Key)) IWidget {
 	})
 	return w
 }
+
+func (w *WidgetImpl) ToolTip(s string) IWidget {
+	w.widget.SetToolTip(s)
+	return w
+}
