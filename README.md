@@ -16,18 +16,14 @@ qtdeploy -tags=impl build desktop
 - listview
 - treeview
 
-- date picker
-- font picker
 - scroll
-- dialog buttons
 - groupbox
-- tool button
 - clipboard
 - msgbox
 - menubar
 - system tray icon
 - tooltips
-- qframe
+- menu button
 
 ## 使用Faithdroid开发的App
 
