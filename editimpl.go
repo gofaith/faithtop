@@ -46,3 +46,10 @@ func (l *EditImpl) PasswordMode(b bool) IEdit {
 	}
 	return l
 }
+
+func (l *EditImpl) OnReturn(fn func(self IEdit)) IEdit {
+	l.edit.ConnectReturnPressed(func() {
+		fn(l)
+	})
+	return l
+}

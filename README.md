@@ -27,7 +27,6 @@ qtdeploy -tags=impl build desktop
 - menubar
 - system tray icon
 - tooltips
-- cursor
 - qframe
 
 ## 使用Faithdroid开发的App

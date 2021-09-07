@@ -7,6 +7,7 @@ type IEdit interface {
 	GetText() string
 	Placeholder(s string) IEdit
 	PasswordMode(b bool) IEdit
+	OnReturn(fn func(self IEdit)) IEdit
 }
 
 var newEditImpl func() IEdit
