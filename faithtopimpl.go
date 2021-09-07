@@ -3,6 +3,7 @@
 package faithtop
 
 import (
+	"github.com/therecipe/qt/gui"
 	"os"
 
 	"github.com/therecipe/qt/widgets"
@@ -26,4 +27,22 @@ func (a *AppImpl) Run() int {
 
 func (a *AppImpl) Quit() {
 	a.app.Quit()
+}
+
+func (a *AppImpl) SetClipboardText(s string) IApp {
+	a.app.Clipboard().SetText(s, gui.QClipboard__Clipboard)
+	return a
+}
+
+func (a *AppImpl) GetClipboardText() string {
+	return a.app.Clipboard().Text(gui.QClipboard__Clipboard)
+}
+
+func (a *AppImpl) OnClipboardTextChanged(fn func(self IApp, s string)) IApp {
+	a.app.Clipboard().ConnectChanged(func(mode gui.QClipboard__Mode) {
+		if mode == gui.QClipboard__Clipboard {
+			fn(a, a.GetClipboardText())
+		}
+	})
+	return a
 }

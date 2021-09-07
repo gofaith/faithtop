@@ -17,7 +17,6 @@ qtdeploy -tags=impl build desktop
 - treeview
 
 - scroll
-- clipboard
 - msgbox
 - menubar
 - system tray icon

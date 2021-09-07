@@ -3,6 +3,9 @@ package faithtop
 type IApp interface {
 	Run() int
 	Quit()
+	SetClipboardText(s string) IApp
+	GetClipboardText() string
+	OnClipboardTextChanged(fn func(self IApp, s string)) IApp
 }
 
 const (
