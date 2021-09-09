@@ -21,6 +21,8 @@ qtdeploy -tags=impl build desktop
 - menubar
 - system tray icon
 - menu button
+- recyclerview
+- 
 
 ## 使用Faithdroid开发的App
 

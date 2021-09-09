@@ -42,3 +42,8 @@ func (w *WindowImpl) CenterWidget(widget IWidget) IWindow {
 	}
 	return w
 }
+
+func (w *WindowImpl) Assign(v *IWindow) IWindow {
+	*v = w
+	return w
+}

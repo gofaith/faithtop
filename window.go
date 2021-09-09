@@ -2,6 +2,7 @@ package faithtop
 
 type IWindow interface {
 	DeferShow() IWindow
+	Assign(v *IWindow) IWindow
 	Title(title string) IWindow
 	Size(with, height int) IWindow
 	CenterWidget(widget IWidget) IWindow
