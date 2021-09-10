@@ -324,3 +324,27 @@ func (t *TableViewImpl) AddRows(row, count int) {
 
 	t.model.EndInsertRows()
 }
+
+func (t *TableViewImpl) ShowGrid(b bool) ITableView {
+	t.tableView.SetShowGrid(b)
+	return t
+}
+
+func (t *TableViewImpl) NoHorizontalHeader() ITableView {
+	h := widgets.NewQHeaderView(core.Qt__Horizontal, nil)
+	h.SetVisible(false)
+	t.tableView.SetHorizontalHeader(h)
+	return t
+}
+
+func (t *TableViewImpl) NoVerticalHeader() ITableView {
+	v := widgets.NewQHeaderView(core.Qt__Vertical, nil)
+	v.SetVisible(false)
+	t.tableView.SetVerticalHeader(v)
+	return t
+}
+
+func (t *TableViewImpl) NoSelection() ITableView {
+	t.tableView.SetSelectionMode(widgets.QAbstractItemView__NoSelection)
+	return t
+}

@@ -11,6 +11,10 @@ type ITableView interface {
 	RemoveRows(from, count int)
 	AddRow(i int)
 	AddRows(from, count int)
+	ShowGrid(b bool) ITableView
+	NoHorizontalHeader() ITableView
+	NoVerticalHeader() ITableView
+	NoSelection()ITableView
 }
 
 var newTableViewImpl func(rowCount func() int, columCount func() int, headerData func(section int) string, data func(row, column int) interface{}) ITableView

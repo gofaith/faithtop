@@ -2,7 +2,11 @@
 
 package faithtop
 
-import "github.com/therecipe/qt/widgets"
+import (
+	"fmt"
+
+	"github.com/therecipe/qt/widgets"
+)
 
 type ScrollImpl struct {
 	*WidgetImpl
@@ -16,6 +20,9 @@ func init() {
 		}
 		v.WidgetImpl = widgetImplFrom(v.scroll.QWidget_PTR())
 		v.scroll.SetWidget(child.getWidget().(*WidgetImpl).widget)
+		v.scroll.ConnectScrollContentsBy(func(dx, dy int) {
+			fmt.Println(dx, dy)
+		})
 		return v
 	}
 }
