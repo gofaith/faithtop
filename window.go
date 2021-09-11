@@ -8,6 +8,7 @@ type IWindow interface {
 	CenterWidget(widget IWidget) IWindow
 	Show() IWindow
 	MenuBar(menubar IMenuBar) IWindow
+	OnClose(fn func() bool) IWindow
 }
 
 var newWindowImpl func() IWindow

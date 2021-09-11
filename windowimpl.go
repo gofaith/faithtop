@@ -2,7 +2,10 @@
 
 package faithtop
 
-import "github.com/therecipe/qt/widgets"
+import (
+	"github.com/therecipe/qt/gui"
+	"github.com/therecipe/qt/widgets"
+)
 
 type WindowImpl struct {
 	window    *widgets.QMainWindow
@@ -50,5 +53,16 @@ func (w *WindowImpl) Assign(v *IWindow) IWindow {
 
 func (w *WindowImpl) MenuBar(menubar IMenuBar) IWindow {
 	w.window.SetMenuBar(menubar.(*MenuBarImpl).menubar)
+	return w
+}
+
+func (w *WindowImpl) OnClose(fn func() bool) IWindow {
+	w.window..ConnectCloseEvent(func(event *gui.QCloseEvent) {
+		if fn(){
+			event.Ignore()
+		}else{
+			event.Accept()
+		}
+	})
 	return w
 }

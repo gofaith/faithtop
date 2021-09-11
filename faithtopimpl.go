@@ -50,3 +50,8 @@ func (a *AppImpl) OnClipboardTextChanged(fn func(self IApp, s string)) IApp {
 func (a *AppImpl) SetQuickStyle(quickStyle QuickStyle) {
 	quickcontrols2.QQuickStyle_SetStyle(string(quickStyle))
 }
+
+func (a *AppImpl) SetQuitOnLastWindowClosed(b bool) IApp {
+	a.app.SetQuitOnLastWindowClosed(b)
+	return a
+}
