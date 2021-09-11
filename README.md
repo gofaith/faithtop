@@ -13,16 +13,11 @@ qtdeploy -tags=impl build desktop
 
 - layout
     - gridlayout
-- listview
-- treeview
-
-- scroll
-- msgbox
+- quickview
 - menubar
 - system tray icon
 - menu button
-- recyclerview
-- 
+- filechooser
 
 ## 使用Faithdroid开发的App
 

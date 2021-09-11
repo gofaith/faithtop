@@ -4,9 +4,9 @@ package faithtop
 
 import (
 	"github.com/therecipe/qt/gui"
-	"os"
-
+	"github.com/therecipe/qt/quickcontrols2"
 	"github.com/therecipe/qt/widgets"
+	"os"
 )
 
 type AppImpl struct {
@@ -19,6 +19,7 @@ func init() {
 			app: widgets.NewQApplication(len(os.Args), os.Args),
 		}
 	}
+	quickcontrols2.QQuickStyle_SetStyle("Material")
 }
 
 func (a *AppImpl) Run() int {

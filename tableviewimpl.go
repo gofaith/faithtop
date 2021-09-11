@@ -115,6 +115,8 @@ func (t *TableViewImpl) createDataAll() []tableViewModelWidgetData {
 					widget: iwidget.getWidget().(*WidgetImpl).widget,
 				}
 				widgetData = append(widgetData, widgetItem)
+			} else {
+				panic("the return value type can only be [string] or [IWidget]")
 			}
 			if variant == nil {
 				variant = core.NewQVariant()
@@ -144,6 +146,8 @@ func (t *TableViewImpl) createData(row, column int) (*core.QVariant, []tableView
 			widget: iwidget.getWidget().(*WidgetImpl).widget,
 		}
 		widgetData = append(widgetData, widgetItem)
+	} else {
+		panic("the return value type can only be [string] or [IWidget]")
 	}
 	if variant == nil {
 		variant = core.NewQVariant()
@@ -158,7 +162,7 @@ func (t *TableViewImpl) updateData(row, column int) []tableViewModelWidgetData {
 
 func (t *TableViewImpl) loadWidgets(widgetData []tableViewModelWidgetData) {
 	for _, item := range widgetData {
-		t.tableView.SetIndexWidget(t.model.Index(item.row, item.column, nil), item.widget)
+		t.tableView.SetIndexWidget(t.model.Index(item.row, item.column, core.NewQModelIndex()), item.widget)
 	}
 }
 
