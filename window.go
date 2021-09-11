@@ -7,6 +7,7 @@ type IWindow interface {
 	Size(with, height int) IWindow
 	CenterWidget(widget IWidget) IWindow
 	Show() IWindow
+	MenuBar(menubar IMenuBar) IWindow
 }
 
 var newWindowImpl func() IWindow

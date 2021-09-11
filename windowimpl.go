@@ -47,3 +47,8 @@ func (w *WindowImpl) Assign(v *IWindow) IWindow {
 	*v = w
 	return w
 }
+
+func (w *WindowImpl) MenuBar(menubar IMenuBar) IWindow {
+	w.window.SetMenuBar(menubar.(*MenuBarImpl).menubar)
+	return w
+}

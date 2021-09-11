@@ -16,7 +16,6 @@ qtdeploy -tags=impl build desktop
 - menubar
 - system tray icon
 - menu button
-- filechooser
 
 ## 使用Faithdroid开发的App
 
