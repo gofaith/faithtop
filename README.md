@@ -13,7 +13,6 @@ qtdeploy -tags=impl build desktop
 
 - layout
     - gridlayout
-- quickview
 - menubar
 - system tray icon
 - menu button
