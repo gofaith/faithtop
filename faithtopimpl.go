@@ -19,7 +19,6 @@ func init() {
 			app: widgets.NewQApplication(len(os.Args), os.Args),
 		}
 	}
-	quickcontrols2.QQuickStyle_SetStyle("Material")
 }
 
 func (a *AppImpl) Run() int {
@@ -46,4 +45,8 @@ func (a *AppImpl) OnClipboardTextChanged(fn func(self IApp, s string)) IApp {
 		}
 	})
 	return a
+}
+
+func (a *AppImpl) SetQuickStyle(quickStyle QuickStyle) {
+	quickcontrols2.QQuickStyle_SetStyle(string(quickStyle))
 }
