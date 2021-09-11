@@ -22,9 +22,9 @@ func init() {
 			menubar: widgets.NewQMenuBar(nil),
 		}
 	}
-	newMenuImpl = func(text string) IMenu {
+	newMenuImpl = func() IMenu {
 		return &MenuImpl{
-			menu: widgets.NewQMenu2(text, nil),
+			menu: widgets.NewQMenu(nil),
 		}
 	}
 	newActionImpl = func(text string) IAction {
@@ -32,12 +32,23 @@ func init() {
 			action: widgets.NewQAction2(text, nil),
 		}
 	}
+	showPopupMenuImpl = func(win IWindow, anchor IWidget, menu IMenu) {
+		target := anchor.getWidget().(*WidgetImpl).widget
+		pos := target.MapToGlobal(win.(*WindowImpl).window.CentralWidget().Pos())
+		pos.SetY(pos.Y() + target.Height())
+		menu.(*MenuImpl).menu.Exec2(pos, nil)
+	}
 }
 
 func (m *MenuBarImpl) Menus(menus ...IMenu) IMenuBar {
 	for _, menu := range menus {
 		m.menubar.AddMenu(menu.(*MenuImpl).menu)
 	}
+	return m
+}
+
+func (m *MenuImpl) Title(title string) IMenu {
+	m.menu.SetTitle(title)
 	return m
 }
 

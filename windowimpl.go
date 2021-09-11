@@ -57,10 +57,10 @@ func (w *WindowImpl) MenuBar(menubar IMenuBar) IWindow {
 }
 
 func (w *WindowImpl) OnClose(fn func() bool) IWindow {
-	w.window..ConnectCloseEvent(func(event *gui.QCloseEvent) {
-		if fn(){
+	w.window.ConnectCloseEvent(func(event *gui.QCloseEvent) {
+		if fn() {
 			event.Ignore()
-		}else{
+		} else {
 			event.Accept()
 		}
 	})

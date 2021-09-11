@@ -18,7 +18,10 @@ func init() {
 		return v
 	}
 }
-
+func (b *ButtonImpl) Assign(v *IButton) IButton {
+	*v = b
+	return b
+}
 func (b *ButtonImpl) Text(s string) IButton {
 	b.button.SetText(s)
 	return b

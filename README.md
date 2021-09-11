@@ -13,8 +13,6 @@ qtdeploy -tags=impl build desktop
 
 - layout
     - gridlayout
-- system tray icon
-- menu button
 
 ## 使用Faithdroid开发的App
 

@@ -2,6 +2,7 @@ package faithtop
 
 type IButton interface {
 	IWidget
+	Assign(v *IButton) IButton
 	Text(s string) IButton
 	OnClick(fn func()) IButton
 	Flat(b bool) IButton
