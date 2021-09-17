@@ -5,10 +5,17 @@ type (
 		Menus(menus ...IMenu) IMenuBar
 	}
 	IMenu interface {
+		Assign(v *IMenu) IMenu
 		Title(title string) IMenu
 		Actions(actions ...IAction) IMenu
+		AddAction(action IAction) IMenu
+		Clear() IMenu
+		RemoveAction(action IAction) IMenu
 	}
 	IAction interface {
+		Assign(v *IAction) IAction
+		Text(text string) IAction
+		GetText() string
 		OnClick(fn func()) IAction
 	}
 )

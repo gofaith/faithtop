@@ -19,10 +19,10 @@ type (
 	QuickViewImpl struct {
 		*WidgetImpl
 		quickView *quick.QQuickView
-		bridge    *Bridge
+		bridge    *QuickBridge
 	}
 
-	Bridge struct {
+	QuickBridge struct {
 		quick.QQuickItem
 		_        func()                               `constructor:"init"`
 		_        func(funcName string, args []string) `signal:"callGo,auto"`
@@ -38,7 +38,7 @@ func init() {
 		}
 		v := &QuickViewImpl{
 			quickView: quick.NewQQuickView(nil),
-			bridge:    NewBridge(nil),
+			bridge:    NewQuickBridge(nil),
 		}
 		var widget *widgets.QWidget
 		widget = widget.CreateWindowContainer(v.quickView, win.(*WindowImpl).window, 0)
@@ -48,13 +48,13 @@ func init() {
 
 		return v
 	}
-	Bridge_QmlRegisterType2("Bridge", 1, 0, "Bridge")
+	QuickBridge_QmlRegisterType2("QuickBridge", 1, 0, "QuickBridge")
 }
 
-func (b *Bridge) init() {
+func (b *QuickBridge) init() {
 	b.handlers = make(map[string]reflect.Value)
 }
-func (b *Bridge) callGo(funcName string, args []string) {
+func (b *QuickBridge) callGo(funcName string, args []string) {
 	if b.handlers == nil {
 		return
 	}

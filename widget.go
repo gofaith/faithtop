@@ -25,6 +25,7 @@ type IWidget interface {
 	OnMouseRelease(fn func(widget IWidget)) IWidget
 	OnKeyPress(fn func(widget IWidget, key Key)) IWidget
 	ToolTip(tip string) IWidget
+	Visible(b bool) IWidget
 }
 
 var newWidgetImpl func() IWidget

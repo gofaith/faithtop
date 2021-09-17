@@ -3,6 +3,7 @@
 package faithtop
 
 import (
+	"github.com/therecipe/qt/core"
 	"github.com/therecipe/qt/gui"
 	"github.com/therecipe/qt/widgets"
 )
@@ -10,13 +11,16 @@ import (
 type WindowImpl struct {
 	window    *widgets.QMainWindow
 	deferShow bool
+	qtBridge  *QtBridge
 }
 
 func init() {
 	newWindowImpl = func() IWindow {
-		return &WindowImpl{
+		v := &WindowImpl{
 			window: widgets.NewQMainWindow(nil, 0),
 		}
+		v.qtBridge = NewQtBridge(v.window)
+		return v
 	}
 }
 
@@ -64,5 +68,25 @@ func (w *WindowImpl) OnClose(fn func() bool) IWindow {
 			event.Accept()
 		}
 	})
+	return w
+}
+
+func (w *WindowImpl) IsActiveWindow() bool {
+	return w.window.IsActiveWindow()
+}
+
+func (w *WindowImpl) OnChanged(fn func()) IWindow {
+	w.window.ConnectChangeEvent(func(event *core.QEvent) {
+		fn()
+	})
+	return w
+}
+
+func (w *WindowImpl) Close() bool {
+	return w.window.Close()
+}
+
+func (w *WindowImpl) RunOnUIThread(fn func()) IWindow {
+	w.qtBridge.RunOnUIThread(fn)
 	return w
 }

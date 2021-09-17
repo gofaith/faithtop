@@ -57,6 +57,7 @@ func (m *MenuImpl) Actions(actions ...IAction) IMenu {
 	for _, action := range actions {
 		vs = append(vs, action.(*ActionImpl).action)
 	}
+	m.menu.Clear()
 	m.menu.AddActions(vs)
 	return m
 }
@@ -66,4 +67,38 @@ func (a *ActionImpl) OnClick(fn func()) IAction {
 		fn()
 	})
 	return a
+}
+
+func (a *MenuImpl) Assign(v *IMenu) IMenu {
+	*v = a
+	return a
+}
+
+func (a *ActionImpl) Assign(v *IAction) IAction {
+	*v = a
+	return a
+}
+
+func (a *ActionImpl) Text(text string) IAction {
+	a.action.SetText(text)
+	return a
+}
+
+func (a *ActionImpl) GetText() string {
+	return a.action.Text()
+}
+
+func (m *MenuImpl) AddAction(i IAction) IMenu {
+	m.menu.AddActions([]*widgets.QAction{i.(*ActionImpl).action})
+	return m
+}
+
+func (m *MenuImpl) Clear() IMenu {
+	m.menu.Clear()
+	return m
+}
+
+func (m *MenuImpl) RemoveAction(action IAction) IMenu {
+	m.menu.RemoveAction(action.(*ActionImpl).action)
+	return m
 }

@@ -149,3 +149,8 @@ func (w *WidgetImpl) ToolTip(s string) IWidget {
 	w.widget.SetToolTip(s)
 	return w
 }
+
+func (w *WidgetImpl) Visible(b bool) IWidget {
+	w.widget.SetVisible(b)
+	return w
+}

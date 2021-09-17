@@ -3,6 +3,7 @@
 package faithtop
 
 import (
+	"github.com/therecipe/qt/core"
 	"github.com/therecipe/qt/gui"
 	"github.com/therecipe/qt/quickcontrols2"
 	"github.com/therecipe/qt/widgets"
@@ -10,14 +11,17 @@ import (
 )
 
 type AppImpl struct {
-	app *widgets.QApplication
+	app    *widgets.QApplication
+	bridge *QtBridge
 }
 
 func init() {
 	appImpl = func() IApp {
-		return &AppImpl{
+		v := &AppImpl{
 			app: widgets.NewQApplication(len(os.Args), os.Args),
 		}
+		v.bridge = NewQtBridge(v.app)
+		return v
 	}
 }
 
@@ -54,4 +58,36 @@ func (a *AppImpl) SetQuickStyle(quickStyle QuickStyle) {
 func (a *AppImpl) SetQuitOnLastWindowClosed(b bool) IApp {
 	a.app.SetQuitOnLastWindowClosed(b)
 	return a
+}
+
+func (a *AppImpl) RunOnUIThread(fn func()) {
+	a.bridge.RunOnUIThread(fn)
+}
+
+//bridge
+type QtBridge struct {
+	core.QObject
+	_  func() `constructor:"init"`
+	_  func() `signal:"runInMainThread,auto"`
+	ch chan func()
+}
+
+func (b *QtBridge) init() {
+	b.ch = make(chan func(), 12)
+}
+
+func (b *QtBridge) runInMainThread() {
+	select {
+	case fn, ok := <-b.ch:
+		if !ok {
+			return
+		}
+		fn()
+	default:
+	}
+}
+
+func (b *QtBridge) RunOnUIThread(fn func()) {
+	b.ch <- fn
+	b.RunInMainThread()
 }

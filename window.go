@@ -9,6 +9,10 @@ type IWindow interface {
 	Show() IWindow
 	MenuBar(menubar IMenuBar) IWindow
 	OnClose(fn func() bool) IWindow
+	IsActiveWindow() bool
+	OnChanged(fn func()) IWindow
+	Close() bool
+	RunOnUIThread(fn func()) IWindow
 }
 
 var newWindowImpl func() IWindow

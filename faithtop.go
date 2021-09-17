@@ -7,7 +7,8 @@ type IApp interface {
 	SetClipboardText(s string) IApp
 	GetClipboardText() string
 	OnClipboardTextChanged(fn func(self IApp, s string)) IApp
-	SetQuitOnLastWindowClosed(b bool)IApp
+	SetQuitOnLastWindowClosed(b bool) IApp
+	RunOnUIThread(fn func())
 }
 
 type QuickStyle string
