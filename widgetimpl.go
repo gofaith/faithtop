@@ -154,3 +154,8 @@ func (w *WidgetImpl) Visible(b bool) IWidget {
 	w.widget.SetVisible(b)
 	return w
 }
+
+func (w *WidgetImpl) ContentMargin(left, top, right, bottom int) IWidget {
+	w.widget.SetContentsMargins(left, top, right, bottom)
+	return w
+}

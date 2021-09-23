@@ -82,8 +82,10 @@ func (w *WindowImpl) OnChanged(fn func()) IWindow {
 	return w
 }
 
-func (w *WindowImpl) Close() bool {
-	return w.window.Close()
+func (w *WindowImpl) Close() {
+	w.RunOnUIThread(func() {
+		w.window.Close()
+	})
 }
 
 func (w *WindowImpl) RunOnUIThread(fn func()) IWindow {

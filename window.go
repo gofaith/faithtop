@@ -11,7 +11,7 @@ type IWindow interface {
 	OnClose(fn func() bool) IWindow
 	IsActiveWindow() bool
 	OnChanged(fn func()) IWindow
-	Close() bool
+	Close() 
 	RunOnUIThread(fn func()) IWindow
 }
 

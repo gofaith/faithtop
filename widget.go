@@ -16,16 +16,17 @@ type IWidget interface {
 	Button().Style(`border-image: url(:/qml/a.png);`)
 	*/
 	Style(styleSheet string) IWidget
-	OnDragEnter(fn func(widget IWidget)) IWidget
-	OnDragLeave(fn func(widget IWidget)) IWidget
-	OnDrop(fn func(widget IWidget, urls []string)) IWidget
+	OnDragEnter(fn func(self IWidget)) IWidget
+	OnDragLeave(fn func(self IWidget)) IWidget
+	OnDrop(fn func(self IWidget, urls []string)) IWidget
 	Enabled(b bool) IWidget
 	Cursor(shape CursorShape) IWidget
-	OnMousePress(fn func(widget IWidget)) IWidget
-	OnMouseRelease(fn func(widget IWidget)) IWidget
-	OnKeyPress(fn func(widget IWidget, key Key)) IWidget
+	OnMousePress(fn func(self IWidget)) IWidget
+	OnMouseRelease(fn func(self IWidget)) IWidget
+	OnKeyPress(fn func(self IWidget, key Key)) IWidget
 	ToolTip(tip string) IWidget
 	Visible(b bool) IWidget
+	ContentMargin(left,top,right,bottom int)IWidget
 }
 
 var newWidgetImpl func() IWidget

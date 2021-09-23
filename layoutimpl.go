@@ -17,3 +17,8 @@ func layoutImplFrom(parent *widgets.QLayout) *LayoutImpl {
 		layout: parent,
 	}
 }
+
+func (l *LayoutImpl) ContentMargin(left, top, right, bottom int) ILayout {
+	l.layout.SetContentsMargins(left, top, right, bottom)
+	return l
+}
