@@ -12,6 +12,7 @@ type ILabel interface {
 	Image(url string, w, h int) ILabel
 	Interaction(interaction TextInteractionFlag) ILabel
 	GetText() string
+	OpenExternalLinks(b bool) ILabel
 }
 
 var newLabelImpl func() ILabel

@@ -55,3 +55,8 @@ func (l *LabelImpl) Image(url string, w, h int) ILabel {
 func (l *LabelImpl) GetText() string {
 	return l.label.Text()
 }
+
+func (l *LabelImpl) OpenExternalLinks(b bool) ILabel {
+	l.label.SetOpenExternalLinks(b)
+	return l
+}
